@@ -1,6 +1,6 @@
 import { createContext,useState,useEffect } from "react"
 import jwt_decode from "jwt-decode"
-import {useHistory} from "react-router-dom"
+import {useHistory, useNavigate} from "react-router-dom";
 
 const AuthContext = createContext()
 
@@ -21,7 +21,7 @@ export const AuthProvider = ({children}) => {
 
     const [loading, setLoading] = useState(true)
 
-    const history = useHistory()
+    const history = useNavigate()
 
     const loginUser = async (email, password) => {
         const response = await fetch("http://127.0.0.1:8000/api/token/", {
