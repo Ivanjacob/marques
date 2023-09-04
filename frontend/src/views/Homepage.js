@@ -63,7 +63,7 @@ function Homepage() {
         {/* /container */}
       </main>
       <footer className="container">
-        <p>© Nice Rice Millers Ltd</p>
+        <p>© Nice Rice Millers Ltd. 2023</p>
       </footer>
     </>  
   </div>

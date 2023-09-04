@@ -21,7 +21,7 @@ export const AuthProvider = ({children}) => {
 
     const [loading, setLoading] = useState(true)
 
-    const history = useNavigate()
+    const navigate = useNavigate();
 
     const loginUser = async (email, password) => {
         const response = await fetch("http://127.0.0.1:8000/api/token/", {
@@ -37,7 +37,7 @@ export const AuthProvider = ({children}) => {
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data.access))
-            history.push("/")
+            navigate("/")
         } else {
             console.log(response.status);
             console.log("Login Failed");
@@ -52,7 +52,7 @@ export const AuthProvider = ({children}) => {
             body: JSON.stringify({email, username, password, password2})
         })
         if(response.status === 201) {
-            history.push("/login")            
+            navigate("/login")            
         } else {
             console.log(response.status);
             console.log("Registration Failed");
@@ -64,7 +64,7 @@ export const AuthProvider = ({children}) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
-        history.push("/login")
+        navigate("/login")
     }
 
     const contextData = {
