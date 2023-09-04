@@ -41,7 +41,7 @@ def getRoutes(request):
 @permission_classes([IsAuthenticated])
 def testEndpoint(request):
     if request.method == 'GET':
-        data = f"Congratulations {request.user}, you are authenticated!"
+        data = f"Congratulations {request.user}, you are an authenticated user!"
         return Response({'response': data}, status=status.HTTP_200_OK)
     elif request.method == 'POST':
         text = "Good Day."

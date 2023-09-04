@@ -18,6 +18,32 @@ function Dashboard() {
     var image = decode.image
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("/test/")
+        setRes(response.data.response)
+      } catch (error) {
+        console.log(error)
+        setRes("Something went wrong")
+      }
+    }
+    fetchData()
+  }, [api])
+
+  useEffect(() => {
+    const fetchPostData = async () => {
+      try {
+        const response = await api.post("/test/")
+        setRes(response.data.response)
+      } catch (error) {
+        console.log(error)
+        setRes("Something went wrong")
+      }
+    }
+    fetchPostData()
+  }, [api])
+
   return (
     <div>
       <>
@@ -116,7 +142,9 @@ function Dashboard() {
                   </button>
                 </div>
               </div>
-              <canvas className="my-4" id="myChart" width={900} height={10} />
+              <div className='alert alert-success'>
+                <strong>{res}</strong>
+              </div>
               <h2>Employees</h2>
               <div className="table-responsive">
                 <table className="table table-striped table-sm">
