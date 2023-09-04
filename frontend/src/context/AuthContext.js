@@ -1,6 +1,6 @@
 import { createContext,useState,useEffect } from "react"
 import jwt_decode from "jwt-decode"
-import {useHistory, useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext()
 
@@ -32,7 +32,7 @@ export const AuthProvider = ({children}) => {
         const data = await response.json()
         console.log(data);
 
-        if (response.status == 200) {
+        if (response.status === 200) {
             console.log("Logged In");
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
@@ -51,7 +51,7 @@ export const AuthProvider = ({children}) => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({email, username, password, password2})
         })
-        if(response.status == 201) {
+        if(response.status === 201) {
             history.push("/login")            
         } else {
             console.log(response.status);
