@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Loginpage() {
   return (
@@ -73,9 +74,9 @@ function Loginpage() {
                         </a>
                         <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                           Don't have an account?{" "}
-                          <a href="#!" style={{ color: "#393f81" }}>
+                          <Link to="/register" style={{ color: "#393f81" }}>
                             Register here
-                          </a>
+                          </Link>
                         </p>
                         <a href="#!" className="small text-muted">
                           Terms of use.
