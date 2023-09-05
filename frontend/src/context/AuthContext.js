@@ -2,6 +2,8 @@ import { createContext,useState,useEffect } from "react"
 import jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom";
 
+const swal = require('sweetalert2')
+
 const AuthContext = createContext()
 
 export default AuthContext
@@ -33,15 +35,32 @@ export const AuthProvider = ({children}) => {
         console.log(data);
 
         if (response.status === 200) {
-            console.log("Logged In");
+            console.log(response.status);
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data.access))
             navigate("/")
+            swal.fire({
+                title: "Login Successful, Welcome.",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         } else {
             console.log(response.status);
             console.log("Login Failed");
-            alert("something went wrong" + response.status)
+            swal.fire({
+                title: "Invalide username or password.",
+                icon: "warning",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         }
     }
 
@@ -52,11 +71,28 @@ export const AuthProvider = ({children}) => {
             body: JSON.stringify({email, username, password, password2})
         })
         if(response.status === 201) {
-            navigate("/login")            
+            navigate("/login")
+            swal.fire({
+                title: "Registration Successful, Login Now.",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })            
         } else {
             console.log(response.status);
             console.log("Registration Failed");
-            alert("something went wrong" + response.status)
+            swal.fire({
+                title: "User Credentials doesn't match.",
+                icon: "warning",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         }    
     }
     
@@ -65,6 +101,15 @@ export const AuthProvider = ({children}) => {
         setUser(null)
         localStorage.removeItem("authTokens")
         navigate("/login")
+        swal.fire({
+            title: "Logout Successful.",
+            icon: "success",
+            toast: true,
+            timer: 6000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
     }
 
     const contextData = {

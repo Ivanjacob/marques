@@ -30,7 +30,14 @@ function Registerpage() {
                 <div className="card" style={{ borderRadius: "1rem" }}>
                   <div className="row g-0">
                     <div className="col-md-6 col-lg-5 d-none d-md-block">
+                    {/*<img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDJo-gVqHreaMiIH6ennf39dPKY96MAjN65Q&usqp=CAU"
+                        alt="login form"
+                        className="img-fluid"
+                        style={{  width: "100%", height: "550px", borderRadius: "1rem 0 0 1rem" }}
+                      /> */}
                       <img
+                      
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
                         alt="login form"
                         className="img-fluid"
@@ -46,7 +53,7 @@ function Registerpage() {
                               style={{ color: "#ff6219" }}
                             />
                             <span className="h2 fw-bold mb-0">
-                              Welcome to <b>Desphixs👋</b>
+                              <b>Welcome👋</b>
                             </span>
                           </div>
                           <h5
@@ -84,7 +91,7 @@ function Registerpage() {
                           </div>
                           <div className="form-outline mb-4">
                             <input
-                              type="password2"
+                              type="password"
                               id="form2Example27"
                               className="form-control form-control-lg"
                               placeholder="Confirm Password"
