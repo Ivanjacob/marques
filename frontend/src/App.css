@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* ==== CUSTOM UI ELEMENTS AND STYLES ====*/
+/* ========================
+INCLUDE STYLES AND COMPONENTS
+===================== */
+/* ================== HELPERS =================== */
+.table thead th {
+  color: #adb5bd;
+  font-weight: 400;
+}
+.table-lg td,
+.table-lg th {
+  padding: 0.8rem 1rem;
+}
+tbody td {
+  border-bottom: 0;
+}
+tbody tr {
+  border-bottom: 1px solid #cfdbe6;
+}
+tbody tr:hover {
+  background-color: #ebf0fd !important;
+}
+a.disabled {
+  pointer-events: none;
+}
+.btn-primary {
+  background-color: #4fa607 !important;
+  border: 1px solid #4fa607 !important;
+}
+.Header-green {
+  background-color: #4fa607;
+}
+
+.dashboard-wrap {
+  display: flex;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+.main-wrap {
+  width: 100%;
+  margin-left: 280px;
+  background-color: #f8f9fa;
+}

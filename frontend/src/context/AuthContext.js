@@ -1,4 +1,4 @@
-import { createContext,useState,useEffect } from "react"
+import { createContext, useState, useEffect } from "react"
 import jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom";
 
@@ -6,9 +6,23 @@ const swal = require('sweetalert2')
 
 const AuthContext = createContext()
 
+const initialState = {
+    chat: false,
+    cart: false,
+    userProfile: false,
+    notification: false,
+}
+
 export default AuthContext
 
 export const AuthProvider = ({children}) => {
+    const [screenSize, setScreenSize] = useState(undefined);
+    const [activeMenu, setActiveMenu] = useState(true);
+    const [isClicked, setIsClicked] = useState(initialState);
+
+    const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
+
+
     const [authTokens, setAuthTokens] = useState(() => 
         localStorage.getItem("authTokens")
             ? JSON.parse(localStorage.getItem("authTokens"))
@@ -120,6 +134,14 @@ export const AuthProvider = ({children}) => {
         registerUser,
         loginUser,
         logoutUser,
+        screenSize,
+        setScreenSize,
+        activeMenu,
+        setActiveMenu,
+        isClicked,
+        setIsClicked,
+        handleClick,
+        
     }
 
     useEffect(() => {
