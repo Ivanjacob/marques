@@ -6,6 +6,8 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
 
 import DashboardScreen from './screens/DashboardScreen';
+import UserScreen from './screens/UserScreen';
+
 import Homepage from './views/Homepage';
 import Loginpage from './views/Loginpage';
 import Registerpage from './views/Registerpage';
@@ -22,6 +24,7 @@ function App() {
             <Routes>
               <Route element={<PrivateRoute/>}>
                 <Route exact path="/" element={<DashboardScreen/>}/>
+                <Route path="/users" element={<UserScreen/>}/>
               </Route>
               <Route path="/login" element={<Loginpage/>}/>
               <Route path="/register" element={<Registerpage/>}/>

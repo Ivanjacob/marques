@@ -84,7 +84,7 @@ const Navbar = () => {
                 backgroundColor: 'lightgray',
               },
               borderRadius: '0.25rem', }}
-              onClick={() => handleClick('userProfile')}
+              
             >
               <img
                 className="rounded-full w-8 h-8"

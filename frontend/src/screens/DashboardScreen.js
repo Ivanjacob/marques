@@ -5,6 +5,7 @@ import Dashboard from '../views/Dashboard';
 import Sidebars from '../views/Sidebars';
 import Navbar from '../views/Navbar'
 import Chat from '../views/Chat'
+import Users from '../views/Users';
 
 export class DashboardScreen extends Component {
   render() {
@@ -13,7 +14,7 @@ export class DashboardScreen extends Component {
         <Sidebars />
         <main className="main-wrap">
             <Navbar />
-            <Dashboard />
+            <Users />
         </main>
       </div>
     )
