@@ -7,8 +7,8 @@ from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        mode = User
-        fields = ['id', 'username', 'email']
+        model = User
+        fields = ('id', 'username', 'email')
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):

@@ -34,6 +34,9 @@ const useAxios = () => {
     });
 
     return axiosInstance;
+
+    
 };
 
 export default useAxios;
+

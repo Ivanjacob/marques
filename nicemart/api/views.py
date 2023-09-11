@@ -1,20 +1,24 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import MyTokenObtainPairSerializer, RegisterSerializer, RiceSerializer
+from .serializers import MyTokenObtainPairSerializer, RegisterSerializer, RiceSerializer, UserSerializer
 from .models import Rice
 from django.http import JsonResponse
 from api.models import User
 
-from api.serializers import MyTokenObtainPairSerializer, RegisterSerializer, RiceSerializer
+from api.serializers import MyTokenObtainPairSerializer, RegisterSerializer, RiceSerializer, UserSerializer
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny, IsAuthenticated
-
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 # Create your views here.
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -32,7 +36,9 @@ def getRoutes(request):
     routes = [
         '/api/token/',
         '/api/register/',
-        '/api/token/refresh/'
+        '/api/token/refresh/',
+        '/api/test/',
+        '/api/users/',
     ]
     return Response(routes)
 

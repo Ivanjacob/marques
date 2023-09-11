@@ -14,6 +14,8 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 
+import { Link } from 'react-router-dom';
+
 function Sidebars() {
     const { collapseSidebar } = useProSidebar();
 
@@ -39,7 +41,9 @@ function Sidebars() {
               <MenuItem icon={<InventoryIcon />}>Inventory</MenuItem>
               <MenuItem icon={<ShowChartIcon />}>Farmer's Stock</MenuItem>
               <MenuItem icon={<PeopleAltIcon />}>Farmers</MenuItem>
-              <MenuItem icon={<PeopleIcon />}>Users</MenuItem>
+              <Link to="/users">
+                <MenuItem icon={<PeopleIcon />}>Users</MenuItem>
+              </Link>
               <MenuItem icon={<AccountCircleIcon />}>Profiles</MenuItem>
               <MenuItem icon={<PeopleAltIcon />}>Employees</MenuItem>
               <MenuItem icon={<SettingsIcon />}>Settings</MenuItem>
