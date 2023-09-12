@@ -7,7 +7,7 @@ import jwt_decode from 'jwt-decode'
 import axios from 'axios';
 
 
-export default function Users() {
+function Users() {
   
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
@@ -23,7 +23,7 @@ export default function Users() {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, [])
+  }, []);
 
   console.log(usersData)
 
@@ -65,6 +65,7 @@ export default function Users() {
   );
 }
 
+export default Users;
 
 
 

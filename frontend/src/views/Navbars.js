@@ -6,10 +6,6 @@ import jwt_decode from "jwt-decode"
 import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
 
-import {AiOutlineMenu} from 'react-icons/ai'
-import { BsChatLeft } from 'react-icons/bs'
-import { RiNotification3Line } from 'react-icons/ri'
-import { MdKeyboardArrowDown } from 'react-icons/md'
 
 import { Tooltip } from '@mui/material'
 import { IconButton } from '@mui/material'
@@ -24,28 +20,7 @@ import UserProfile from './UserProfile.js';
 
 import avatar from '../data/avatar.jpg'
 
-const Navbar = () => {
-  const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked,  setScreenSize, screenSize} = useContext(AuthContext)
-
-  useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth)
-
-    window.addEventListener("resize", handleResize)
-
-    handleResize()
-
-    return () => window.removeEventListener('resize', handleResize)
-  }, []);
-
-  useEffect(() => {
-    if(screenSize <= 900){
-      setActiveMenu(false)
-    }else{
-      setActiveMenu(true)
-    }
-  }, []);
-
-  const handleActiveMenu = () => setActiveMenu(!activeMenu);
+export default function Navbars() {
 
   const token = localStorage.getItem("authTokens")
 
@@ -60,19 +35,19 @@ const Navbar = () => {
   return (
     <div className="flex p-2 md:ml-6 md:mr-6 relative" style={{ display: 'flex', justifyContent: 'space-between', padding: '2px', marginLeft: '6px', marginRight: '6px', position: 'relative', alignItems: 'center', background: 'sky-blue'}}>
       <div>
-        <Tooltip title="Dashboard" onClick={handleActiveMenu}>
+        <Tooltip title="Dashboard">
           <IconButton>
             <HomeIcon size={40} sx={{ color: blue[500] }}  />
           </IconButton>
         </Tooltip>
       </div>
       <div className="flex" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>  
-        <Tooltip title="Chat" dotColor="#03C9D7" onClick={handleClick('chat')}>
+        <Tooltip title="Chat">
           <IconButton>
             <ChatIcon size={20} sx={{ color: blue[500] }} />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Notifications" dotColor="rgb(254, 201, 15)" onClick={handleClick('notification')}>
+        <Tooltip title="Notifications">
           <IconButton>
             <NotificationIcon size={60} sx={{ color: blue[500] }} />
           </IconButton>
@@ -105,15 +80,17 @@ const Navbar = () => {
                 {username}!
               </span>
             </p>
-            <MdKeyboardArrowDown className="text-gray-400 text-16" />
           </div>
         </Tooltip>
-        {isClicked.chat && (<Chat />)}
 
       </div>
     </div>
   )
 };
 
-export default Navbar;
+
+
+
+
+
 

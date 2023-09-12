@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+//import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem} from  'react-pro-sidebar';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -17,35 +18,38 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Link } from 'react-router-dom';
 
 function Sidebars() {
-    const { collapseSidebar } = useProSidebar();
+    
 
     return (
         <div>
           <Sidebar style={{ height: "100vh", position: "fixed" }}>
-            <Menu>
+            <Menu menuItemStyles={{
+              button: {
+                [`&.active`]: {
+                  backgoundColor: 'red',
+                  color: '#b6c8d9',
+                },
+              },
+            }}
+            >
               <MenuItem
                 icon={<MenuOutlinedIcon />}
-                onClick={() => {
-                  collapseSidebar();
-                }}
                 style={{ textAlign: "center" }}
               >
                 {" "}
                 <h2>NRM</h2>
               </MenuItem>
               
-              <MenuItem icon={<DashboardIcon />}>Dashboard</MenuItem>
-              <MenuItem icon={<ShoppingCartIcon />}>Orders</MenuItem>
-              <MenuItem icon={<PersonPinIcon />}>Customers</MenuItem>
-              <MenuItem icon={<CategoryIcon />}>Products</MenuItem>
+              <MenuItem component={<Link to="/" />} icon={<DashboardIcon />}>Dashboard</MenuItem>
+              <MenuItem component={<Link to="/orders" />} icon={<ShoppingCartIcon />}>Orders</MenuItem>
+              <MenuItem component={<Link to="/customers" />} icon={<PersonPinIcon />}>Customers</MenuItem>
+              <MenuItem component={<Link to="/products" />} icon={<CategoryIcon />}>Products</MenuItem>
               <MenuItem icon={<InventoryIcon />}>Inventory</MenuItem>
               <MenuItem icon={<ShowChartIcon />}>Farmer's Stock</MenuItem>
               <MenuItem icon={<PeopleAltIcon />}>Farmers</MenuItem>
-              <Link to="/users">
-                <MenuItem icon={<PeopleIcon />}>Users</MenuItem>
-              </Link>
+              <MenuItem component={<Link to="/users" />} icon={<PeopleIcon />}>Users</MenuItem>
               <MenuItem icon={<AccountCircleIcon />}>Profiles</MenuItem>
-              <MenuItem icon={<PeopleAltIcon />}>Employees</MenuItem>
+              <MenuItem component={<Link to="/employees" />} icon={<PeopleAltIcon />}>Employees</MenuItem>
               <MenuItem icon={<SettingsIcon />}>Settings</MenuItem>
             </Menu>
           </Sidebar>

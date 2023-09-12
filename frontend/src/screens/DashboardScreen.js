@@ -1,24 +1,18 @@
-/* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
-
-import Dashboard from '../views/Dashboard';
+import React from 'react'
 import Sidebars from '../views/Sidebars';
-import Navbar from '../views/Navbar'
-import Chat from '../views/Chat'
-import Users from '../views/Users';
+import Navbars from '../views/Navbars';
+import Dashboard from '../views/Dashboard';
 
-export class DashboardScreen extends Component {
-  render() {
-    return (
-      <div className="dashboard-wrap">
-        <Sidebars />
-        <main className="main-wrap">
-            <Navbar />
-            <Users />
-        </main>
-      </div>
-    )
-  }
+function DashboardScreen() {
+  return (
+    <div className='dashboard-wrap'>
+      <Sidebars />
+      <main className='main-wrap'>
+        <Navbars />
+        <Dashboard />
+      </main>
+    </div>
+  )
 }
 
 export default DashboardScreen;

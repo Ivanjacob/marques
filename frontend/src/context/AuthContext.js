@@ -1,19 +1,19 @@
 import { createContext, useState, useEffect } from "react"
 import jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
 
-const swal = require('sweetalert2')
 
-const AuthContext = createContext()
+
+const AuthContext = createContext();
+export default AuthContext;
 
 const initialState = {
     chat: false,
     cart: false,
     userProfile: false,
     notification: false,
-}
-
-export default AuthContext
+};
 
 export const AuthProvider = ({children}) => {
     const [screenSize, setScreenSize] = useState(undefined);
@@ -22,18 +22,17 @@ export const AuthProvider = ({children}) => {
 
     const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
 
+    
 
-    const [authTokens, setAuthTokens] = useState(() => 
-        localStorage.getItem("authTokens")
-            ? JSON.parse(localStorage.getItem("authTokens"))
-            : null
-    )
+    const [authTokens, setAuthTokens] = useState(() => {
+        const storedTokens = localStorage.getItem("authTokens");
+        return storedTokens ? JSON.parse(storedTokens) : null;
+    });
 
-    const [user, setUser] = useState(() => 
-        localStorage.getItem("authTokens")
-            ? jwt_decode(localStorage.getItem("authTokens"))
-            : null
-    )
+    const [user, setUser] = useState(() => {
+        const storedTokens = localStorage.getItem("authTokens");
+        return storedTokens ? jwt_decode(storedTokens) : null;
+    });
 
     const [loading, setLoading] = useState(true)
 
@@ -59,7 +58,7 @@ export const AuthProvider = ({children}) => {
                 icon: "success",
                 toast: true,
                 timer: 6000,
-                position: 'top-center',
+                position: 'top',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
@@ -71,7 +70,7 @@ export const AuthProvider = ({children}) => {
                 icon: "warning",
                 toast: true,
                 timer: 6000,
-                position: 'top-center',
+                position: 'top',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
@@ -91,7 +90,7 @@ export const AuthProvider = ({children}) => {
                 icon: "success",
                 toast: true,
                 timer: 6000,
-                position: 'top-center',
+                position: 'top',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })            
@@ -103,7 +102,7 @@ export const AuthProvider = ({children}) => {
                 icon: "warning",
                 toast: true,
                 timer: 6000,
-                position: 'top-center',
+                position: 'top',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
@@ -120,11 +119,31 @@ export const AuthProvider = ({children}) => {
             icon: "success",
             toast: true,
             timer: 6000,
-            position: 'top-center',
+            position: 'top',
             timerProgressBar: true,
             showConfirmButton: false,
         })
-    }
+    };
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem("authTokens");
+        
+        if (storedToken) {
+            const decodeToken = jwt_decode(storedToken);
+            const expirationDate = decodeToken.exp;
+            const currentTimestamp = Date.now() / 1000;
+
+            if (expirationDate < currentTimestamp) {
+                localStorage.removeItem("authTokens");
+                setAuthTokens(null);
+                setUser(null);
+            } else {
+            setAuthTokens(JSON.parse(storedToken));
+            setUser(jwt_decode(storedToken));
+            }
+        };
+            setLoading(false);
+    }, []);
 
     const contextData = {
         user, 
@@ -144,16 +163,12 @@ export const AuthProvider = ({children}) => {
         
     }
 
-    useEffect(() => {
-        if(authTokens){
-            setUser(jwt_decode(authTokens.access))
-        }
-        setLoading(false)
-    }, [authTokens, loading])
+    
 
     return (
         <AuthContext.Provider value={contextData}>
             {loading ? null : children}
         </AuthContext.Provider>
     )
-}
+};
+
