@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert2";
 
 
-
 const AuthContext = createContext();
 export default AuthContext;
 
@@ -33,6 +32,7 @@ export const AuthProvider = ({children}) => {
         const storedTokens = localStorage.getItem("authTokens");
         return storedTokens ? jwt_decode(storedTokens) : null;
     });
+    
 
     const [loading, setLoading] = useState(true)
 
@@ -76,12 +76,85 @@ export const AuthProvider = ({children}) => {
             })
         }
     }
+    const loginInventory = async (email, password) => {
+
+        const response = await fetch("http://127.0.0.1:8000/api/token/", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email, password})
+        })
+        const data = await response.json()
+        console.log(data);
+        
+
+        if (response.status === 200){
+            // Check if the Inventory manager is verified before allowing login
+            console.log(response.status);
+            setAuthTokens(data)
+            setUser(jwt_decode(data.access))
+            localStorage.setItem("authTokens", JSON.stringify(data.access))
+            navigate("/inventory")
+            swal.fire({
+                title: "Login Inventory Successful, Welcome.",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
+        } else{
+            console.log(response.status);
+            console.log("Login Inventory Failed");
+            swal.fire({
+                title: "Invalid username or password.",
+                icon: "warning",
+                toast: true,
+                timer: 6000,
+                position: 'top',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
+        }
+
+    }
 
     const registerUser = async (email, username, password, password2) => {
         const response = await fetch("http://127.0.0.1:8000/api/register/", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({email, username, password, password2})
+        })
+        if(response.status === 201) {
+            navigate("/login")
+            swal.fire({
+                title: "Registration Successful, Login Now.",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })            
+        } else {
+            console.log(response.status);
+            console.log("Registration Failed");
+            swal.fire({
+                title: "User Credentials doesn't match.",
+                icon: "warning",
+                toast: true,
+                timer: 6000,
+                position: 'top',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }    
+    }
+    const registerInventory = async (email, username, password, password2, employee_id) => {
+        const response = await fetch("http://127.0.0.1:8000/api/register/inventorymanager", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email, username, password, password2, employee_id})
         })
         if(response.status === 201) {
             navigate("/login")
@@ -151,8 +224,10 @@ export const AuthProvider = ({children}) => {
         authTokens,
         setAuthTokens,
         registerUser,
+        registerInventory,
         loginUser,
         logoutUser,
+        loginInventory,
         screenSize,
         setScreenSize,
         activeMenu,

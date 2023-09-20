@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'api.apps.ApiConfig',
+    'ricemart.apps.RicemartConfig',
 
     'rest_framework',
     'ckeditor',

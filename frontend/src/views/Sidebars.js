@@ -26,8 +26,8 @@ function Sidebars() {
             <Menu menuItemStyles={{
               button: {
                 [`&.active`]: {
-                  backgoundColor: 'red',
-                  color: '#b6c8d9',
+                  backgroundColor: "#f00",
+                  color: "#b6c8d9",
                 },
               },
             }}

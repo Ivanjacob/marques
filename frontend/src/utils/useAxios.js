@@ -30,13 +30,27 @@ const useAxios = () => {
         setUSer(jwt_decode(response.data.access));
 
         req.headers.Authorization = `Bearer ${response.data.access}`;
-        return req;
+        return req
     });
+    
+    const checkAuth = () => {
+     if(authTokens && authTokens.access){
+        const user = jwt_decode(authTokens.access)
+        if (user && user.verified === true){
+            return true;
+        }else {
+            console.error("User is not verified");
+        }
+     }else {
+        console.error("authTokens is null or undefined");
+     }
+     return false;
+    };
 
-    return axiosInstance;
+    return {axiosInstance, checkAuth };
 
     
 };
-
+ 
 export default useAxios;
 

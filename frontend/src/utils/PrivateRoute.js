@@ -7,7 +7,7 @@ const PrivateRoute = () => {
     let { user } = useContext(AuthContext);
 
     return (
-        user ? <Outlet /> : <Navigate to="/login" replace/>
+        user ? <Outlet /> : <Navigate to="/" replace/>
     );
 };
 
