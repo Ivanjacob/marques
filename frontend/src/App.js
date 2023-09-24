@@ -20,6 +20,7 @@ import Registerpage from './views/Registerpage.js';
 import LoginInventory from './views/LoginInventory.js'
 
 import "./App.css";
+import AddRiceStock from './Inventory/AddRiceStock';
 
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
                 <Route path="/products" element={<ProductScreen/>}/>
                 <Route path="/customers" element={<CustomerScreen/>} />
                 <Route path="/inventory" element={<InventoryScreen/>} />
+                <Route path="/add" element = {<AddRiceStock/>} />
               </Route>
               <Route exact path="/" element={<HomeScreen/>}/>
               <Route path="/login" element={<Loginpage/>}/>

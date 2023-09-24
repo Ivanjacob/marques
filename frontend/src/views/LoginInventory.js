@@ -1,30 +1,28 @@
 import React, { useContext } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import AuthContext from '../context/AuthContext';
-import useAxios from '../utils/useAxios';
+
 
 function LoginInventory() {
   
-  const { loginInventory, authTokens } = useContext(AuthContext);
+  
+  const { loginInventory } = useContext(AuthContext);
+ 
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value
-    const password = e.target.password.value
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    email.length > 0 && loginInventory(email, password)
+
+    console.log(email)
+    console.log(password)
+   
   
-    if (email.length > 0 && password.length > 0 ){
-      if (checkAuth()) {
-        await loginInventory(email, password);
-      } else {
-        console.error("User is not verified");
-      }
-    }
   }
-  const { checkAuth } = useAxios();
-  if (authTokens) {
-    return <Navigate to="/inventory" />
-  }
+
 
   return (
     <div>

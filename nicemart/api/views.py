@@ -121,3 +121,29 @@ def testEndpoint(request):
 class RiceView(generics.CreateAPIView):
     queryset = Rice.objects.all()
     serializer_class = RiceSerializer
+
+
+class UserProfileView(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_object(self):
+        identifier = self.kwargs.get('identifier')
+        try:
+            user_id = int(identifier)
+            return Profile.objects.get(user_id=user_id)
+        except ValueError:
+            try:
+                return Profile.objects.get(user__email=identifier)
+            except Profile.DoesNotExist:
+                return None
+
+    def retrieve(self, request, *args, **kwargs):
+        profile = self.get_object()
+        if profile is not None:
+            serializer = self.get_serializer(profile)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(
+                {"detail": "User profile not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )

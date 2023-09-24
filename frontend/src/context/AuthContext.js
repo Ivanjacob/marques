@@ -52,7 +52,7 @@ export const AuthProvider = ({children}) => {
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data.access))
-            navigate("/")
+            navigate("/dashboard")
             swal.fire({
                 title: "Login Successful, Welcome.",
                 icon: "success",
@@ -76,6 +76,15 @@ export const AuthProvider = ({children}) => {
             })
         }
     }
+    // Okay here we go now
+
+    // Function to fetch user profile
+    
+    
+    
+
+
+     // Its ending here
     const loginInventory = async (email, password) => {
 
         const response = await fetch("http://127.0.0.1:8000/api/token/", {

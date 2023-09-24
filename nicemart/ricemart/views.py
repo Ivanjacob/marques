@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import RiceStock
+from .serializers import RiceStockSerializer
 
-# Create your views here.
+
+class RiceStockListCreateView(generics.ListCreateAPIView):
+    queryset = RiceStock.objects.all()
+    serializer_class = RiceStockSerializer
+
+
+class RiceStockRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RiceStock.objects.all()
+    serializer_class = RiceStockSerializer

@@ -20,5 +20,7 @@ urlpatterns = [
     path('register/inventorymanager/', views.RegisterInventoryManagerView.as_view(),
          name='register-inventorymanager'),
     path('profile/', views.ProfileListView.as_view(), name='profile'),
+    path('profile/<str:identifier>/',
+         views.UserProfileView.as_view(), name='user-profile'),
     path('', views.getRoutes),
 ]

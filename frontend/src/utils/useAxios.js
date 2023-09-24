@@ -33,21 +33,7 @@ const useAxios = () => {
         return req
     });
     
-    const checkAuth = () => {
-     if(authTokens && authTokens.access){
-        const user = jwt_decode(authTokens.access)
-        if (user && user.verified === true){
-            return true;
-        }else {
-            console.error("User is not verified");
-        }
-     }else {
-        console.error("authTokens is null or undefined");
-     }
-     return false;
-    };
-
-    return {axiosInstance, checkAuth };
+    return axiosInstance;
 
     
 };
