@@ -20,4 +20,13 @@ export const updateRiceStock = (id, updatedRiceStock) => stockAxios.put(`${baseU
 
 export const deleteRiceStock = (id) => stockAxios.delete(`${baseURL}rice-stock/${id}/`);
 
+// fetch products data
+export const fetchProducts = () => stockAxios.get(`${baseURL}product/`);
+// create a new product entry
+export const createProduct = (newProduct) => stockAxios.post(`${baseURL}product/`, newProduct);
+// update a product entry by ID
+export const updateProduct = (id, updatedProduct ) => stockAxios.put(`${baseURL}product/${id}/`, updatedProduct);
+// delete a product entry by ID
+export const deleteProduct = (id) => stockAxios.delete(`${baseURL}product/${id}/`);
+
 export default stockAxios;

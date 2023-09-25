@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { fetchRiceStocks, createRiceStock, updateRiceStock, deleteRiceStock } from '../utils/stockAxios'
 import Header from '../views/Header.js';
 import { DataGrid } from '@mui/x-data-grid';
-
+import Button from '../views/Button.js';
 
 function RiceStockList(){
     
@@ -73,9 +73,24 @@ function RiceStockList(){
 
     return (
         <div style={{ margin: "2rem", marginTop: "2rem", padding: "0.5rem",  backgroundColor: "#fff", borderRadius: "1.5rem", }}>
-
-            <Header category="Page" title="Rice Stock" />
-
+            <div 
+                style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    padding: '2px', 
+                    marginLeft: '6px', 
+                    marginRight: '6px', 
+                    position: 'relative', 
+                    alignItems: 'center', 
+                    background: 'sky-blue',
+                }} 
+            >
+                <Header category="Page" title="Rice Stock" />
+                <Button 
+                    buttonText = "Add Rice Stock" 
+                    to = "/inventory/add"
+                />
+            </div>
             <DataGrid
                 rows={riceStocks}
                 columns={columns}
