@@ -79,17 +79,23 @@
 // }
 
 // export default AddRiceStock;
-
-import React, { useState } from "react";
+/* elsint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import { createRiceStock } from "../utils/stockAxios";
-import Header from "../views/Header";
 
-// Reusable input component
+import axios from 'axios';
+
+import Header from '../views/Header.js';
+import Button from '../views/Button.js';
+
+import Buttons from './Buttons.jsx';
+
 function InputField({ label, name, value, onChange }) {
   return (
     <div>
       <label htmlFor={name}>{label}:</label>
       <input 
+        className="form-control"
         type="text"
         name={name}
         value={value}
@@ -132,13 +138,64 @@ function AddRiceStock() {
       console.error("Error creating rice stock:", error);
     }
   };
+
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+      axios.get('http://localhost:8000/ricemart/categories/')
+          .then((response) => {
+              setCategories(response.data);
+          })
+          .catch((error) => {
+              console.error('Error fetching categories:', error);
+          });
+  }, []);
+  
+  const handleSelectCategory = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedCategory(selectedValue);
+    setFormData({ ...formData, category: selectedValue });
+  };
   
   
   return (
-    <div>
-      <Header category="Form" title="Add Rice Stock" />
-      <form onSubmit={handleSubmit}>
-        <InputField label="Category" name="category" value={formData.category} onChange={handleInputChange} />
+    <div style={{ margin: "2rem", marginTop: "2rem", padding: "0.5rem",  backgroundColor: "#fff", borderRadius: "1.5rem", }}>
+      <div
+        style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          padding: '2px', 
+          marginLeft: '6px', 
+          marginRight: '6px', 
+          position: 'relative', 
+          alignItems: 'center', 
+          background: 'sky-blue',
+        }}
+      >
+        <Header category="Page" title="Add Rice Stock" />
+        <Button buttonText="View Rice Stock" to="/inventory" />
+      </div>
+      <form 
+        onSubmit={handleSubmit}
+        className="col-sm-7"
+      >
+        <div>
+        <label htmlFor="category">Category:</label> 
+          <select className="form-control"
+              name="category"
+              value={selectedCategory}
+              onChange={handleSelectCategory}
+          >
+              <option value=""></option>
+              {categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                      {category.name}
+                  </option>
+              ))}
+          </select>
+        </div>
+
         <InputField label="Item Name" name="item_name" value={formData.item_name} onChange={handleInputChange} />
         <InputField label="Quantity" name="quantity" value={formData.quantity} onChange={handleInputChange} />
         <InputField label="Receive Quantity" name="receive_quantity" value={formData.receive_quantity} onChange={handleInputChange} />
@@ -158,8 +215,11 @@ function AddRiceStock() {
             onChange={(e) => setFormData({ ...formData, export_to_CSV: e.target.checked })}
           />
         </div>
-        <div>
-          <button type="submit" >Create Rice Stock</button>
+        <div style = {{ padding: "14px" }}>
+          <Buttons 
+            buttonText = "Create Rice Stock" 
+            buttonType = "submit"
+          />
         </div>
       </form>
     </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Sidebars from '../views/Sidebars';
 import Navbars from '../views/Navbars';
-
+import Product from '../Inventory/Product.js'
 export class ProductScreen extends Component {
   render() {
     return (
@@ -9,7 +9,7 @@ export class ProductScreen extends Component {
         <Sidebars/>
         <main className="main-wrap">
             <Navbars />
-            <h2>List of Products</h2>
+            <Product />
         </main>
     </div>
     )

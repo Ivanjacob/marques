@@ -20,8 +20,8 @@ class User(AbstractUser, CommonUserFields):
     username = models.CharField(max_length=100, default="", unique=True)
     email = models.EmailField(max_length=100, unique=True)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     def profile(self):
         profile = Profile.objects.get(user=self)
@@ -91,6 +91,14 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
+class Rice(models.Model):
+    name = models.CharField(max_length=100, default="", unique=True)
+    category = models.CharField(max_length=100)
+    price = models.IntegerField()
+    quantity = models.IntegerField()
+    added_at = models.DateTimeField(auto_now_add=True)
+
+
 # post_save.connect(create_user_profile, sender=User)
 # post_save.connect(save_user_profile, sender=User)
 
@@ -118,14 +126,6 @@ def save_user_profile(sender, instance, **kwargs):
 
 # Can we end this repetition on the users account profile creation
 # # class rice
-
-
-class Rice(models.Model):
-    name = models.CharField(max_length=100, default="", unique=True)
-    category = models.CharField(max_length=100)
-    price = models.IntegerField()
-    quantity = models.IntegerField()
-    added_at = models.DateTimeField(auto_now_add=True)
 
 
 # Create your models here.

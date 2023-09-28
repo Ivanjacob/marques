@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import { fetchRiceStocks, createRiceStock, updateRiceStock, deleteRiceStock } from '../utils/stockAxios'
+import { fetchStocks, createStock, updateStock, deleteStock } from '../utils/stockAxios'
 import Header from '../views/Header.js';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '../views/Button.js';
@@ -9,18 +9,20 @@ function RiceStockList(){
     
     const [riceStocks, setRiceStocks] = useState([]);
     const [formData, setFormData] = useState({});
+    const [productData, setProductData] = useState({});
     
 
     useEffect(() => {
-        async function fetchData() {
+        async function fetchStocksData() {
             try{
-                const response = await fetchRiceStocks();
+                const response = await fetchStocks();
                 setRiceStocks(response.data);
+                
             } catch (error) {
                 console.error('Error fetching rice stock data', error);
             }
         }
-        fetchData();
+        fetchStocksData();
     }, []);
 
     const handleInputChange = (e) => {
@@ -32,11 +34,11 @@ function RiceStockList(){
         try{
             if (formData.id){
 
-                await updateRiceStock(formData.id, formData);
+                await updateStock(formData.id, formData);
             } else {
-                await createRiceStock(formData);
+                await createStock(formData);
             }
-            const response = await fetchRiceStocks();
+            const response = await fetchStocks();
             setRiceStocks(response.data);
 
             setFormData({});
@@ -47,9 +49,9 @@ function RiceStockList(){
 
     const handleDelete = async (id) => {
         try{
-            await deleteRiceStock(id);
+            await deleteStock(id);
 
-            const response = await fetchRiceStocks();
+            const response = await fetchStocks();
             setRiceStocks(response.data);
         } catch (error) {
             console.error('Error deleting rice stock:', error);
@@ -59,12 +61,11 @@ function RiceStockList(){
     
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'category', headerName: 'Category', width: 120 },
-        { field: 'item_name', headerName: 'Item Name', width: 180 },
-        { field: 'quantity', headerName: 'Quantity', width: 100 },
-        { field: 'phone_number', headerName: 'Phone Number', width: 120 },
+        { field: 'product_category', headerName: 'Category', width: 120 },
+        { field: 'product_name', headerName: 'Item Name', width: 180 },
+        {field: 'product_quantity_in_stock', headerName: 'Quantity in Stock', width: 180},
         { field: 'created_by', headerName: 'Created By', width: 140 },
-        { field: 'reorder_level', headerName: 'Reorder Level', width: 130 },
+        { field: 'phone_number', headerName: 'Phone Number', width: 120 },
     ];
     
     const toolbarOptions = ['search'];
@@ -88,7 +89,7 @@ function RiceStockList(){
                 <Header category="Page" title="Rice Stock" />
                 <Button 
                     buttonText = "Add Rice Stock" 
-                    to = "/inventory/add"
+                    to = "/inventory/add-stock"
                 />
             </div>
             <DataGrid
@@ -103,7 +104,7 @@ function RiceStockList(){
                 editSettings={editing}
                 pageSettings={{ pageSize: 10 }}
                 pageSizeOptions={[10, 25]}
-                checkboxSelection
+//                checkboxSelection
                 //onRowDoubleClick={(row) => setFormData(row.data)}
             />
         </div>

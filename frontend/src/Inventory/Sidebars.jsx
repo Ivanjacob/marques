@@ -41,7 +41,7 @@ function Sidebars() {
               </MenuItem>
               
               <MenuItem component={<Link to="/inventory" />} icon={<DashboardIcon />}>Dashboard</MenuItem>
-              <MenuItem component={<Link to="/inventory/add" />} icon={<ShoppingCartIcon />}>Rice Stock</MenuItem>
+              <MenuItem component={<Link to="/inventory" />} icon={<ShoppingCartIcon />}>Rice Stock</MenuItem>
               <MenuItem component={<Link to="/inventory" />} icon={<PersonPinIcon />}>Inventory Reports</MenuItem>
               <MenuItem component={<Link to="/inventory/products" />} icon={<CategoryIcon />}>Products</MenuItem>
               <MenuItem icon={<InventoryIcon />}>Imprt Data</MenuItem>

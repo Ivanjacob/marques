@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+from api.models import CommonUserFields, User
 
 
 class Category(models.Model):
@@ -32,11 +35,13 @@ class Product(models.Model):
     quantity = models.IntegerField(default=0, blank=True, null=True)
     price = models.IntegerField(default=0, blank=True, null=True)
     quantity_in_stock = models.IntegerField(default=0, blank=True, null=True)
+    created_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='created_stock', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name} - {self.category} - {self.description} - {self.quantity} - KSh.{self.price} - {self.quantity_in_stock}'
+        return f'{self.name} - {self.category} - {self.description} - {self.quantity} - KSh.{self.price} - {self.quantity_in_stock} - {self.created_by}'
 
 
 class RiceStock(models.Model):
@@ -56,3 +61,22 @@ class RiceStock(models.Model):
 
     def __str__(self):
         return self.item_name
+
+
+class Stock(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+    receive_quantity = models.IntegerField(default=0)
+    receive_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='received_stock', null=True, blank=True)
+    issue_quantity = models.IntegerField(default=0)
+    issue_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='issued_stock', null=True, blank=True)
+    issue_to = models.CharField(max_length=50, blank=True, null=True)
+    reorder_level = models.IntegerField(default=0)
+    last_updated = models.DateTimeField(auto_now=True)
+    export_to_CSV = models.BooleanField(default=False)
+
+    def __str__(self):
+        # - {self.quantity} - {self.receive_quantity} - {self.receive_by} - {self.issue_quantity} - {self.issue_by} - {self.issue_to} - {self.reorder_level} - {self.last_updated}'
+        return f'{self.product.name} - {self.product.category} - {self.product.quantity_in_stock} - {self.product.created_by}'

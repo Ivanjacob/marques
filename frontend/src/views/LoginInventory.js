@@ -12,12 +12,12 @@ function LoginInventory() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
+    const username = e.target.username.value;
     const password = e.target.password.value;
 
-    email.length > 0 && loginInventory(email, password)
+    username.length > 0 && loginInventory(username, password)
 
-    console.log(email)
+    console.log(username)
     console.log(password)
    
   
@@ -65,13 +65,13 @@ function LoginInventory() {
                         </h5>
                         <div className="form-outline mb-4">
                           <input
-                            type="email"
+                            type="username"
                             id="form2Example17"
                             className="form-control form-control-lg"
-                            name="email"
+                            name="username"
                           />
                           <label className="form-label" htmlFor="form2Example17">
-                            Email address
+                            Username
                           </label>
                         </div>
                         <div className="form-outline mb-4">

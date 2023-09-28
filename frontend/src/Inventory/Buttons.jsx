@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 import * as React from 'react';
 import { Button, buttonClasses } from '@mui/base/Button';
@@ -5,10 +6,10 @@ import { styled } from '@mui/system';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 
-export default function UnstyledButtonsSimple({ buttonText, onButtonClick, to }) {
+export default function UnstyledButtonsSimple({ buttonText, buttonType, to }) {
   return (
     <Stack spacing={2} direction="row">
-      <Link to={to} ><CustomButton>{buttonText}</CustomButton></Link>
+      <CustomButton type='buttonType' >{buttonText}</CustomButton>
     </Stack>
   );
 }

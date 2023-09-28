@@ -38,11 +38,11 @@ export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate();
 
-    const loginUser = async (email, password) => {
+    const loginUser = async (username, password) => {
         const response = await fetch("http://127.0.0.1:8000/api/token/", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({username, password})
         })
         const data = await response.json()
         console.log(data);
@@ -85,12 +85,12 @@ export const AuthProvider = ({children}) => {
 
 
      // Its ending here
-    const loginInventory = async (email, password) => {
+    const loginInventory = async (username, password) => {
 
         const response = await fetch("http://127.0.0.1:8000/api/token/", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({username, password})
         })
         const data = await response.json()
         console.log(data);
