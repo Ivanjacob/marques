@@ -27,8 +27,6 @@ class StockSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(source='product.name', read_only=True)
     product_category = serializers.CharField(
         source='product.category', read_only=True)
-    product_quantity_in_stock = serializers.CharField(
-        source='product.quantity_in_stock', read_only=True)
     created_by = serializers.CharField(
         source='product.created_by', read_only=True)
 

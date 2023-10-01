@@ -1,87 +1,6 @@
-// import React, { useState } from 'react';
-// import { createRiceStock } from '../utils/stockAxios';
-
-// function AddRiceStock() {
-//   const [formData, setFormData] = useState({
-//     category: '',
-//     item_name: '',
-//     quantity: '',
-//     receive_quantity: '',
-//     receive_by: '',
-//     issue_quantity: '',
-//     issue_by: '',
-//     issue_to: '',
-//     phone_number: '',
-//     created_by: '',
-//     reorder_level: '',
-//     export_to_CSV: false,
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await createRiceStock(formData);
-//       // Clear the form after successfully creating a rice stock entry
-//       setFormData({
-//         category: '',
-//         item_name: '',
-//         quantity: '',
-//         receive_quantity: '',
-//         receive_by: '',
-//         issue_quantity: '',
-//         issue_by: '',
-//         issue_to: '',
-//         phone_number: '',
-//         created_by: '',
-//         reorder_level: '',
-//         export_to_CSV: false,
-//       });
-//     } catch (error) {
-//       console.error('Error creating rice stock:', error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Add New Rice Stock</h2>
-//       <form onSubmit={handleSubmit}>
-//         {/* Add form input fields for all rice stock properties */}
-//         <div>
-//           <label htmlFor="category">Category:</label>
-//           <input
-//             type="text"
-//             name="category"
-//             value={formData.category}
-//             onChange={handleInputChange}
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="item_name">Item Name:</label>
-//           <input
-//             type="text"
-//             name="item_name"
-//             value={formData.item_name}
-//             onChange={handleInputChange}
-//           />
-//         </div>
-//         {/* Add more input fields for other properties */}
-//         <div>
-//           <button type="submit">Create Rice Stock</button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default AddRiceStock;
 /* elsint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { createRiceStock } from "../utils/stockAxios";
+import { createStock } from "../utils/stockAxios";
 
 import axios from 'axios';
 
@@ -107,16 +26,10 @@ function InputField({ label, name, value, onChange }) {
 
 function AddRiceStock() {
   const initialFormData = {
-    category: "",
-    item_name: "",
-    quantity: "",
+    product: "",
+    quantity_in_stock: "",
     receive_quantity: "",
     receive_by: "",
-    issue_quantity: "",
-    issue_by: "",
-    issue_to: "",
-    phone_number: "",
-    created_by: "",
     reorder_level: "",
     export_to_CSV: false,
   };
@@ -131,7 +44,14 @@ function AddRiceStock() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createRiceStock(formData);
+      // Calculate the new quantity in stock by adding the receive quantity to the current quantity in stock
+      const newQuantityInStock = parseInt(formData.quantity_in_stock) + parseInt(formData.receive_quantity);
+
+      // Create a new object with the updated quantity_in_stock
+      const updatedFormData = { ...formData, quantity_in_stock: newQuantityInStock };
+
+      await createStock(updatedFormData);
+      
       // Clear the form after successfully creating a rice stock entry
       setFormData(initialFormData);
     } catch (error) {
@@ -139,24 +59,42 @@ function AddRiceStock() {
     }
   };
 
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
-  useEffect(() => {
-      axios.get('http://localhost:8000/ricemart/categories/')
-          .then((response) => {
-              setCategories(response.data);
-          })
-          .catch((error) => {
-              console.error('Error fetching categories:', error);
-          });
-  }, []);
-  
-  const handleSelectCategory = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedCategory(selectedValue);
-    setFormData({ ...formData, category: selectedValue });
-  };
+    const [product, setProduct] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState("");
+    const [manager, setManager] = useState([]);
+    const [selectedManager, setSelectedManager] = useState("");
+
+    useEffect(() => {
+      axios.get('http://localhost:8000/ricemart/product/')
+        .then((response) => {
+          setProduct(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+        });
+
+        // Fetch manager for the Receive By field
+      axios.get('http://localhost:8000/api/inventorymanagers/')
+        .then((response) => {
+          setManager(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching managers:', error);
+        });
+    }, []);
+
+    const handleSelectProduct = (e) => {
+      const selectedValue = e.target.value;
+      setSelectedProduct(selectedValue);
+      setFormData({ ...formData, product: selectedValue });
+    }
+    
+    const handleSelectManager = (e) => {
+      const selectedValue = e.target.value;
+      setSelectedManager(selectedValue);
+      setFormData({ ...formData, receive_by: selectedValue });
+    }
   
   
   return (
@@ -173,7 +111,7 @@ function AddRiceStock() {
           background: 'sky-blue',
         }}
       >
-        <Header category="Page" title="Add Rice Stock" />
+        <Header category="Page" title="Receive Rice Stock" />
         <Button buttonText="View Rice Stock" to="/inventory" />
       </div>
       <form 
@@ -181,31 +119,38 @@ function AddRiceStock() {
         className="col-sm-7"
       >
         <div>
-        <label htmlFor="category">Category:</label> 
+        <label htmlFor="product">Product:</label> 
           <select className="form-control"
-              name="category"
-              value={selectedCategory}
-              onChange={handleSelectCategory}
+              name="product"
+              value={selectedProduct}
+              onChange={handleSelectProduct}
           >
               <option value=""></option>
-              {categories.map((category) => (
-                  <option key={category.id} value={category.name}>
-                      {category.name}
+              {product.map((product) => (
+                  <option key={product.id} value={product.id}>
+                      {product.name}
                   </option>
               ))}
           </select>
         </div>
-
-        <InputField label="Item Name" name="item_name" value={formData.item_name} onChange={handleInputChange} />
-        <InputField label="Quantity" name="quantity" value={formData.quantity} onChange={handleInputChange} />
+        <InputField label="Quantity in Stock" name="quantity_in_stock" value={formData.quantity_in_stock} onChange={handleInputChange} />
         <InputField label="Receive Quantity" name="receive_quantity" value={formData.receive_quantity} onChange={handleInputChange} />
-        <InputField label="Receive By" name="receive_by" value={formData.receive_by} onChange={handleInputChange} />
-        <InputField label="Issue Quantity" name="issue_quantity" value={formData.issue_quantity} onChange={handleInputChange} />
-        <InputField label="Issue By" name="issue_by" value={formData.issue_by} onChange={handleInputChange} />
-        <InputField label="Issue To" name="issue_to" value={formData.issue_to} onChange={handleInputChange} />
-        <InputField label="Phone Number" name="phone_number" value={formData.phone_number} onChange={handleInputChange} />
-        <InputField label="Created By" name="created_by" value={formData.created_by} onChange={handleInputChange} />
         <InputField label="Reorder Level" name="reorder_level" value={formData.reorder_level} onChange={handleInputChange} />
+        <div>
+        <label htmlFor="receive_by">Receive By:</label>
+          <select className="form-control"
+              name="receive_by"
+              value={selectedManager}
+              onChange={handleSelectManager}
+          >
+              <option value=""></option>
+              {manager.map((manager) => (
+                  <option key={manager.id} value={manager.id}>
+                      {manager.username}
+                  </option>
+              ))}
+          </select>
+        </div>
         <div>
           <label htmlFor="export_to_CSV" >Export to CSV:</label>
           <input
@@ -217,7 +162,7 @@ function AddRiceStock() {
         </div>
         <div style = {{ padding: "14px" }}>
           <Buttons 
-            buttonText = "Create Rice Stock" 
+            buttonText = "Receive Rice Stock" 
             buttonType = "submit"
           />
         </div>
@@ -227,3 +172,8 @@ function AddRiceStock() {
 
 }
 export default AddRiceStock;
+
+
+
+// Product
+// Categ

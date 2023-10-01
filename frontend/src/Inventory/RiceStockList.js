@@ -63,9 +63,31 @@ function RiceStockList(){
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'product_category', headerName: 'Category', width: 120 },
         { field: 'product_name', headerName: 'Item Name', width: 180 },
-        {field: 'product_quantity_in_stock', headerName: 'Quantity in Stock', width: 180},
-        { field: 'created_by', headerName: 'Created By', width: 140 },
-        { field: 'phone_number', headerName: 'Phone Number', width: 120 },
+        {field: 'quantity_in_stock', headerName: 'Quantity in Stock', width: 180},
+        { field: 'reorder_level', headerName: 'Re-Order Level', width: 140 },
+        {
+            field: 'last_updated',
+            headerName: 'Last Updated',
+            width: 160,
+            renderCell: (params) => {
+                // convert ISO date string to Date object
+                const lastUpdatedDate = new Date(params.value);
+
+                // format date and time
+                const formattedDate = lastUpdatedDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                });
+
+                const formattedTime = lastUpdatedDate.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+                
+                return <span>{`${formattedDate} ${formattedTime}`}</span>;
+            },
+        },
     ];
     
     const toolbarOptions = ['search'];
@@ -88,7 +110,7 @@ function RiceStockList(){
             >
                 <Header category="Page" title="Rice Stock" />
                 <Button 
-                    buttonText = "Add Rice Stock" 
+                    buttonText = "Receive Rice Stock" 
                     to = "/inventory/add-stock"
                 />
             </div>

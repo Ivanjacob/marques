@@ -36,7 +36,7 @@ function Homepage() {
             </Link>
           </li>
             <li className="nav-item">
-              <Link className="nav-link btn-outline-success" to="/logininventory">
+              <Link className="nav-link btn-outline-success" to="/login-inventory">
                 Inventory Management
               </Link>
             </li>

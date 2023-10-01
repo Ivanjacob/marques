@@ -20,6 +20,7 @@ import Homepage from './views/Homepage';
 import Loginpage from './views/Loginpage.js';
 import Registerpage from './views/Registerpage.js';
 import LoginInventory from './views/LoginInventory.js'
+import RegisterInventory from './views/RegisterInventory.js'
 
 import "./App.css";
 import AddRiceStock from './Inventory/AddRiceStock';
@@ -51,7 +52,8 @@ const App = () => {
               <Route exact path="/" element={<HomeScreen/>}/>
               <Route path="/login" element={<Loginpage/>}/>
               <Route path="/register" element={<Registerpage/>}/>
-              <Route path="/logininventory" element={<LoginInventory/>}/>
+              <Route path="/login-inventory" element={<LoginInventory/>}/>
+              <Route path="/register-inventory" element={<RegisterInventory/>} />
             </Routes>
         </AuthProvider>
       </Router>
@@ -61,25 +63,3 @@ const App = () => {
 }
 export default App;
 
-
-// function App() {
-
-//   return (
-//     <div>
-//       <Router>
-//         <AuthProvider>            
-//             <Routes>
-//               <Route element={<PrivateRoute/>}>
-//                 <Route exact path="/" element={<DashboardScreen/>}/>
-//                 <Route path="/users" element={<UserScreen/>}/>
-//               </Route>
-//               <Route path="/login" element={<Loginpage/>}/>
-//               <Route path="/register" element={<Registerpage/>}/>
-//             </Routes>
-//         </AuthProvider>
-//       </Router>
-//     </div>
-//   )
-// }
-
-// export default App

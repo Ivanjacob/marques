@@ -166,7 +166,7 @@ export const AuthProvider = ({children}) => {
             body: JSON.stringify({email, username, password, password2, employee_id})
         })
         if(response.status === 201) {
-            navigate("/login")
+            navigate("/login-inventory")
             swal.fire({
                 title: "Registration Successful, Login Now.",
                 icon: "success",

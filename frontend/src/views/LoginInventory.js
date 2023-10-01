@@ -98,7 +98,7 @@ function LoginInventory() {
                         </a>
                         <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                           Don't have an account?{" "}
-                          <Link to="/register" style={{ color: "#393f81" }}>
+                          <Link to="/register-inventory" style={{ color: "#393f81" }}>
                             Register here
                           </Link>
                         </p>
