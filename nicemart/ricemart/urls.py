@@ -16,6 +16,7 @@ urlpatterns = [
     path('stock/', views.StockListCreateView.as_view(), name='stock'),
     path('stock-edit/', views.StockRetrieveUpdateDestroyView.as_view(),
          name='manage-stock'),
+    path('stock/<int:pk>/', views.StockDetailView.as_view(), name='stock-detail'),
 ]
 
 urlpatterns += router.urls

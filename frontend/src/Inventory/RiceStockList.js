@@ -1,9 +1,23 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import { fetchStocks, createStock, updateStock, deleteStock } from '../utils/stockAxios'
+import { fetchStocks, createStock, updateStock, deleteStock } from '../utils/stockAxios';
+import { Link, useNavigate } from "react-router-dom";
+
 import Header from '../views/Header.js';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '../views/Button.js';
+
+import { createSvgIcon } from '@mui/material/utils';
+import { Tooltip } from '@mui/material'
+import { IconButton } from '@mui/material'
+
+import HomeIcon from '@mui/icons-material/Home';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import SellIcon from '@mui/icons-material/Sell';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import { blue } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
+import Icon from '@mui/material/Icon';
 
 function RiceStockList(){
     
@@ -58,6 +72,16 @@ function RiceStockList(){
         }
     };
 
+    const handleUpdateStockList = async () => {
+        try {
+            const response = await fetchStocks();
+            setRiceStocks(response.data);
+        } catch (error) {
+            console.error('Error fetching rice stock data', error);
+        }
+    }
+
+   
     
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -88,7 +112,39 @@ function RiceStockList(){
                 return <span>{`${formattedDate} ${formattedTime}`}</span>;
             },
         },
+        {
+            field: 'actions',
+            headerName: 'Actions',
+            width: 120,
+            renderCell: (params) => (
+                <div>
+                    <Tooltip title="Receive">
+                    <Link to= {{ 
+                        pathname: "/inventory/receive-product",
+                        state: {productData: riceStocks.id}
+                    }}>
+                        <AddCircleIcon
+                            style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
+                            sx={{ color: blue[600], fontSize: 25 }}
+                        />
+                    </Link>
+                    </Tooltip>
+                    <Tooltip title="Issue">
+                        <SellIcon
+                            style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
+                            sx={{ color: blue[600], fontSize: 25 }}
+                            onClick = {() => handleEditClick(params.row.id)}
+                        />
+                    </Tooltip>
+                </div>
+            )
+        }
     ];
+    const navigate = useNavigate();
+    
+    const handleEditClick = (id) => {
+        navigate(`/inventory/receive-product/${id}`)
+    };
     
     const toolbarOptions = ['search'];
 
@@ -110,7 +166,7 @@ function RiceStockList(){
             >
                 <Header category="Page" title="Rice Stock" />
                 <Button 
-                    buttonText = "Receive Rice Stock" 
+                    buttonText = "Add Rice Stock" 
                     to = "/inventory/add-stock"
                 />
             </div>

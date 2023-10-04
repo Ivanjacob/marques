@@ -43,7 +43,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name} - {self.category} - {self.description} - KSh.{self.price} - {self.created_by.username}'
+        return f'{self.name} - {self.category} - {self.description} - KSh.{self.price} - {self.created_by}'
 
 
 @receiver(post_save, sender=Product)

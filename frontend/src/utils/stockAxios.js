@@ -15,6 +15,8 @@ export const deleteRiceStock = (id) => stockAxios.delete(`${baseURL}rice-stock/$
  
 // fetch stock data
 export const fetchStocks = () => stockAxios.get(`${baseURL}stock/`);
+// fetch stock by id
+export const fetchStockById = (id) => stockAxios.get(`${baseURL}stock/${id}/`);
 // create a new stock entry
 export const createStock = (newStock) => stockAxios.post(`${baseURL}stock/`, newStock);
 // update a stock entry by ID

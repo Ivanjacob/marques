@@ -31,9 +31,7 @@ function AddProduct() {
         name: "",
         category: "",
         description: "",
-        quantity: "",
         price: "",
-        quantity_in_stock: "",
     };
 
     const [formData, setFormData ] = useState(initialFormData);
@@ -114,9 +112,7 @@ function AddProduct() {
                         </select>
                     </div>
                     <InputField label="Description" name="description" value={formData.description} onChange={handleInputChange} />
-                    <InputField label="Quantity" name="quantity" value={formData.quantity} onChange={handleInputChange} />
                     <InputField label="Price" name="price" value={formData.price} onChange={handleInputChange} />
-                    <InputField label="Quantity in Stock" name="quantity_in_stock" value={formData.quantity_in_stock} onChange={handleInputChange} />
                     <div style={{ padding: "14px" }}>
                         <Buttons 
                             buttonText = "Add Product" 

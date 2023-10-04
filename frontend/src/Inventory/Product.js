@@ -38,9 +38,7 @@ function Product() {
         {field: 'name', headerName: 'Name', width: 170},
         {field: 'category', headerName: 'Category', width: 170},
         {field: 'description', headerName: 'Description', width: 130},
-        {field: 'quantity', headerName: 'Quantity', width: 130},
         {field: 'price', headerName: 'Price', width: 130},
-        {field: 'quantity_in_stock', headerName: 'Quantity in Stock', width: 100},        
         {
             field: 'actions',
             headerName: 'Actions',

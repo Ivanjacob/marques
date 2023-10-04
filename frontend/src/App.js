@@ -14,7 +14,9 @@ import CustomerScreen from './screens/CustomerScreen.js';
 import HomeScreen from './screens/HomeScreen';
 import InventoryScreen from './screens/InventoryScreen.js';
 import ProductInventory from './screens/ProductInventory.js';
-import AddProductScreen from './screens/AddProductScreen.js'
+import AddProductScreen from './screens/AddProductScreen.js';
+import ReceiveScreen from './screens/ReceiveScreen.js';
+import IssueScreen from './screens/IssueScreen.js';
 
 import Homepage from './views/Homepage';
 import Loginpage from './views/Loginpage.js';
@@ -48,6 +50,8 @@ const App = () => {
                 <Route path="/inventory/products" element = {<ProductInventory/>} />
                 <Route path="/inventory/add-product" element = {<AddProductScreen/>} />
                 <Route path="/inventory/edit-product/:id" element ={<EditProductScreen/>} />
+                <Route path="/inventory/issue-product" element={<IssueScreen/>} />
+                <Route path="/inventory/receive-product/:id" element = {<ReceiveScreen/>} />
               </Route>
               <Route exact path="/" element={<HomeScreen/>}/>
               <Route path="/login" element={<Loginpage/>}/>

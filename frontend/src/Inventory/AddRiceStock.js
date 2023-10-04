@@ -45,13 +45,13 @@ function AddRiceStock() {
     e.preventDefault();
     try {
       // Calculate the new quantity in stock by adding the receive quantity to the current quantity in stock
-      const newQuantityInStock = parseInt(formData.quantity_in_stock) + parseInt(formData.receive_quantity);
+      const newQuantityInStock = parseInt(formData.quantity_in_stock)
 
       // Create a new object with the updated quantity_in_stock
       const updatedFormData = { ...formData, quantity_in_stock: newQuantityInStock };
 
       await createStock(updatedFormData);
-      
+
       // Clear the form after successfully creating a rice stock entry
       setFormData(initialFormData);
     } catch (error) {
@@ -111,7 +111,7 @@ function AddRiceStock() {
           background: 'sky-blue',
         }}
       >
-        <Header category="Page" title="Receive Rice Stock" />
+        <Header category="Page" title="Add Rice Stock" />
         <Button buttonText="View Rice Stock" to="/inventory" />
       </div>
       <form 
@@ -134,7 +134,6 @@ function AddRiceStock() {
           </select>
         </div>
         <InputField label="Quantity in Stock" name="quantity_in_stock" value={formData.quantity_in_stock} onChange={handleInputChange} />
-        <InputField label="Receive Quantity" name="receive_quantity" value={formData.receive_quantity} onChange={handleInputChange} />
         <InputField label="Reorder Level" name="reorder_level" value={formData.reorder_level} onChange={handleInputChange} />
         <div>
         <label htmlFor="receive_by">Receive By:</label>
@@ -162,7 +161,7 @@ function AddRiceStock() {
         </div>
         <div style = {{ padding: "14px" }}>
           <Buttons 
-            buttonText = "Receive Rice Stock" 
+            buttonText = "Add Rice Stock" 
             buttonType = "submit"
           />
         </div>

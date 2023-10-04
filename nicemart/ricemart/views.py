@@ -28,6 +28,11 @@ class StockRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StockSerializer
 
 
+class StockDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Stock.objects.all()
+    serializer_class = StockSerializer
+
+
 class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
 

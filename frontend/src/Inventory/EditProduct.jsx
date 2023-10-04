@@ -157,7 +157,7 @@ function EditProduct() {
         <div style={{ padding: '14px' }}>
           <Buttons buttonText="Update Product" buttonType="submit" />
         </div>
-      </form>
+      </form> 
     </div>
   );
 }
