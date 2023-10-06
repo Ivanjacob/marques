@@ -75,7 +75,9 @@ class RiceStock(models.Model):
 class Stock(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity_in_stock = models.PositiveBigIntegerField(default=0)
-    receive_quantity = models.IntegerField(default=0)
+    receive_quantity = models.IntegerField(default=0, blank=True, null=True)
+    added_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='added_by', null=True, blank=True)
     receive_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='received_stock', null=True, blank=True)
     issue_quantity = models.IntegerField(default=0)

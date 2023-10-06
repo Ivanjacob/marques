@@ -10,13 +10,13 @@ import Button from '../views/Button.js';
 
 import Buttons from './Buttons.jsx';
 
-function InputField ({ label, name, value, onChange }) {
+function InputField ({ label, name, value, type, onChange }) {
     return (
         <div>
             <label htmlFor={name}>{label}:</label>
             <input
                 className="form-control"
-                type="text"
+                type={type}
                 name={name}
                 value={value}
                 onChange={onChange}
@@ -122,6 +122,7 @@ function EditStock(){
             <InputField
                 label="Quantity"
                 name="receive_stock"
+                type="number"
                 //value={product.quantity_in_stock}
                 value = {formData.receive_stock}
                 onChange={handleInputChange}

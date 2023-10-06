@@ -9,6 +9,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { blue } from '@mui/material/colors';
 import { red } from '@mui/material/colors';
 
+import { Tooltip } from '@mui/material'
+import { IconButton } from '@mui/material'
+
 
 import Header from '../views/Header.js';
 import Button from '../views/Button.js';
@@ -38,24 +41,27 @@ function Product() {
         {field: 'name', headerName: 'Name', width: 170},
         {field: 'category', headerName: 'Category', width: 170},
         {field: 'description', headerName: 'Description', width: 130},
-        {field: 'price', headerName: 'Price', width: 130},
+        {field: 'price', headerName: 'Price', width: 130, valueGetter: (params) => `KSh. ${params.value}`}, // ValueGetter is used to add KSh. sign to price
         {
             field: 'actions',
             headerName: 'Actions',
             width: 120,
             renderCell: (params) => (
                 <div>
-                    <EditIcon 
-                        style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
-                        sx={{ color: blue[600], fontSize: 25 }}
-                        onClick = {() => handleEditClick(params.row.id)}
-                    />
-                    <DeleteRoundedIcon 
-                        style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
-                        sx={{ color: red[600], fontSize: 25 }}
-                        onClick = {() => handleDeleteClick(params.row.id)}
-
-                    />
+                    <Tooltip title="Edit">
+                        <EditIcon 
+                            style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
+                            sx={{ color: blue[600], fontSize: 25 }}
+                            onClick = {() => handleEditClick(params.row.id)}
+                        />
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                        <DeleteRoundedIcon 
+                            style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
+                            sx={{ color: red[600], fontSize: 25 }}
+                            onClick = {() => handleDeleteClick(params.row.id)}
+                        />
+                    </Tooltip>
                 </div>
             )
         }

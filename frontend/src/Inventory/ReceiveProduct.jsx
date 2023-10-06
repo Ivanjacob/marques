@@ -12,9 +12,9 @@
 
 // Let's create ReceiveProduct.js code for receiving stock
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchStockById, updateStock } from '../utils/stockAxios';
+import { fetchStockById, fetchProductName, updateStock } from '../utils/stockAxios';
 
 import jwt_decode from 'jwt-decode';
 
@@ -39,40 +39,73 @@ function InputField ({ label, name, value, type, onChange }) {
 }
 
 
-function ReceiveProduct() {
-    const token = localStorage.getItem("authTokens")
-    
+function ReceiveProduct(){
+
+    const token = localStorage.getItem("authTokens");
+    const navigate = useNavigate();
+
     if(token){
-        const decode = jwt_decode(token)
-        var username = decode.username
+        const decode = jwt_decode(token);
+        var username = decode.username;
     }
 
     const { id } = useParams();
-    const navigate = useNavigate();
-    const [receiveQuantity, setReceiveQuantity] = useState(0);
+    const [receive_stock, setReceiveStock] = useState(0);
+    const [productName, setProductName] = useState("");
 
-    const handleReceive = async() => {
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetchStockById(id);
+                const currentStock = response.data;
+
+                setReceiveStock(currentStock.quantity_in_stock);
+                setProductName(currentStock.product_name);
+
+                // Fetch the product name based on the product ID
+                // Replace fetchProductName with the actual function to fetch the product name
+                //const productNameResponse = await fetchProductName(currentStock.product);
+                //setProductName(productNameResponse.data.name);
+                
+            } catch (error) {
+                console.error("Error receiving product:", error);
+            }
+        }
+        fetchData();
+    }, [id]);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setReceiveStock(value);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         try {
-            // Fetch the existing stock data for the selected product 
+            //const navigate = useNavigate();
             const response = await fetchStockById(id);
-            const existingStock = response.data;
+            const currentStock = response.data;
+            const newQuantityInStock = parseInt(currentStock.quantity_in_stock) + parseInt(receive_stock);
 
-            // calculate the new quantity in stock by adding the receive quantity
-            const newQuantityInStock = existingStock.quantity_in_stock + parseInt(receiveQuantity);
+            const updatedStockData = {
+                ...currentStock,
+                quantity_in_stock: newQuantityInStock,
+            };
 
-            //Update the stock with the new quantity in stock
-            await updateStock(id, { quantity_in_stock: newQuantityInStock });
-
+            await updateStock(id, updatedStockData);
+            
             // Redirect back to the RiceStockList page
-            navigate("/inventory");
-        } catch (error) {
-            console.error('Error receiving product:', error);
+            navigate('/inventory');
+
+        } catch (error){
+            console.error("Error receiving product:", error);
         }
     };
 
 
-    return(
 
+    return(
         <div
             style={{
                 margin: '2rem',
@@ -97,28 +130,142 @@ function ReceiveProduct() {
                 <Header category="Page" title="Receive Stock" />
                 <Button buttonText="View Stock" to="/inventory" />
             </div>
-            <form onSubmit={handleReceive} className="col-sm-7" 
-                style={{ 
-                    boxShadow: ' 9px 15px 10px 0px rgba(0,125,125, 0.4)', 
-                }}>
-                <p>Product:  </p> 
-                <br/>
+            <form
+                onSubmit={handleSubmit}
+                className="col-sm-7"
+                style={{
+                    boxShadow: ' 9px 15px 10px 0px rgba(0,125,125, 0.4)',
+                }}
+            >
+                <p>
+                    <b>Product: <span style={{ color: 'red', fontStyle: 'italic' }} >{productName}</span></b>
+                    <img src="https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/M.R.G-products-kenya-select-1-300x228-removebg.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1280" alt="Product " />
+                    </p>
+                <br />
                 <InputField
                     type="number"
-                    label="Quantity"
+                    label="Receive Quantity"
                     name="receive_stock"
-                    //value={product.quantity_in_stock}
-                    value = {receiveQuantity}
-                    onChange={(e) => setReceiveQuantity(e.target.value)}
+                    value={receive_stock}
+                    onChange={handleInputChange}
                 />
-                <br/>
-                <p><i>Received By: <b>{username}</b></i> </p>
+                <br />
+                <p><i>Received By: <b>{username}</b></i></p>
                 <div style={{ padding: '14px' }}>
                     <Buttons buttonText="Receive Product" buttonType="submit" />
                 </div>
             </form>
         </div>
     )
-};
-
+}
 export default ReceiveProduct;
+
+
+
+
+// class ReceiveProduct extends Component {
+    
+//     constructor(props){
+//         super(props);
+//         this.state = {
+//             receive_stock: 0, // Initialize with 0
+//         };
+//     }
+
+//     handleInputChange = (e) => {
+//         const { name, value } = e.target;
+//         this.setState({ [name]: value });
+//     };
+
+//     handleSubmit = async (e) => {
+//         e.preventDefault();
+//         componentDidMount();{
+//             const { id } = this.props.match.params;
+//         };
+//         try {
+            
+//             const navigate = useNavigate();
+//             const response = await fetchStockById(id);
+//             const currentStock = response.data;
+//             const newQuantityInStock = parseInt(currentStock.quantity_in_stock) + parseInt(this.state.receive_stock);
+
+//             const updatedStockData = {
+//                 ...currentStock,
+//                 quantity_in_stock: newQuantityInStock,
+//             };
+
+//             await updateStock(id, updatedStockData);
+
+//             // Redirect back to the RiceStockList page
+//             navigate('/inventory');
+
+//         } catch (error) {
+//             console.error("Error receiving product:", error);
+//         }
+//     };
+
+
+//     render(){
+        
+        
+//         const token = localStorage.getItem("authTokens")
+
+//         if(token){
+//             const decode = jwt_decode(token)
+//             var username = decode.username
+//         }
+
+//         return( 
+//             <div
+//                 style={{
+//                     margin: '2rem',
+//                     marginTop: '2rem',
+//                     padding: '0.5rem',
+//                     backgroundColor: '#fff',
+//                     borderRadius: '1.5rem',
+//                 }}
+//             >
+//             <div
+//                 style={{
+//                     display: 'flex',
+//                     justifyContent: 'space-between',
+//                     padding: '2px',
+//                     marginLeft: '6px',
+//                     marginRight: '6px',
+//                     position: 'relative',
+//                     alignItems: 'center',
+//                     background: 'sky-blue',
+//                 }}
+//             >
+//                 <Header category="Page" title="Receive Stock" />
+//                 <Button buttonText="View Stock" to="/inventory" />
+//             </div>
+//             <form  
+//                 onSubmit={this.handleSubmit}
+//                 className="col-sm-7" 
+//                 style={{ 
+//                     boxShadow: ' 9px 15px 10px 0px rgba(0,125,125, 0.4)', 
+//                 }}>
+//                 <p>Product:  </p> 
+//                 <br/>
+//                 <InputField
+//                     type="number"
+//                     label="Quantity"
+//                     name="receive_stock"
+//                     value={this.state.receive_stock}
+//                     onChange={this.handleInputChange}
+//                     //value={product.quantity_in_stock}
+//                     //value = {receiveQuantity}
+//                     //onChange={(e) => setReceiveQuantity(e.target.value)}
+//                 />
+//                 <br/>
+//                 <p><i>Received By: <b>{username}</b></i> </p>
+//                 <div style={{ padding: '14px' }}>
+//                     <Buttons buttonText="Receive Product" buttonType="submit" />
+//                 </div>
+//             </form>
+//         </div>
+//         );
+//     }
+// }
+// export default ReceiveProduct;

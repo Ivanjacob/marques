@@ -9,13 +9,13 @@ import Button from '../views/Button.js';
 
 import Buttons from './Buttons.jsx';
 
-function InputField({ label, name, value, onChange }) {
+function InputField({ label, name, value, type, onChange }) {
   return (
     <div>
       <label htmlFor={name}>{label}:</label>
       <input 
         className="form-control"
-        type="text"
+        type={type}
         name={name}
         value={value}
         onChange={onChange}
@@ -28,8 +28,7 @@ function AddRiceStock() {
   const initialFormData = {
     product: "",
     quantity_in_stock: "",
-    receive_quantity: "",
-    receive_by: "",
+    added_by: "",
     reorder_level: "",
     export_to_CSV: false,
   };
@@ -117,6 +116,9 @@ function AddRiceStock() {
       <form 
         onSubmit={handleSubmit}
         className="col-sm-7"
+        style={{
+          boxShadow: ' 9px 15px 10px 0px rgba(0,125,125, 0.4)', 
+        }}
       >
         <div>
         <label htmlFor="product">Product:</label> 
@@ -133,12 +135,24 @@ function AddRiceStock() {
               ))}
           </select>
         </div>
-        <InputField label="Quantity in Stock" name="quantity_in_stock" value={formData.quantity_in_stock} onChange={handleInputChange} />
-        <InputField label="Reorder Level" name="reorder_level" value={formData.reorder_level} onChange={handleInputChange} />
+        <InputField 
+          label="Quantity in Stock" 
+          name="quantity_in_stock" 
+          type="number"
+          value={formData.quantity_in_stock} 
+          onChange={handleInputChange}
+        />
+        <InputField 
+          label="Reorder Level"  
+          name="reorder_level" 
+          type="number"
+          value={formData.reorder_level} 
+          onChange={handleInputChange}
+        />
         <div>
-        <label htmlFor="receive_by">Receive By:</label>
+        <label htmlFor="added_by">Added By:</label>
           <select className="form-control"
-              name="receive_by"
+              name="added_by"
               value={selectedManager}
               onChange={handleSelectManager}
           >

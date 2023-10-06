@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState }from 'react'
 import jwt_decode from "jwt-decode"
 import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 
 import { Tooltip } from '@mui/material'
@@ -21,6 +22,12 @@ import UserProfile from '../views/UserProfile.js';
 import avatar from '../data/avatar.jpg'
 
 export default function Navbars() {
+
+  const { logoutInventory } = useContext(AuthContext);
+
+  const handleLogoutClick = () => {
+    logoutInventory();
+  };
 
   const token = localStorage.getItem("authTokens")
 
@@ -51,6 +58,11 @@ export default function Navbars() {
           <IconButton>
             <NotificationIcon size={60} sx={{ color: blue[500] }} />
           </IconButton>
+        </Tooltip>
+        <Tooltip title="Logout">
+            <IconButton onClick={handleLogoutClick}>
+              <PowerSettingsNewIcon size={60} sx={{ color: blue[500] }}/>
+            </IconButton>
         </Tooltip>
         <Tooltip title="Profile" position="BottomCenter">
           <div  className="flex items-center"
@@ -91,6 +103,8 @@ export default function Navbars() {
 
 
 
-
+// <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 16 16" style={{ color: 'blue' }}>
+//                 <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H2a2 2 0 01-2-2zm4.5 3.5a.5.5 0 000 .707L6.793 8 4.5 10.293a.5.5 0 10.707.707L8 8.707l2.293 2.293a.5.5 0 00.707-.707L8.707 8l2.293-2.293a.5.5 0 00-.707-.707L8 7.293 5.707 4z"/>
+//               </svg>
 
 

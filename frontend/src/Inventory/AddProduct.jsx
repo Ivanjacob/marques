@@ -10,13 +10,13 @@ import Button from '../views/Button.js';
 
 import Buttons from './Buttons.jsx';
 
-function InputField ({ label, name, value, onChange }) {
+function InputField ({ label, name, value, type, onChange }) {
     return (
         <div >
             <label htmlFor={name}>{label}:</label>
             <input
                 className="form-control"
-                type="text"
+                type={type}
                 name={name}
                 value={value}
                 onChange={onChange}
@@ -95,7 +95,13 @@ function AddProduct() {
                 onSubmit={handleSubmit}
                 className="col-sm-7" 
             >
-                    <InputField label="Name" name="name" value={formData.name} onChange={handleInputChange} />
+                    <InputField 
+                        label="Name" 
+                        name="name"
+                        type="text"
+                        value={formData.name} 
+                        onChange={handleInputChange}
+                    />
                     <div>
                         <label htmlFor="category">Category:</label> 
                         <select className="form-control"
@@ -111,8 +117,20 @@ function AddProduct() {
                             ) )}
                         </select>
                     </div>
-                    <InputField label="Description" name="description" value={formData.description} onChange={handleInputChange} />
-                    <InputField label="Price" name="price" value={formData.price} onChange={handleInputChange} />
+                    <InputField 
+                        label="Description" 
+                        name="description" 
+                        type="text"
+                        value={formData.description} 
+                        onChange={handleInputChange}
+                    />
+                    <InputField 
+                        label="Price" 
+                        name="price"
+                        type="number" 
+                        value={formData.price} 
+                        onChange={handleInputChange}
+                    />
                     <div style={{ padding: "14px" }}>
                         <Buttons 
                             buttonText = "Add Product" 

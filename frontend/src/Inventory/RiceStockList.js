@@ -87,8 +87,29 @@ function RiceStockList(){
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'product_category', headerName: 'Category', width: 120 },
         { field: 'product_name', headerName: 'Item Name', width: 180 },
-        {field: 'quantity_in_stock', headerName: 'Quantity in Stock', width: 180},
-        { field: 'reorder_level', headerName: 'Re-Order Level', width: 140 },
+        { 
+            field: 'quantity_in_stock', 
+            headerName: 'Quantity in Stock', 
+            width: 180,
+            renderCell: (params) => {
+                const isLowStock =  params.value < params.row.reorder_level;
+                const cellStyle = isLowStock ? { 
+                    backgroundColor: 'red',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '4px',
+                } : {};
+                const textStyle = isLowStock ? { color: 'white' } : {} // Define the inline style object
+
+                return (
+                    <div style={cellStyle}>
+                        <span style={textStyle}>{params.value}</span>
+                    </div>
+                )
+            }
+        },
+        { field: 'reorder_level', headerName: 'Re-Order Level', width: 140,},
         {
             field: 'last_updated',
             headerName: 'Last Updated',
@@ -119,21 +140,17 @@ function RiceStockList(){
             renderCell: (params) => (
                 <div>
                     <Tooltip title="Receive">
-                    <Link to= {{ 
-                        pathname: "/inventory/receive-product",
-                        state: {productData: riceStocks.id}
-                    }}>
                         <AddCircleIcon
                             style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
                             sx={{ color: blue[600], fontSize: 25 }}
+                            onClick = {() => handleReceiveClick(params.row.id)}
                         />
-                    </Link>
                     </Tooltip>
                     <Tooltip title="Issue">
                         <SellIcon
                             style = {{ marginLeft: '0.5rem', cursor: "pointer" }}
                             sx={{ color: blue[600], fontSize: 25 }}
-                            onClick = {() => handleEditClick(params.row.id)}
+                            onClick = {() => handleIssueClick(params.row.id)}
                         />
                     </Tooltip>
                 </div>
@@ -142,9 +159,13 @@ function RiceStockList(){
     ];
     const navigate = useNavigate();
     
-    const handleEditClick = (id) => {
+    const handleReceiveClick = (id) => {
         navigate(`/inventory/receive-product/${id}`)
     };
+
+    const handleIssueClick = (id) => {
+        navigate(`/inventory/issue-product/${id}`)
+    }
     
     const toolbarOptions = ['search'];
 
@@ -164,7 +185,7 @@ function RiceStockList(){
                     background: 'sky-blue',
                 }} 
             >
-                <Header category="Page" title="Rice Stock" />
+                <Header category="Page" title="Products in Stock" />
                 <Button 
                     buttonText = "Add Rice Stock" 
                     to = "/inventory/add-stock"

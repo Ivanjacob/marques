@@ -206,6 +206,21 @@ export const AuthProvider = ({children}) => {
             showConfirmButton: false,
         })
     };
+    const logoutInventory = () => {
+        setAuthTokens(null)
+        setUser(null)
+        localStorage.removeItem("authTokens")
+        navigate("/login-inventory")
+        swal.fire({
+            title: "Logout Successful.",
+            icon: "success",
+            toast: true,
+            timer: 6000,
+            position: 'top',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
+    };
 
     useEffect(() => {
         const storedToken = localStorage.getItem("authTokens");
@@ -237,6 +252,7 @@ export const AuthProvider = ({children}) => {
         loginUser,
         logoutUser,
         loginInventory,
+        logoutInventory,
         screenSize,
         setScreenSize,
         activeMenu,
