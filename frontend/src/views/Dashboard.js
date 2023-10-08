@@ -1,8 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react'
-import useAxios from "../utils/useAxios"
-import jwt_decode from 'jwt-decode'
+import React, { useState, useEffect } from 'react';
+import useAxios from "../utils/useAxios";
+import jwt_decode from 'jwt-decode';
+
+import BasicSparkLineCustomization from './SparkLine';
+import Stacked from './Stacked';
+import CircleIcon from '@mui/icons-material/Circle';
+import Buttons from '../Inventory/Buttons';
 
 
 function Dashboard() {
@@ -19,197 +24,103 @@ function Dashboard() {
     var image = decode.image
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("/test/")
-        setRes(response.data.response)
-      } catch (error) {
-        console.log(error)
-        setRes("Something went wrong")
-      }
-    }
-    fetchData()
-  }, [api])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await api.get("/test/")
+  //       setRes(response.data.response)
+  //     } catch (error) {
+  //       console.log(error)
+  //       setRes("Something went wrong")
+  //     }
+  //   }
+  //   fetchData()
+  // }, [api])
 
-  useEffect(() => {
-    const fetchPostData = async () => {
-      try {
-        const response = await api.post("/test/")
-        setRes(response.data.response)
-      } catch (error) {
-        console.log(error)
-        setRes("Something went wrong")
-      }
-    }
-    fetchPostData()
-  }, [api])
+  // useEffect(() => {
+  //   const fetchPostData = async () => {
+  //     try {
+  //       const response = await api.post("/test/")
+  //       setRes(response.data.response)
+  //     } catch (error) {
+  //       console.log(error)
+  //       setRes("Something went wrong")
+  //     }
+  //   }
+  //   fetchPostData()
+  // }, [api])
 
   return (
-    <div>
-      <>
-        <div className="container-fluid">
-          <div >
-            <main role="main" className="pt-3 px-1">
-              <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 className="h2">Dashboard</h1>
-                <span>Hello {username}!</span>
-                <div className="btn-toolbar mb-2 mb-md-0">
-                  <div className="btn-group mr-2">
-                    <button className="btn btn-sm btn-outline-secondary">
-                      Share
-                    </button>
-                    <button className="btn btn-sm btn-outline-secondary">
-                      Export
-                    </button>
-                  </div>
-                  <button className="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar" />
-                    This week
-                  </button>
-                </div>
-              </div>
-              <div className='alert alert-success'>
-                <strong>{res}</strong>
-              </div>
-              <h2>Employees</h2>
-              <div className="table-responsive">
-                <table className="table table-striped table-sm">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>County</th>
-                      <th>City</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1,001</td>
-                      <td>Lorem</td>
-                      <td>ipsum</td>
-                      <td>dolor</td>
-                      <td>sit</td>
-                    </tr>
-                    <tr>
-                      <td>1,002</td>
-                      <td>amet</td>
-                      <td>consectetur</td>
-                      <td>adipiscing</td>
-                      <td>elit</td>
-                    </tr>
-                    <tr>
-                      <td>1,003</td>
-                      <td>Integer</td>
-                      <td>nec</td>
-                      <td>odio</td>
-                      <td>Praesent</td>
-                    </tr>
-                    <tr>
-                      <td>1,003</td>
-                      <td>libero</td>
-                      <td>Sed</td>
-                      <td>cursus</td>
-                      <td>ante</td>
-                    </tr>
-                    <tr>
-                      <td>1,004</td>
-                      <td>dapibus</td>
-                      <td>diam</td>
-                      <td>Sed</td>
-                      <td>nisi</td>
-                    </tr>
-                    <tr>
-                      <td>1,005</td>
-                      <td>Nulla</td>
-                      <td>quis</td>
-                      <td>sem</td>
-                      <td>at</td>
-                    </tr>
-                    <tr>
-                      <td>1,006</td>
-                      <td>nibh</td>
-                      <td>elementum</td>
-                      <td>imperdiet</td>
-                      <td>Duis</td>
-                    </tr>
-                    <tr>
-                      <td>1,007</td>
-                      <td>sagittis</td>
-                      <td>ipsum</td>
-                      <td>Praesent</td>
-                      <td>mauris</td>
-                    </tr>
-                    <tr>
-                      <td>1,008</td>
-                      <td>Fusce</td>
-                      <td>nec</td>
-                      <td>tellus</td>
-                      <td>sed</td>
-                    </tr>
-                    <tr>
-                      <td>1,009</td>
-                      <td>augue</td>
-                      <td>semper</td>
-                      <td>porta</td>
-                      <td>Mauris</td>
-                    </tr>
-                    <tr>
-                      <td>1,010</td>
-                      <td>massa</td>
-                      <td>Vestibulum</td>
-                      <td>lacinia</td>
-                      <td>arcu</td>
-                    </tr>
-                    <tr>
-                      <td>1,011</td>
-                      <td>eget</td>
-                      <td>nulla</td>
-                      <td>Class</td>
-                      <td>aptent</td>
-                    </tr>
-                    <tr>
-                      <td>1,012</td>
-                      <td>taciti</td>
-                      <td>sociosqu</td>
-                      <td>ad</td>
-                      <td>litora</td>
-                    </tr>
-                    <tr>
-                      <td>1,013</td>
-                      <td>torquent</td>
-                      <td>per</td>
-                      <td>conubia</td>
-                      <td>nostra</td>
-                    </tr>
-                    <tr>
-                      <td>1,014</td>
-                      <td>per</td>
-                      <td>inceptos</td>
-                      <td>himenaeos</td>
-                      <td>Curabitur</td>
-                    </tr>
-                    <tr>
-                      <td>1,015</td>
-                      <td>sodales</td>
-                      <td>ligula</td>
-                      <td>in</td>
-                      <td>libero</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </main>
+    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div style={{
+        backgroundColor: 'white',
+        margin: '13px',
+        padding: '4px',
+        borderRadius: '1rem',
+        width: '850px',
+      }}>
+
+        <div className="flex justify-between" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p className="font-semibold text-xl" style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>
+          Revenue Updates</p>
+          <div className="flex items-center gap-4" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl"  style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'gray' }}>
+              <span>
+                <CircleIcon />
+              </span>
+              <span>Expense</span>
+            </p>
+            <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'green' }}>
+              <span>
+                <CircleIcon />
+              </span>
+              <span>Budget</span>
+            </p>
           </div>
         </div>
-        {/* Bootstrap core JavaScript
-          ================================================== */}
-        {/* Placed at the end of the document so the pages load faster */}
-        {/* Icons */}
-        {/* Graphs */}
-      </>
-  
+
+        <div style={{ display: 'flex', borderRadius: '2rem' }} >
+          <div style={{ borderRight: '1px solid border-color', margin: '1rem'}}>
+            <div>
+              <p>
+                <span className="text-3xl font-semibold" style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>$93,438</span>
+                <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs"
+                  style={{
+                    padding: '0.375rem', // Equivalent to p-1.5
+                    cursor: 'pointer', 
+                    borderRadius: '9999px', // A large value to make it rounded like rounded-full
+                    color: 'white',
+                    backgroundColor: 'green',
+                    marginLeft: '0.75rem', // Equivalent to ml-3
+                    fontSize: '0.75rem' // Equivalent to text-xs
+                  }}>
+                  23%
+                </span>
+              </p>
+              <p className="text-gray-500 mt-1" style={{ color: '#718096', marginTop: '0.25rem' }}>Budget</p>
+            </div>
+            <div className="mt-8">
+              <p className="text-3xl font-semibold" style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>$48,487</p>
+
+              <p className="text-gray-500 mt-1" style={{ color: '#718096', marginTop: '0.25rem' }}>Expense</p>
+            </div>
+
+            <div className="mt-5">
+              <BasicSparkLineCustomization id="line-sparkLine" type="Line" height="80px" width="250px" />
+            </div>
+            <div className="mt-10" style={{ marginTop: '0.5rem' }}>
+              <Buttons
+                buttonText="Download Report"
+              />
+            </div>
+          </div>
+
+          <div style={{ borderRight: '1px solid border-color', margin: '1rem', paddingRight: '25rem' }}>
+            <Stacked width="320px" height="360px" />
+          </div>
+        </div>
+
+      </div>
     </div>
   )
 }

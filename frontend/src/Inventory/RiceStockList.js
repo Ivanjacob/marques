@@ -199,10 +199,16 @@ function RiceStockList(){
                 autoHeight
                 allowPaging
                 allowSorting
-                toolbarOptions={toolbarOptions}
-                editSettings={editing}
-                pageSettings={{ pageSize: 10 }}
+                toolbarOptions={toolbarOptions}                
                 pageSizeOptions={[10, 25]}
+                initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
+                    },
+                  }}
+                  disableRowSelectionOnClick
 //                checkboxSelection
                 //onRowDoubleClick={(row) => setFormData(row.data)}
             />

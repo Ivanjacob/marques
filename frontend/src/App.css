@@ -44,3 +44,7 @@ a.disabled {
   margin-left: 280px;
   background-color: #f8f9fa;
 }
+/* CSS stylesheet */
+.custom-hover-effect:hover {
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebars from '../views/Sidebars';
 import Navbars from '../views/Navbars';
+import Orders from '../Pages/Orders';
 
 function OrderScreen() {
   return (
@@ -8,7 +9,7 @@ function OrderScreen() {
         <Sidebars/>
         <main className="main-wrap">
             <Navbars />
-            <h2>List of Orders</h2>
+            <Orders />
         </main>
     </div>
   )

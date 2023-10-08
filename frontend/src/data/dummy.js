@@ -899,7 +899,7 @@ export const ordersGrid = [
     textAlign: 'Center',
     editType: 'numericedit',
     width: '150',
-  },
+  }, 
   {
     headerText: 'Status',
     template: gridOrderStatus,

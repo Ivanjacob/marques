@@ -38,6 +38,8 @@ function IssueProduct() {
     const { id } = useParams();
     const [issue_stock, setIssueStock] = useState(0);
     const [productName, setProductName] = useState("");
+    const [issueTo, setIssueTo] = useState("");
+
 
     useEffect(() => {
         async function fetchData() {
@@ -47,11 +49,6 @@ function IssueProduct() {
 
                 setProductName(currentStock.product_name);
                 setIssueStock(currentStock.quantity_in_stock);
-
-                // Fetch the product name based on the product ID
-                // Replace fetchProductName with the actual function to fetch the product name
-                //const productNameResponse = await fetchProductName(currentStock.product);
-                //setProductName(productNameResponse.data.name);
                 
             } catch (error) {
                 console.error("Error issueing product:", error);
@@ -64,6 +61,11 @@ function IssueProduct() {
         const { name, value } = e.target;
         setIssueStock(value);
     }
+    const handleIssueToChange = (e) => {
+        const { value } = e.target;
+        setIssueTo(value);
+      };
+      
 
 
     const handleSubmit = async (e) => {
@@ -78,6 +80,7 @@ function IssueProduct() {
             const updatedStockData = {
                 ...currentStock,
                 quantity_in_stock: newQuantityInStock,
+                issue_to: issueTo, // Include the issueTo value in the updated stock data
             };
 
             await updateStock(id, updatedStockData);
@@ -139,9 +142,9 @@ function IssueProduct() {
             <InputField
                 type="text"
                 label="Issue to"
-                name="receive_stock"
-                //value={receive_stock}
-                //onChange={handleInputChange}
+                name="issue_to"
+                value={issueTo}
+                onChange={handleIssueToChange}
             />
             <br />
             <p><i>Issued By: <b>{username}</b></i></p>

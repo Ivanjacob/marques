@@ -53,25 +53,6 @@ def update_created_by(sender, instance, created, **kwargs):
         instance.save()
 
 
-class RiceStock(models.Model):
-    category = models.CharField(max_length=50, blank=True, null=True)
-    item_name = models.CharField(max_length=50, blank=True, null=True)
-    quantity = models.IntegerField(default=0, blank=True, null=True)
-    receive_quantity = models.IntegerField(default=0, blank=True, null=True)
-    receive_by = models.CharField(max_length=50, blank=True, null=True)
-    issue_quantity = models.IntegerField(default=0, blank=True, null=True)
-    issue_by = models.CharField(max_length=50, blank=True, null=True)
-    issue_to = models.CharField(max_length=50, blank=True, null=True)
-    phone_number = models.CharField(max_length=50, blank=True, null=True)
-    created_by = models.CharField(max_length=50, blank=True, null=True)
-    reorder_level = models.IntegerField(default=0, blank=True, null=True)
-    last_updated = models.DateTimeField(auto_now=True)
-    export_to_CSV = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.item_name
-
-
 class Stock(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity_in_stock = models.PositiveBigIntegerField(default=0)
@@ -91,3 +72,41 @@ class Stock(models.Model):
     def __str__(self):
         # - {self.quantity} - {self.receive_quantity} - {self.receive_by} - {self.issue_quantity} - {self.issue_by} - {self.issue_to} - {self.reorder_level} - {self.last_updated}'
         return f'{self.product.name} - {self.product.category} - {self.quantity_in_stock} - {self.product.created_by}'
+
+
+# class StockHistory(models.Model):
+#     category = models.ForeignKey(
+#         Category, on_delete=models.CASCADE, blank=True, null=True)
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     quantity = models.IntegerField(default='0', blank=True, null=True)
+#     receive_quantity = models.IntegerField(default='0', blank=True, null=True)
+#     receive_by = models.CharField(max_length=50, blank=True, null=True)
+#     issue_quantity = models.IntegerField(default='0', blank=True, null=True)
+#     issue_by = models.CharField(max_length=50, blank=True, null=True)
+#     issue_to = models.CharField(max_length=50, blank=True, null=True)
+#     created_by = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name='created_products', null=True, blank=True)
+#     reorder_level = models.IntegerField(default='0', blank=True, null=True)
+#     last_updated = models.DateTimeField(
+#         auto_now_add=False, auto_now=False, null=True)
+#     timestamp = models.DateTimeField(
+#         auto_now_add=False, auto_now=False, null=True)
+
+
+class RiceStock(models.Model):
+    category = models.CharField(max_length=50, blank=True, null=True)
+    item_name = models.CharField(max_length=50, blank=True, null=True)
+    quantity = models.IntegerField(default=0, blank=True, null=True)
+    receive_quantity = models.IntegerField(default=0, blank=True, null=True)
+    receive_by = models.CharField(max_length=50, blank=True, null=True)
+    issue_quantity = models.IntegerField(default=0, blank=True, null=True)
+    issue_by = models.CharField(max_length=50, blank=True, null=True)
+    issue_to = models.CharField(max_length=50, blank=True, null=True)
+    phone_number = models.CharField(max_length=50, blank=True, null=True)
+    created_by = models.CharField(max_length=50, blank=True, null=True)
+    reorder_level = models.IntegerField(default=0, blank=True, null=True)
+    last_updated = models.DateTimeField(auto_now=True)
+    export_to_CSV = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.item_name

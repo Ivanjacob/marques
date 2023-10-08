@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'ricemart.apps.RicemartConfig',
 
+    # 'django-filters',
     'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
@@ -86,14 +87,33 @@ WSGI_APPLICATION = 'nicemart.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'nicerice',
+#         'USER': 'root',
+#         'PASSWORD': '@Default123.',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': '',
+#         'USER': '',
+#         'PASSWORD': '',
+#         'HOST': '',
+#         'PORT': '',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
