@@ -30,10 +30,49 @@ export const fetchProducts = () => stockAxios.get(`${baseURL}product/`);
 // fetch product by id
 export const fetchProductById = (id) => stockAxios.get(`${baseURL}product/${id}/`);
 // create a new product entry
-export const createProduct = (newProduct) => stockAxios.post(`${baseURL}product/`, newProduct);
+export const createProduct = (newProduct) => {
+    const formData = new FormData();
+    formData.append('name', newProduct.name);
+    formData.append('category', newProduct.category);
+    formData.append('image', newProduct.image);
+    formData.append('description', newProduct.description);
+    formData.append('price', newProduct.price);
+
+    return stockAxios.post(`${baseURL}product/`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+}; //stockAxios.post(`${baseURL}product/`, newProduct);
 // update a product entry by ID
 export const updateProduct = (id, updatedProduct ) => stockAxios.put(`${baseURL}product/${id}/`, updatedProduct);
 // delete a product entry by ID
 export const deleteProduct = (id) => stockAxios.delete(`${baseURL}product/${id}/`);
 
+// ######## ORDERS ########
+export const fetchOrders = () => stockAxios.get(`${baseURL}order/`);
+export const fetchOrderById = (id) => stockAxios.get(`${baseURL}order/${id}/`);
+export const createOrder = (newOrder) => {
+    const formData = new FormData(); // Image, Item, customer, Total Amount, Status, OrderID, Location
+    formData.append('image', newOrder.image);
+    formData.append('item', newOrder.item);
+    formData.append('customer', newOrder.customer);
+    formData.append('total_amount', newOrder.total_amount);
+    formData.append('status', newOrder.status);
+    formData.append('orderId', newOrder.orderId);
+    formData.append('address', newOrder.address);
+
+    return stockAxios.post(`${baseURL}order/`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+//stockAxios.post(`${baseURL}order/`, newProduct);
+export const updateOrder = ( id, updateOrder ) => stockAxios.put(`${baseURL}order/${id}/`, updateOrder);
+export const deleteOrder = ( id ) => stockAxios.delete(`${baseURL}order/${id}/`);
+
+
+// ######## CUSTOMERS ########
 export default stockAxios;

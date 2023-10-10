@@ -63,7 +63,7 @@ export default function Navbars() {
             <IconButton onClick={handleLogoutClick}>
               <PowerSettingsNewIcon size={60} sx={{ color: blue[500] }}/>
             </IconButton>
-        </Tooltip>
+        </Tooltip> 
         <Tooltip title="Profile" position="BottomCenter">
           <div  className="flex items-center"
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', padding: '0.25rem',   ':hover': {

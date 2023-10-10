@@ -1,7 +1,7 @@
 from rest_framework import generics, viewsets, permissions
-from .models import RiceStock, Product, Category, Stock
+from .models import RiceStock, Product, Category, Stock, Order, OrderItem
 from api.models import CommonUserFields, User
-from .serializers import RiceStockSerializer, ProductSerializer, CategorySerializer, StockSerializer
+from .serializers import RiceStockSerializer, ProductSerializer, CategorySerializer, StockSerializer, OrderItemSerializer, OrderSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
@@ -96,3 +96,33 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class OrderListCreateView(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+class OrderItemListCreateView(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+
+class OrderItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+
+class OrderItemDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer

@@ -32,6 +32,7 @@ function EditProduct() {
   const [formData, setFormData] = useState({
     name: '',
     category: '',
+    image: '',
     description: '',
     quantity: '',
     price: '',
@@ -80,6 +81,11 @@ function EditProduct() {
       console.error('Error updating product:', error);
     }
   };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file })
+};
 
   return (
     <div
@@ -135,6 +141,18 @@ function EditProduct() {
             ))}
           </select>
         </div>
+        <br/>
+        <div style={{ display: 'flex'}}>
+          <label htmlFor="image">Image:</label>
+          <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ marginLeft: "20px", fontStyle: "italic" }}
+          />
+        </div>
+        <br/>
         <InputField
           label="Description"
           name="description"

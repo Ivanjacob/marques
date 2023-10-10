@@ -9,11 +9,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import { blue } from '@mui/material/colors';
 import { red } from '@mui/material/colors';
 
-import { Tooltip } from '@mui/material'
+import { Tooltip } from '@mui/material';
 
 import Header from '../views/Header.js';
 import Button from '../views/Button.js';
 import Buttons from './Buttons.jsx';
+
 
 function Product() {
 
@@ -36,6 +37,26 @@ function Product() {
 
     const columns = [
         {field: 'id', headerName: 'ID', width: 70},
+        {
+            field: 'image', 
+            headerName: 'Image', 
+            width: 130, 
+            renderCell: (params) => 
+                <img 
+                    src={params.value} 
+                    alt="Product" 
+                    style={{
+                        //width: 50, 
+                        //height: 50, 
+                        //borderRadius: '50%',
+                        borderRadius: '30px', // Equivalent to rounded-xl
+                        padding: '18px 0', // Equivalent to py-2 px-0
+                        height: '100px', // Equivalent to h-20
+                        marginLeft: '0.75rem', // Equivalent to md:ml-3
+                        width: '5rem', // Equivalent to w-20
+                    }} 
+                />
+        },
         {field: 'name', headerName: 'Name', width: 170},
         {field: 'category', headerName: 'Category', width: 170},
         {field: 'description', headerName: 'Description', width: 130},
@@ -116,6 +137,15 @@ function Product() {
                 editSettings={editing}
                 pageSettings={{ pageSize: 5, pageSizes: true }}
                 pageSizeOptions={[10, 25]}
+                rowHeight={85}
+                initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
+                    },
+                  }}
+                  disableRowSelectionOnClick
                 //checkboxSelection
             />
         </div>

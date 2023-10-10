@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import RiceStock, Product, Category, Stock
+from .models import RiceStock, Product, Category, Stock, Order, OrderItem
 from django.contrib.auth.models import User
 
 
@@ -38,3 +38,26 @@ class StockSerializer(serializers.ModelSerializer):
         #         'issue_by', 'issue_by_details', 'issue_to', 'created_by_details', 'reorder_level', 'last_updated']
         # read_only_fields = ['product_details', 'receive_by_details',
         #                  'issue_by_details', 'created_by_details']
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    item = serializers.CharField(source='product.name', read_only=True)
+    image = serializers.CharField(source='product.image', read_only=True)
+
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    item_name = serializers.CharField(
+        source='order_item.product.name', read_only=True)
+    image = serializers.CharField(
+        source='order_item.product.image', read_only=True)
+    full_amount = serializers.IntegerField(
+        source='order_item.full_amount', read_only=True)
+    order_items = OrderItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Order
+        fields = '__all__'

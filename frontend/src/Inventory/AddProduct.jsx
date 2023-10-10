@@ -30,6 +30,7 @@ function AddProduct() {
     const initialFormData = {
         name: "",
         category: "",
+        image: "",
         description: "",
         price: "",
     };
@@ -70,6 +71,12 @@ function AddProduct() {
         setFormData({ ...formData, category: selectedValue });
     };
 
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        setFormData({ ...formData, image: file })
+    };
+
+
     return (
         <div style={{ margin: "2rem", marginTop: "2rem", padding: "0.5rem",  backgroundColor: "#fff", borderRadius: "1.5rem", }}>
             <div 
@@ -93,7 +100,11 @@ function AddProduct() {
 
             <form 
                 onSubmit={handleSubmit}
+                encType="multipart/form-data"
                 className="col-sm-7" 
+                style={{ 
+                    boxShadow: ' 9px 15px 10px 0px rgba(0,125,125, 0.4)', 
+                  }}
             >
                     <InputField 
                         label="Name" 
@@ -117,6 +128,18 @@ function AddProduct() {
                             ) )}
                         </select>
                     </div>
+                    <br/>  
+                    <div style={{ display: 'flex'}}>
+                        <label htmlFor="image">Image:</label>
+                        <input
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                            style={{ marginLeft: "20px", fontStyle: "italic" }}
+                        />
+                    </div>
+                    <br/>                
                     <InputField 
                         label="Description" 
                         name="description" 

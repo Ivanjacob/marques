@@ -30,11 +30,72 @@ class Category(models.Model):
         return self.get_name_display()
 
 
+class PaymentStatus(models.Model):
+    PENDING = 'Pending'
+    PAID = 'Paid'
+    PAYMENT_STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (PAID, 'Paid'),
+    ]
+
+    name = models.CharField(
+        max_length=50,
+        choices=PAYMENT_STATUS_CHOICES,
+        default=PENDING,
+    )
+
+    def __str__(self):
+        return self.get_name_display()
+
+
+class OrderStatus(models.Model):
+    PENDING = 'Pending'
+    APPROVED = 'Approved'
+    SHIPPED = 'Shipped'
+    DELIVERED = 'Delivered'
+    CANCELLED = 'Cancelled'
+    ORDER_STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (APPROVED, 'Approved'),
+        (SHIPPED, 'Shipped'),
+        (DELIVERED, 'Delivered'),
+        (CANCELLED, 'Cancelled'),
+    ]
+
+    name = models.CharField(
+        max_length=50,
+        choices=ORDER_STATUS_CHOICES,
+        default=PENDING,
+    )
+
+    def __str__(self):
+        return self.get_name_display()
+
+
+class PaymentMethod(models.Model):
+    MPESA = 'Mpesa'
+    AIRTELMONEY = 'Airtel Money'
+    PAYMENT_METHOD_CHOICES = [
+        (MPESA, 'Mpesa'),
+        (AIRTELMONEY, 'Airtel Money'),
+    ]
+
+    name = models.CharField(
+        max_length=50,
+        choices=PAYMENT_METHOD_CHOICES,
+        default=MPESA,
+    )
+
+    def __str__(self):
+        return self.get_name_display()
+
+
 class Product(models.Model):
     name = models.CharField(max_length=50, blank=True,
                             null=True, default='', unique=True)
     category = models.CharField(
         max_length=50, choices=Category.CATEGORY_CHOICES, blank=True, null=True, default='MWEA_PISHORI')
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     description = models.CharField(max_length=50, blank=True, null=True)
     price = models.IntegerField(default=0, blank=True, null=True)
     created_by = models.ForeignKey(
@@ -110,3 +171,35 @@ class RiceStock(models.Model):
 
     def __str__(self):
         return self.item_name
+
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0, blank=True, null=True)
+    price = models.IntegerField(default=0, blank=True, null=True)
+    total_price = models.IntegerField(
+        default=0, blank=True, null=True)  # quantity * price
+    shipping_cost = models.IntegerField(default=0, blank=True, null=True)
+    full_amount = models.IntegerField(default=0, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.product.name} - {self.quantity} - {self.price} - {self.total_price} - {self.shipping_cost} - {self.full_amount}'
+
+
+class Order(models.Model):
+    order_number = models.CharField(max_length=50, blank=True, null=True)
+    order_item = models.ForeignKey(
+        OrderItem, on_delete=models.CASCADE, default=0)
+    customer = models.CharField(max_length=50, blank=True, null=True)
+    order_status = models.CharField(
+        max_length=50, choices=OrderStatus.ORDER_STATUS_CHOICES, blank=True, null=True, default='Pending')
+    order_date = models.DateTimeField(auto_now_add=True)
+    delivery_address = models.CharField(max_length=50, blank=True, null=True)
+    payment_method = models.CharField(
+        max_length=50, choices=PaymentMethod.PAYMENT_METHOD_CHOICES, blank=True, null=True, default='Mpesa')
+    payment_status = models.CharField(
+        max_length=50, choices=PaymentStatus.PAYMENT_STATUS_CHOICES, blank=True, null=True, default='Pending')
+    total_amount = models.IntegerField(default=0, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.order_number} - {self.order_item} - {self.customer} - {self.order_status} - {self.delivery_address} - {self.total_amount}'

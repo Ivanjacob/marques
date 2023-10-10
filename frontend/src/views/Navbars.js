@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState }from 'react'
 import jwt_decode from "jwt-decode"
 import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 
 import { Tooltip } from '@mui/material'
@@ -21,6 +22,12 @@ import UserProfile from './UserProfile.js';
 import avatar from '../data/avatar.jpg'
 
 export default function Navbars() {
+
+  const { logoutUser } = useContext(AuthContext);
+
+  const handleLogoutClick = () => {
+    logoutUser();
+  };
 
   const token = localStorage.getItem("authTokens")
 
@@ -51,6 +58,11 @@ export default function Navbars() {
           <IconButton>
             <NotificationIcon size={60} sx={{ color: blue[500] }} />
           </IconButton>
+        </Tooltip>
+        <Tooltip title="Logout">
+            <IconButton onClick={handleLogoutClick}>
+              <PowerSettingsNewIcon size={60} sx={{ color: blue[500] }}/>
+            </IconButton>
         </Tooltip>
         <Tooltip title="Profile" position="BottomCenter">
           <div  className="flex items-center"
