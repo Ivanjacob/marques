@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'api.apps.ApiConfig',
     'ricemart.apps.RicemartConfig',
+    'knox',
 
     # 'django-filters',
     'rest_framework',

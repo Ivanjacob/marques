@@ -23,4 +23,17 @@ urlpatterns = [
     path('profile/<str:identifier>/',
          views.UserProfileView.as_view(), name='user-profile'),
     path('', views.getRoutes),
+
+    # Customer User Registration and Login
+    path('customer-user/register/',
+         views.CustomerUserRegistrationView.as_view(), name='customer-user-register'),
+    path('customer-user/login/',
+         views.CustomerUserLoginView.as_view(), name='customer-user-login'),
+
+    # Farmer User Registration and Login
+    path('farmer-user/register/', views.FarmerUserRegistrationView.as_view(),
+         name='farmer-user-register'),
+    path('farmer-user/login/',
+         views.FarmerUserLoginView.as_view(), name='farmer-user-login'),
+
 ]

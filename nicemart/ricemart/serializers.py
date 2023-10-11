@@ -56,6 +56,8 @@ class OrderSerializer(serializers.ModelSerializer):
         source='order_item.product.image', read_only=True)
     full_amount = serializers.IntegerField(
         source='order_item.full_amount', read_only=True)
+    quantity = serializers.IntegerField(
+        source='order_item.quantity', read_only=True)
     order_items = OrderItemSerializer(many=True, read_only=True)
 
     class Meta:

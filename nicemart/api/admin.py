@@ -5,13 +5,13 @@ from api.models import FarmerUser, InventoryManagerUser, CustomerUser, Profile, 
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_editable = ['email']
+    # list_editable = ['email']
     list_display = ['username', 'email']
 
 
 class FarmerUserAdmin(admin.ModelAdmin):
     list_display = ['username', 'phone', 'farmer_id', 'rice_stored']
-    list_editable = ['phone']
+    # list_editable = ['rice_stored']
 
 
 class InventoryManagerUserAdmin(admin.ModelAdmin):

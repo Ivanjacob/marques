@@ -1,5 +1,7 @@
+from api.serializers import FarmerUserLoginSerializer
 from django.shortcuts import render
 from rest_framework import generics
+from knox.models import AuthToken
 
 
 from .models import Profile, Rice
@@ -22,7 +24,12 @@ from api.serializers import (
     CustomerUserSerializer,
     RegisterInventorySerializer,
     ProfileSerializer,
+    CustomerUserRegistrationSerializer,
+    CustomerUserLoginSerializer,
+    FarmerUserRegistrationSerializer,
+
 )
+
 
 # Create your views here.
 
@@ -100,6 +107,10 @@ def getRoutes(request):
         '/api/customers/',
         '/api/register/inventorymanager/',
         '/api/profile/',
+        '/api/customer-user/register/',
+        '/api/customer-user/login/',
+        '/api/farmer-user/register/',
+        '/api/farmer-user/login/',
 
     ]
     return Response(routes)
@@ -147,3 +158,63 @@ class UserProfileView(generics.RetrieveAPIView):
                 {"detail": "User profile not found."},
                 status=status.HTTP_404_NOT_FOUND,
             )
+
+
+class CustomerUserRegistrationView(generics.CreateAPIView):
+    serializer_class = CustomerUserRegistrationSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            _, token = AuthToken.objects.create(user)
+            return Response({
+                "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
+                "token": token,
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomerUserLoginView(generics.GenericAPIView):
+    serializer_class = CustomerUserLoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data
+            _, token = AuthToken.objects.create(user)
+            return Response({
+                "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
+                "token": token,
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FarmerUserRegistrationView(generics.CreateAPIView):
+    serializer_class = FarmerUserRegistrationSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            _, token = AuthToken.objects.create(user)
+            return Response({
+                "user": FarmerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
+                "token": token,
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FarmerUserLoginView(generics.GenericAPIView):
+    serializer_class = FarmerUserLoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data
+            _, token = AuthToken.objects.create(user)
+            return Response({
+                "user": FarmerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
+                "token": token,
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

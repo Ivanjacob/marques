@@ -59,6 +59,12 @@ function Orders() {
       width: 130,
     },
     {
+      field: 'quantity',
+      headerName: 'Quantity',
+      type: 'number',
+      width: 60,
+    },
+    {
       field: 'full_amount',
       headerName: 'Total Amount',
       type: 'number',
