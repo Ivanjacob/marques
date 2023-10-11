@@ -20,6 +20,10 @@ class User(AbstractUser, CommonUserFields):
     username = models.CharField(max_length=100, default="", unique=True)
     email = models.EmailField(max_length=100, unique=True)
 
+    # Additional fields for profile image
+    profile_image = models.ImageField(
+        upload_to='profile_images', blank=True, null=True)
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 

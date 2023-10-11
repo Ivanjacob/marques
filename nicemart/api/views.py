@@ -1,4 +1,4 @@
-from api.serializers import FarmerUserLoginSerializer
+# Version: 1.0
 from django.shortcuts import render
 from rest_framework import generics
 from knox.models import AuthToken
@@ -27,6 +27,8 @@ from api.serializers import (
     CustomerUserRegistrationSerializer,
     CustomerUserLoginSerializer,
     FarmerUserRegistrationSerializer,
+    FarmerUserLoginSerializer,
+    UserProfileSerializer,
 
 )
 
@@ -68,6 +70,11 @@ class UserDetailView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'id'
 
+
+class UsersProfileView(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserProfileSerializer
+
 # class RegisterView(generics.CreateAPIView):
 #     queryset = User.objects.all()
 #     permission_classes = (AllowAny,)
@@ -107,6 +114,7 @@ def getRoutes(request):
         '/api/customers/',
         '/api/register/inventorymanager/',
         '/api/profile/',
+        '/api/user/profile/',
         '/api/customer-user/register/',
         '/api/customer-user/login/',
         '/api/farmer-user/register/',
