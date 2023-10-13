@@ -157,6 +157,7 @@ function RiceStockList(){
             )
         }
     ];
+    
     const navigate = useNavigate();
     
     const handleReceiveClick = (id) => {

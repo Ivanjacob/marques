@@ -7,7 +7,7 @@ import jwt_decode from 'jwt-decode';
 import BasicSparkLineCustomization from './SparkLine';
 import Stacked from './Stacked';
 import CircleIcon from '@mui/icons-material/Circle';
-import Buttons from '../Inventory/Buttons';
+import Buttons from '../Inventory/Buttons'; 
 
 
 function Dashboard() {

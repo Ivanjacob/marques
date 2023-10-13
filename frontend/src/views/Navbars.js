@@ -37,6 +37,7 @@ export default function Navbars() {
     var username = decode.username
     var full_name = decode.full_name
     var image = decode.image
+    var profile_image = decode.profile_image
   }
 
   return (
@@ -75,7 +76,7 @@ export default function Navbars() {
             <img
               className="rounded-full w-8 h-8"
               style={{borderRadius: '50%', width: '35px', height: '35px'}}
-              src={avatar}
+              src={`http://localhost:8000/${profile_image}`}
               alt="default.jpg"
             />
             <p>

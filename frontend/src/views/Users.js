@@ -28,7 +28,27 @@ function Users() {
   console.log(usersData)
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    //{ field: 'id', headerName: 'ID', width: 70 },
+    {
+      field: 'profile_image', 
+      headerName: 'Image', 
+      width: 130,
+      renderCell: (params) => (
+        <div>
+            <img
+                style={{
+                    borderRadius: '100%', // Equivalent to rounded-xl
+                    padding: '18px 0', // Equivalent to py-2 px-0
+                    height: '80px', // Equivalent to h-20
+                    marginLeft: '0.75rem', // Equivalent to md:ml-3
+                    width: '3rem', // Equivalent to w-20
+                }}
+                src={params.value}
+                alt="Profile"
+            />
+        </div>
+    ),
+    },
     {field: 'username', headerName: 'Username', width: 200},
     {field: 'email', headerName: 'Email', width: 300},
   ];

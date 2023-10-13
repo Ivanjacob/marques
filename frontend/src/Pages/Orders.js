@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { fetchOrders, fetchOrderById, createOrder, updateOrder, deleteOrder } from '../utils/stockAxios'
 import { DataGrid } from '@mui/x-data-grid';
+import { Link, useNavigate } from "react-router-dom";
 
 import Header from '../views/Header.js';
 import Button from '../views/Button.js';
@@ -96,6 +97,18 @@ function Orders() {
       field: 'order_number',
       headerName: 'Order ID',
       width: 120,
+      renderCell: (params) => (
+        <div
+          style={{
+            color: 'blue',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+          }}
+          onClick = {() => handleClick(params.row.id)}
+        >
+          {params.value}
+        </div>
+      ),
     },
     {
       field: 'delivery_address',
@@ -104,7 +117,10 @@ function Orders() {
     },
   ];
 
-  
+  const navigate = useNavigate();
+  const handleClick = (id) => {
+        navigate(`/orders/${id}`)
+    }
    
   const toolbarOptions = ['search']
 

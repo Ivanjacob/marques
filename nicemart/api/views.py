@@ -52,6 +52,7 @@ class InventoryManagerUserListView(generics.ListAPIView):
 
 
 class CustomerUserListView(generics.ListAPIView):
+    #
     queryset = CustomerUser.objects.all()
     serializer_class = CustomerUserSerializer
 

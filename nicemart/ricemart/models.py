@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from api.models import CommonUserFields, User, CustomerUser
+from api.models import CommonUserFields, User, CustomerUser, FarmerUser
 
 
 class Category(models.Model):
@@ -235,3 +235,25 @@ class Order(models.Model):
 
 #     def __str__(self):
 #         return self.address
+class FarmerStock(models.Model):
+    farmer = models.ForeignKey(FarmerUser, on_delete=models.CASCADE)
+    quantity_stocked = models.IntegerField(default=0, blank=True, null=True)
+    date_stocked = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.farmer.username} - {self.quantity_stocked} - {self.date_stocked}'
+
+
+class QueuePosition(models.Model):
+    farmer = models.ForeignKey(FarmerUser, on_delete=models.CASCADE)
+    date_booked = models.DateField(auto_now_add=True)
+    is_milled = models.BooleanField(default=False)
+
+
+class MillingRecord(models.Model):
+    farmer = models.ForeignKey(FarmerUser, on_delete=models.CASCADE)
+    quantity_milled = models.PositiveIntegerField(
+        default=0, blank=True, null=True)
+    date_milled = models.DateField(auto_now_add=True)
+    quantity_remaining = models.PositiveIntegerField(
+        default=0, blank=True, null=True)

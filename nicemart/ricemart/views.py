@@ -1,7 +1,19 @@
 from rest_framework import generics, viewsets, permissions
-from .models import RiceStock, Product, Category, Stock, Order, OrderItem
-from api.models import CommonUserFields, User
-from .serializers import RiceStockSerializer, ProductSerializer, CategorySerializer, StockSerializer, OrderItemSerializer, OrderSerializer
+from .models import RiceStock, Product, Category, Stock, Order, OrderItem, FarmerStock, QueuePosition, MillingRecord
+from api.models import CommonUserFields, User, FarmerUser, InventoryManagerUser
+from .serializers import (
+    RiceStockSerializer,
+    ProductSerializer,
+    CategorySerializer,
+    StockSerializer,
+    OrderItemSerializer,
+    OrderSerializer,
+    FarmerStockSerializer,
+    QueuePositionSerializer,
+    MillingRecordSerializer,
+
+)
+from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
@@ -126,3 +138,38 @@ class OrderItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class OrderItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
+
+
+# View for FarmerStock
+class FarmerStockListCreateView(generics.ListCreateAPIView):
+    queryset = FarmerStock.objects.all()
+    serializer_class = FarmerStockSerializer
+
+
+class FarmerStockDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FarmerStock.objects.all()
+    serializer_class = FarmerStockSerializer
+
+# View for QueuePosition
+
+
+class QueuePositionListCreateView(generics.ListCreateAPIView):
+    queryset = QueuePosition.objects.all()
+    serializer_class = QueuePositionSerializer
+
+
+class QueuePositionDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = QueuePosition.objects.all()
+    serializer_class = QueuePositionSerializer
+
+# View for MillingRecord
+
+
+class MillingRecordListCreateView(generics.ListCreateAPIView):
+    queryset = MillingRecord.objects.all()
+    serializer_class = MillingRecordSerializer
+
+
+class MillingRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MillingRecord.objects.all()
+    serializer_class = MillingRecordSerializer

@@ -1,20 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Sidebars from '../views/Sidebars';
 import Navbars from '../views/Navbars';
-import Customers from '../Pages/Customers';
+import Farmers from '../Pages/Farmers';
 
-export class CustomerScreen extends Component {
-  render() {
-    return (
+function FarmerScreen() {
+  return (
     <div className="dashboard-wrap">
         <Sidebars/>
         <main className="main-wrap">
             <Navbars />
-            <Customers />
+            <Farmers />
         </main>
     </div>
-    )
-  }
+  )
 }
 
-export default CustomerScreen
+export default FarmerScreen;

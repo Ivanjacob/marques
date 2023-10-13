@@ -8,7 +8,9 @@ import PrivateRoute from './utils/PrivateRoute';
 import DashboardScreen from './screens/DashboardScreen.js';
 import UserScreen from './screens/UserScreen.js';
 import EmployeeScreen from './screens/EmployeeScreen.js';
+import FarmerScreen from './screens/FarmerScreen.js';
 import OrderScreen from './screens/OrderScreen.js';
+import OrderApprovalScreen from './screens/OrderApprovalScreen.js';
 import ProductScreen from './screens/ProductScreen.js';
 import CustomerScreen from './screens/CustomerScreen.js';
 import HomeScreen from './screens/HomeScreen';
@@ -42,7 +44,9 @@ const App = () => {
                 <Route path="/dashboard" element={<DashboardScreen/>}/>
                 <Route path="/users" element={<UserScreen/>}/>
                 <Route path="/employees" element={<EmployeeScreen/>}/>
+                <Route path="/farmers" element={<FarmerScreen/>}/>
                 <Route path="/orders" element={<OrderScreen/>}/>
+                <Route path="/orders/:id" element={<OrderApprovalScreen/>}/>
                 <Route path="/products" element={<ProductScreen/>}/>
                 <Route path="/customers" element={<CustomerScreen/>} />
                 <Route path="/inventory" element={<InventoryScreen/>} />

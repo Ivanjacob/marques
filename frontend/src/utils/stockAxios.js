@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const baseURL = "http://127.0.0.1:8000/ricemart/";
+const baseURL2 = "http://127.0.0.1:8000/api/";
 
 const stockAxios = axios.create({});
 
@@ -75,4 +76,54 @@ export const deleteOrder = ( id ) => stockAxios.delete(`${baseURL}order/${id}/`)
 
 
 // ######## CUSTOMERS ########
+export const fetchCustomers = () => stockAxios.get(`${baseURL2}customers/`);
+export const fecthCustomerById = (id) => stockAxios.get(`${baseURL2}customers/${id}/`);
+export const createCustomer = (newCustomer) => {
+    const formData = new FormData();
+    formData.append('profile_image', newCustomer.profile_image);
+    formData.append('email', newCustomer.email);
+    formData.append('phone', newCustomer.phone_number);
+    formData.append('username', newCustomer.username);
+    formData.append('first_name', newCustomer.first_name);
+    formData.append('last_name', newCustomer.last_name);
+    formData.append('status', newCustomer.status);
+    formData.append('customer_id', newCustomer.customer_id);
+    formData.append('city', newCustomer.city);
+    formData.append('address', newCustomer.address);
+
+    return stockAxios.post(`${baseURL2}customers/`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+}//stockAxios.post(`${baseURL}customer/`, newCustomer);
+export const updateCustomer = (id, updatedCustomer) => stockAxios.put(`${baseURL2}customers/${id}/`, updatedCustomer);
+export const deleteCustomer = (id) => stockAxios.delete(`${baseURL2}customers/${id}/`);
+
+
+// ######## FARMERS  ########
+export const fetchFarmers = () => stockAxios.get(`${baseURL2}farmers/`);
+export const fetchFarmerByID = (id) => stockAxios.get(`${baseURL2}farmers/${id}/`);
+export const createFarmer = (newFarmer) => {
+    const formData = new FormData();
+    formData.append('profile_image', newFarmer.profile_image);
+    formData.append('email', newFarmer.email);
+    formData.append('phone', newFarmer.phone_number);
+    formData.append('username', newFarmer.username);
+    formData.append('first_name', newFarmer.first_name);
+    formData.append('last_name', newFarmer.last_name);
+    formData.append('farmer_id', newFarmer.farmer_id);
+    formData.append('rice_stored', newFarmer.rice_stored);
+
+    return stockAxios.post(`${baseURL2}customers/`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+}//stockAxios.post(`${baseURL}farmers/`, newFarmer);
+export const updateFarmer = (id, updatedFarmer) => stockAxios.put(`${baseURL2}farmers/${id}/`, updatedFarmer);
+export const deleteFarmer = (id) => stockAxios.delete(`${baseURL2}farmers/${id}/`);
+// ######## USERS ########
 export default stockAxios;

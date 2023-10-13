@@ -37,6 +37,23 @@ urlpatterns = [
          name='order-item-details'),
     path('order-item-edit/', views.OrderItemRetrieveUpdateDestroyView.as_view(),
          name='order-item-edit'),
+
+    path('farmer-stock/', views.FarmerStockListCreateView.as_view(),
+         name='farmer-stock-list'),
+    path('farmer-stock/<int:pk>/', views.FarmerStockDetailView.as_view(),
+         name='farmer-stock-detail'),
+
+    # URLs for QueuePosition
+    path('queue-position/', views.QueuePositionListCreateView.as_view(),
+         name='queue-position-list'),
+    path('queue-position/<int:pk>/',
+         views.QueuePositionDetailView.as_view(), name='queue-position-detail'),
+
+    # URLs for MillingRecord
+    path('milling-record/', views.MillingRecordListCreateView.as_view(),
+         name='milling-record-list'),
+    path('milling-record/<int:pk>/',
+         views.MillingRecordDetailView.as_view(), name='milling-record-detail'),
 ]
 
 urlpatterns += router.urls

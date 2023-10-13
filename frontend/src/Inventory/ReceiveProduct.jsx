@@ -139,7 +139,9 @@ function ReceiveProduct(){
             >
                 <p>
                     <b>Product: <span style={{ color: 'red', fontStyle: 'italic' }} >{productName}</span></b>
-                    <img src="https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/M.R.G-products-kenya-select-1-300x228-removebg.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1280" alt="Product " />
+                    <img 
+                        src="https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/M.R.G-products-kenya-select-1-300x228-removebg.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1280" alt="Product " />
+                        
                     </p>
                 <br />
                 <InputField

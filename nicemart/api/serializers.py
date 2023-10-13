@@ -14,7 +14,7 @@ from api.models import Profile
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('id', 'username', 'email', 'profile_image')
 
 
 class InventoryManagerUserSerializer(UserSerializer):
@@ -27,14 +27,21 @@ class FarmerUserSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = FarmerUser
         fields = UserSerializer.Meta.fields + \
-            ('farmer_id', 'rice_stored')
+            ('first_name', 'last_name', 'farmer_id', 'phone', 'rice_stored')
 
 
 class CustomerUserSerializer(UserSerializer):
+    status = serializers.SerializerMethodField()
+
     class Meta(UserSerializer.Meta):
         model = CustomerUser
         fields = UserSerializer.Meta.fields + \
-            ('customer_id', 'city', 'address')
+            ('first_name', 'last_name', 'phone',
+             'status', 'customer_id', 'city', 'address')
+        # 'id', 'customer_id', 'first_name', 'last_name', 'email', 'city', 'address'
+
+    def get_status(self, obj):
+        return "Active" if obj.status == "Active" else "Inactive"
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -61,6 +68,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['bio'] = user.profile.bio
         token['image'] = str(user.profile.image)
         token['verified'] = user.profile.verified
+        token['profile_image'] = user.profile_image.url
         return token
 
 
@@ -133,7 +141,7 @@ class CustomerUserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerUser
         fields = ['username', 'email', 'password', 'first_name',
-                  'last_name', 'phone', 'customer_id', 'city', 'address']
+                  'last_name', 'profile_image', 'phone', 'customer_id', 'city', 'address']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -144,6 +152,7 @@ class CustomerUserRegistrationSerializer(serializers.ModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             phone=validated_data['phone'],
+            profile_image=validated_data['profile_image'],
             customer_id=validated_data['customer_id'],
             city=validated_data['city'],
             address=validated_data['address']
@@ -160,7 +169,7 @@ class FarmerUserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = FarmerUser
         fields = ['username', 'email', 'password', 'first_name',
-                  'last_name', 'phone', 'farmer_id', 'rice_stored']
+                  'last_name', 'phone', 'profile_image', 'farmer_id', 'rice_stored']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -171,6 +180,7 @@ class FarmerUserRegistrationSerializer(serializers.ModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             phone=validated_data['phone'],
+            profile_image=validated_data['profile_image'],
             farmer_id=validated_data['farmer_id'],
             rice_stored=validated_data['rice_stored']
         )

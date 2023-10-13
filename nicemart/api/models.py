@@ -59,6 +59,8 @@ class CustomerUser(User):
     customer_id = models.CharField(max_length=100, default="", unique=True)
     city = models.CharField(max_length=100, default="")
     address = models.CharField(max_length=100, default="")
+    status = models.CharField(max_length=10, choices=[(
+        "Active", "Active"), ("Inactive", "Inactive")], default="Active")
 
     class Meta:
         verbose_name = "Customer"

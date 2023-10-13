@@ -1,6 +1,34 @@
 from rest_framework import serializers
-from .models import RiceStock, Product, Category, Stock, Order, OrderItem
+from .models import (
+    RiceStock,
+    Product,
+    Category,
+    Stock,
+    Order,
+    OrderItem,
+    FarmerStock,
+    QueuePosition,
+    MillingRecord,
+)
 from django.contrib.auth.models import User
+
+
+class FarmerStockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FarmerStock
+        fields = '__all__'
+
+
+class QueuePositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QueuePosition
+        fields = '__all__'
+
+
+class MillingRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MillingRecord
+        fields = '__all__'
 
 
 class RiceStockSerializer(serializers.ModelSerializer):
