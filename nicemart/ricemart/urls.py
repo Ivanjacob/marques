@@ -54,6 +54,10 @@ urlpatterns = [
          name='milling-record-list'),
     path('milling-record/<int:pk>/',
          views.MillingRecordDetailView.as_view(), name='milling-record-detail'),
+    path('generate-pdf-report/', views.generate_pdf_report,
+         name='generate-pdf-report'),
+    path('generate-csv-report/', views.generate_csv_report,
+         name='generate-csv-report'),
 ]
 
 urlpatterns += router.urls

@@ -8,6 +8,8 @@ django = "*"
 psycopg2 = "*"
 mysqlclient = "*"
 django-rest-knox = "*"
+reportlab = "*"
+django-reports-admin = "*"
 
 [dev-packages]
 

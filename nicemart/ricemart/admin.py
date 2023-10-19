@@ -3,7 +3,7 @@ from .models import (
     RiceStock,
     Product, Category, Stock, Order,
     OrderItem, PaymentMethod, PaymentStatus, OrderStatus, FarmerStock,
-    QueuePosition, MillingRecord,
+    QueuePosition, MillingRecord, Report,
 )
 
 
@@ -36,6 +36,7 @@ class FarmerStockAdmin(admin.ModelAdmin):
     list_display = ('farmer', 'quantity_stocked', 'date_stocked')
 
 
+admin.site.register(Report)
 admin.site.register(MillingRecord)
 admin.site.register(QueuePosition)
 admin.site.register(Stock)

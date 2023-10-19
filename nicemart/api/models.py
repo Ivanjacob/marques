@@ -22,7 +22,7 @@ class User(AbstractUser, CommonUserFields):
 
     # Additional fields for profile image
     profile_image = models.ImageField(
-        upload_to='profile_images', blank=True, null=True)
+        upload_to='profile_images', blank=True, null=True, default='default.jpg')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -33,6 +33,8 @@ class User(AbstractUser, CommonUserFields):
 
 
 class InventoryManagerUser(User):
+    # user = models.OneToOneField(
+    #   User, on_delete=models.CASCADE, related_name='inventory_manager', default="")
     employee_id = models.CharField(max_length=100, default="", unique=True)
 
     def __str__(self):

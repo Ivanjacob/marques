@@ -14,3 +14,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.green-alert {
+  background-color: green;
+  color: white;
+  /* Add any other styles you need */
+}
+/* In a CSS file */
+.swal-buttons-space {
+  margin-right: 10px; /* Adjust the margin value as needed */
+}

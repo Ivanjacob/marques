@@ -1,24 +1,20 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import AuthContext from '../context/AuthContext'
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 function RegisterInventory() {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [employee_id, setEmployee_id] = useState("");
 
-  const [email, setEmail] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [password2, setPassword2] = useState("")
+  const { registerInventory } = useContext(AuthContext);
 
-  
-  const {registerInventory} = useContext(AuthContext)
-  
-  
-  const handleSubmit = async e => {
-    e.preventDefault()
-    registerInventory(email, username, password, password2)
-    
-
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    registerInventory(email, username, password, password2, employee_id);
+  };
 
   return (
     <div>
@@ -30,14 +26,13 @@ function RegisterInventory() {
                 <div className="card" style={{ borderRadius: "1rem" }}>
                   <div className="row g-0">
                     <div className="col-md-6 col-lg-5 d-none d-md-block">
-                    {/*<img
+                      {/*<img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDJo-gVqHreaMiIH6ennf39dPKY96MAjN65Q&usqp=CAU"
                         alt="login form"
                         className="img-fluid"
                         style={{  width: "100%", height: "550px", borderRadius: "1rem 0 0 1rem" }}
                       /> */}
                       <img
-                      
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
                         alt="login form"
                         className="img-fluid"
@@ -82,6 +77,15 @@ function RegisterInventory() {
                           </div>
                           <div className="form-outline mb-4">
                             <input
+                              type="text"
+                              id="form2Example17"
+                              className="form-control form-control-lg"
+                              placeholder="Employee Id"
+                              onChange={(e) => setEmployee_id(e.target.value)}
+                            />
+                          </div>
+                          <div className="form-outline mb-4">
+                            <input
                               type="password"
                               id="form2Example17"
                               className="form-control form-control-lg"
@@ -109,9 +113,15 @@ function RegisterInventory() {
                           <a className="small text-muted" href="#!">
                             Forgot password?
                           </a>
-                          <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                          <p
+                            className="mb-5 pb-lg-2"
+                            style={{ color: "#393f81" }}
+                          >
                             Already have an account?{" "}
-                            <Link to="/login-inventory" style={{ color: "#393f81" }}>
+                            <Link
+                              to="/login-inventory"
+                              style={{ color: "#393f81" }}
+                            >
                               Login Now
                             </Link>
                           </p>
@@ -145,7 +155,7 @@ function RegisterInventory() {
         </footer>
       </>
     </div>
-  )
+  );
 }
 
-export default RegisterInventory
+export default RegisterInventory;

@@ -9,8 +9,10 @@ from .models import (
     FarmerStock,
     QueuePosition,
     MillingRecord,
+    Report,
 )
 from django.contrib.auth.models import User
+from rest_framework import permissions
 
 
 class FarmerStockSerializer(serializers.ModelSerializer):
@@ -62,11 +64,6 @@ class StockSerializer(serializers.ModelSerializer):
         model = Stock
         fields = '__all__'
 
-        # fields = ['id', 'product', 'product_details', 'quantity', 'receive_by_details', 'issue_quantity',
-        #         'issue_by', 'issue_by_details', 'issue_to', 'created_by_details', 'reorder_level', 'last_updated']
-        # read_only_fields = ['product_details', 'receive_by_details',
-        #                  'issue_by_details', 'created_by_details']
-
 
 class OrderItemSerializer(serializers.ModelSerializer):
     item = serializers.CharField(source='product.name', read_only=True)
@@ -90,4 +87,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
+        fields = '__all__'
+
+
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Report
         fields = '__all__'

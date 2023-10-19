@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from api.models import CommonUserFields, User, CustomerUser, FarmerUser
+from api.models import CommonUserFields, User, CustomerUser, FarmerUser, InventoryManagerUser
 
 
 class Category(models.Model):
@@ -115,17 +115,19 @@ def update_created_by(sender, instance, created, **kwargs):
 
 
 class Stock(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, default='', null=True, blank=True)
     quantity_in_stock = models.PositiveBigIntegerField(default=0)
     receive_quantity = models.IntegerField(default=0, blank=True, null=True)
     added_by = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='added_by', null=True, blank=True)
+        User, on_delete=models.CASCADE, related_name='added_by', default='', null=True, blank=True)
     receive_by = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='received_stock', null=True, blank=True)
+        InventoryManagerUser, on_delete=models.CASCADE, related_name='received_stock', default='', null=True, blank=True)
     issue_quantity = models.IntegerField(default=0)
     issue_by = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='issued_stock', null=True, blank=True)
-    issue_to = models.CharField(max_length=50, blank=True, null=True)
+        InventoryManagerUser, on_delete=models.CASCADE, related_name='issued_stock', default='', null=True, blank=True)
+    issue_to = models.ForeignKey(
+        CustomerUser, on_delete=models.CASCADE, related_name='issue_to', default='', null=True, blank=True)
     reorder_level = models.PositiveBigIntegerField(default=0)
     last_updated = models.DateTimeField(auto_now=True)
     export_to_CSV = models.BooleanField(default=False)
@@ -133,25 +135,6 @@ class Stock(models.Model):
     def __str__(self):
         # - {self.quantity} - {self.receive_quantity} - {self.receive_by} - {self.issue_quantity} - {self.issue_by} - {self.issue_to} - {self.reorder_level} - {self.last_updated}'
         return f'{self.product.name} - {self.product.category} - {self.quantity_in_stock} - {self.product.created_by}'
-
-
-# class StockHistory(models.Model):
-#     category = models.ForeignKey(
-#         Category, on_delete=models.CASCADE, blank=True, null=True)
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     quantity = models.IntegerField(default='0', blank=True, null=True)
-#     receive_quantity = models.IntegerField(default='0', blank=True, null=True)
-#     receive_by = models.CharField(max_length=50, blank=True, null=True)
-#     issue_quantity = models.IntegerField(default='0', blank=True, null=True)
-#     issue_by = models.CharField(max_length=50, blank=True, null=True)
-#     issue_to = models.CharField(max_length=50, blank=True, null=True)
-#     created_by = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name='created_products', null=True, blank=True)
-#     reorder_level = models.IntegerField(default='0', blank=True, null=True)
-#     last_updated = models.DateTimeField(
-#         auto_now_add=False, auto_now=False, null=True)
-#     timestamp = models.DateTimeField(
-#         auto_now_add=False, auto_now=False, null=True)
 
 
 class RiceStock(models.Model):
@@ -174,7 +157,8 @@ class RiceStock(models.Model):
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, default='', null=True, blank=True)
     quantity = models.IntegerField(default=0, blank=True, null=True)
     total_price = models.IntegerField(
         default=0, blank=True, null=True)  # quantity * price
@@ -210,7 +194,7 @@ class OrderItem(models.Model):
 class Order(models.Model):
     order_number = models.CharField(max_length=50, blank=True, null=True)
     order_item = models.ForeignKey(
-        OrderItem, on_delete=models.CASCADE, default=0)
+        OrderItem, on_delete=models.CASCADE, default='', null=True, blank=True)
     customer = models.CharField(max_length=50, blank=True, null=True)
     order_status = models.CharField(
         max_length=50, choices=OrderStatus.ORDER_STATUS_CHOICES, blank=True, null=True, default='Pending')
@@ -225,18 +209,9 @@ class Order(models.Model):
         return f'{self.order_number} - {self.order_item} - {self.customer} - {self.order_status} - {self.delivery_address}'
 
 
-# class Address(models.Model):
-#     customer = models.ForeignKey(
-#         CustomerUser, on_delete=models.SET_NULL, null=True)
-#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-#     address = models.CharField(max_length=200, null=True)
-#     city = models.CharField(max_length=200, null=True)
-#     date_added = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return self.address
 class FarmerStock(models.Model):
-    farmer = models.ForeignKey(FarmerUser, on_delete=models.CASCADE)
+    farmer = models.ForeignKey(
+        FarmerUser, on_delete=models.CASCADE, default='', null=True, blank=True)
     quantity_stocked = models.IntegerField(default=0, blank=True, null=True)
     date_stocked = models.DateTimeField(auto_now_add=True)
 
@@ -245,15 +220,28 @@ class FarmerStock(models.Model):
 
 
 class QueuePosition(models.Model):
-    farmer = models.ForeignKey(FarmerUser, on_delete=models.CASCADE)
+    farmer = models.ForeignKey(
+        FarmerUser, on_delete=models.CASCADE, default='', null=True, blank=True)
     date_booked = models.DateField(auto_now_add=True)
     is_milled = models.BooleanField(default=False)
 
 
 class MillingRecord(models.Model):
-    farmer = models.ForeignKey(FarmerUser, on_delete=models.CASCADE)
+    farmer = models.ForeignKey(
+        FarmerUser, on_delete=models.CASCADE, default='', null=True, blank=True)
     quantity_milled = models.PositiveIntegerField(
         default=0, blank=True, null=True)
     date_milled = models.DateField(auto_now_add=True)
     quantity_remaining = models.PositiveIntegerField(
         default=0, blank=True, null=True)
+
+
+class Report(models.Model):
+    report_type = models.CharField(max_length=50)
+    created_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='created_report', default='', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to='reports/', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.report_type} - {self.created_by} - {self.created_at} - {self.file}"

@@ -68,6 +68,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['bio'] = user.profile.bio
         token['image'] = str(user.profile.image)
         token['verified'] = user.profile.verified
+
+        # Use the 'get' method to retrieve the relaed InventoryManagerUser
+        # inventory_manager = InventoryManagerUser.objects.get(user=user)
+        # token['employee_id'] = inventory_manager.employee_id
         token['profile_image'] = user.profile_image.url
         return token
 

@@ -48,3 +48,12 @@ a.disabled {
 .custom-hover-effect:hover {
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
 }
+.green-alert {
+  background-color: green;
+  color: white;
+  /* Add any other styles you need */
+}
+/* In a CSS file */
+.swal-buttons-space {
+  margin-right: 10px; /* Adjust the margin value as needed */
+}

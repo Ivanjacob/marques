@@ -1,5 +1,5 @@
 from rest_framework import generics, viewsets, permissions
-from .models import RiceStock, Product, Category, Stock, Order, OrderItem, FarmerStock, QueuePosition, MillingRecord
+from .models import RiceStock, Product, Category, Stock, Order, OrderItem, FarmerStock, QueuePosition, MillingRecord, Report
 from api.models import CommonUserFields, User, FarmerUser, InventoryManagerUser
 from .serializers import (
     RiceStockSerializer,
@@ -11,14 +11,19 @@ from .serializers import (
     FarmerStockSerializer,
     QueuePositionSerializer,
     MillingRecordSerializer,
+    ReportSerializer,
 
 )
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+import csv
+from .permissions import IsAdminUserOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum
 from django.views.decorators.http import require_GET
 from django.utils.decorators import method_decorator
@@ -173,3 +178,36 @@ class MillingRecordListCreateView(generics.ListCreateAPIView):
 class MillingRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MillingRecord.objects.all()
     serializer_class = MillingRecordSerializer
+
+
+def generate_pdf_report(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    # Create a pdf object with the response object
+    p = canvas.Canvas(response, pagesize=letter)
+    p.drawString(100, 750, "Your PDF Report Content Here")
+    p.showPage()
+    p.save()
+
+    return response
+
+
+def generate_csv_report(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="report.csv"'
+
+    writer = csv.writer(response)
+    writer.writerows(['Column 1', 'Column 2', 'Column 3']
+                     )            # write column headers
+    writer.writerows(['Data 1', 'Data 2', 'Data 3'])  # write report data
+
+    return response
+
+
+class ReportViewSet(viewsets.ModelViewSet):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
+
+
