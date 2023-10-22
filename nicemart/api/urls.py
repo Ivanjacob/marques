@@ -17,6 +17,7 @@ urlpatterns = [
     path('customers/', views.CustomerUserListView.as_view(), name='customers'
          ),
     path('users/<int:pk>/', views.UserDetailView.as_view(), name='user-detail'),
+    path('users/<int:pk>/update-verify-status/', views.UpdateUserVerifyStatus.as_view(), name='update-verify-status'),
     path('register/inventorymanager/', views.RegisterInventoryManagerView.as_view(),
          name='register-inventorymanager'),
     path('profile/', views.ProfileListView.as_view(), name='profile'),

@@ -12,9 +12,12 @@ from api.models import Profile
 
 
 class UserSerializer(serializers.ModelSerializer):
+    
+    email = serializers.EmailField(required=True)
+    
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'profile_image')
+        fields = ('id', 'username', 'email', 'profile_image', 'verify')
 
 
 class InventoryManagerUserSerializer(UserSerializer):
@@ -73,6 +76,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # inventory_manager = InventoryManagerUser.objects.get(user=user)
         # token['employee_id'] = inventory_manager.employee_id
         token['profile_image'] = user.profile_image.url
+        token['verify'] = user.verify
         return token
 
 

@@ -23,6 +23,7 @@ class User(AbstractUser, CommonUserFields):
     # Additional fields for profile image
     profile_image = models.ImageField(
         upload_to='profile_images', blank=True, null=True, default='default.jpg')
+    verify = models.BooleanField(default=False)     # This is the verify part or is there another way we can achieve this functionality??
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -30,6 +31,9 @@ class User(AbstractUser, CommonUserFields):
     def profile(self):
         profile = Profile.objects.get(user=self)
         return profile
+
+    def __str__(self):
+        return f'{self.username} - {self.first_name} {self.last_name} - {self.email}'
 
 
 class InventoryManagerUser(User):

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from knox.models import AuthToken
 
-
+from rest_framework.views import APIView
 from .models import Profile, Rice
 from django.http import JsonResponse
 from api.models import User, InventoryManagerUser, FarmerUser, CustomerUser
@@ -21,7 +21,7 @@ from api.serializers import (
     UserSerializer,
     FarmerUserSerializer,
     InventoryManagerUserSerializer,
-    CustomerUserSerializer,
+    CustomerUserSerializer, 
     RegisterInventorySerializer,
     ProfileSerializer,
     CustomerUserRegistrationSerializer,
@@ -56,9 +56,6 @@ class CustomerUserListView(generics.ListAPIView):
     queryset = CustomerUser.objects.all()
     serializer_class = CustomerUserSerializer
 
-
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -100,6 +97,27 @@ class ProfileListView(generics.ListAPIView):
     # Adjust permissions as needed
     # permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'id'
+
+
+class UpdateUserVerifyStatusView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+
+class UpdateUserVerifyStatus(APIView):
+
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def put(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            user.verify = True # Update the "verify" status
+            user.save()
+            return Response({"message": "User verified successfully" })
+        except User.DoesNotExist:
+            return Response({"message": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 @api_view(['GET'])

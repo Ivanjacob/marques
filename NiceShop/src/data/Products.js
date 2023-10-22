@@ -1,0 +1,48 @@
+const products = [
+    {
+        _id: "1",
+        name: "Nice Special Rice",
+        category: "Pure Pishori",
+        image: "https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/Screenshot%202023-07-22%20at%2013.08.55.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1280",
+        description: "1KG",
+        price: 170,
+        countInStock: 50,
+        rating: 4,
+        numReviews: 1,
+    },
+    {
+        _id: "2",
+        name: "MRPK",
+        category: "Basmati",
+        image: "https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/image-removebg-preview(30).png/:/rs=w:1280",
+        description: "1KG",
+        price: 198,
+        countInStock: 100,
+        rating: 4,
+        numReviews: 4,
+    },
+    {
+        _id: "3",
+        name: "S & S",
+        category: "Basmati",
+        image: "https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/Untitled%20design(5).jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1280",
+        description: "1KG",
+        price: 158,
+        countInStock: 80,
+        rating: 4,
+        numReviews: 3,
+    },
+    {
+        _id: "4",
+        name: "Kenya Select",
+        category: "Pure Pishori",
+        image: "https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/M.R.G-products-kenya-select-1-300x228-removebg.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1280",
+        description: "1KG",
+        price: 145,
+        countInStock: 45,
+        rating: 4,
+        numReviews: 2,
+    },
+];
+
+export default products;
