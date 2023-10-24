@@ -6,7 +6,7 @@ import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
 const paymentMethods = [
   {
-    image: require("../../assets/mpesa.png"),
+    image: require("../../assets/mpesaa.png"),
     alt: "Mpesa",
     icon: "Ionicons"
   },
@@ -58,7 +58,7 @@ function PaymentScreen() {
                   <Spacer />
                 </Box>
                 {/* ICONS */}
-                
+
                 {method.icon === "Ionicons" ? (
                   <Ionicons name="checkmark-circle" size={24} color={Colors.main}/>
                 ) : (
@@ -70,6 +70,13 @@ function PaymentScreen() {
           <Buttons bg={Colors.main} color={Colors.white} mt={5}>
             CONTINUE
           </Buttons>
+          <Text italic textAlign="center">
+            Payment method is &nbsp;
+             <Text bold>
+                M-pesa &nbsp;
+            </Text>
+            by default.
+          </Text>
           </VStack>
         </ScrollView>
       </Box>
