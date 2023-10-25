@@ -19,9 +19,9 @@ export default function App() {
       <NavigationContainer>
       <StatusBar hidden={true} />
         <Stack.Navigator
-          initialRouteName="Bottom"
+          initialRouteName="Login"
           screenOptions={{
-            headerShown: false,
+            headerShown: false, // this will hide the header
           }}
         >
           <Stack.Screen name="Login" component={LoginScreen} />

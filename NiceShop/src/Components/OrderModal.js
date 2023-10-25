@@ -3,6 +3,7 @@ import { Center, View, Text, VStack, HStack, Modal, Button, Pressable, Image } f
 import React, { useState } from 'react'
 import Colors from "../color"
 import Buttons from "./Buttons";
+import { useNavigation } from '@react-navigation/native';
 
 const OrdersInfos = [
   {
@@ -28,6 +29,7 @@ const OrdersInfos = [
 ];
 
 const OrderModal = () => {
+  const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   return (
     <Center>
@@ -74,17 +76,20 @@ const OrderModal = () => {
             <Button
                 w="full"
                 mt={2}
-                bg={Colors.black}
+                bg={Colors.main}
                 h={45}
                 _text={{
                   color: Colors.white,
                 }}
-                onPress={() => setShowModal(false)}
+                onPress={() => {
+                  navigation.navigate("Home");
+                  setShowModal(false);
+                }}
                 _pressed={{
                   bg: Colors.black,
                 }}
             >
-              <Text color="white">Place Order</Text>
+              <Text color="white">PAY LATER</Text>
             </Button>
             </Modal.Footer>
         </Modal.Content>

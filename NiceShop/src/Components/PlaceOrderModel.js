@@ -3,6 +3,7 @@ import { Center, View, Text, VStack, HStack, Modal, Button } from 'native-base';
 import React, { useState } from 'react'
 import Colors from "../color"
 import Buttons from "./Buttons";
+import { useNavigation } from '@react-navigation/native';
 
 const OrdersInfos = [
   {
@@ -28,11 +29,13 @@ const OrdersInfos = [
 ]
 
 const PlaceOrderModel = () => {
+  const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   return (
-    <Center>
+    <Center pb={24}>
       <Buttons 
         bg={Colors.main}
+        pb={5}
         onPress={() => setShowModal(true)}
       >
         SHOW TOTAL
@@ -59,7 +62,10 @@ const PlaceOrderModel = () => {
                 _text={{
                   color: Colors.white,
                 }}
-                onPress={() => setShowModal(false)}
+                onPress={() => {
+                  navigation.navigate("Order");
+                  setShowModal(false);
+                }}
                 _pressed={{
                   bg: Colors.main,
                 }}

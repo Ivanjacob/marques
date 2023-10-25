@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { NativeBaseProvider } from "native-base";
 
-function LoginScreen() {
+function LoginScreen({navigation}) {
   return (
     <Box flex={1} bg={Colors.black}>
       <Box w="full" h="full" position="absolute" top="0">
@@ -76,10 +76,11 @@ function LoginScreen() {
           mb={5}
           rounded={50}
           bg={Colors.main}
+          onPress={() => navigation.navigate("Bottom")}
         >
           LOGIN
         </Button>
-        <Pressable mt={4}>
+        <Pressable mt={4} onPress={() => navigation.navigate("Register")} >
           <Text color={Colors.deepestGray}>SIGN UP</Text>
         </Pressable>
       </Box>

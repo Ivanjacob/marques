@@ -39,8 +39,9 @@ function PlaceOrderScreen() {
         />
         </ScrollView>
       </Box>
+      <ScrollView>
       {/* ORDER ITEMS */}
-      <Box px={6} flex={1} pb={3}>
+      <Box  pb={25}>
         <Heading bold fontSize={15} isTruncated my={4}>
           Products
         </Heading>
@@ -48,6 +49,7 @@ function PlaceOrderScreen() {
         {/* TOTAL */}
         <PlaceOrderModel />
       </Box>
+      </ScrollView>
     </Box>
   )
 }
