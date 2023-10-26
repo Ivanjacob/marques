@@ -26,4 +26,4 @@ const StackNav = () => {
   );
 };
 
-export default StackNav;
+export default StackNav; 

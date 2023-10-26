@@ -40,7 +40,7 @@ function OrderScreen() {
         <OrderModal />
       </Box>
     </Box>
-  )
+  ) 
 }
 
 export default OrderScreen

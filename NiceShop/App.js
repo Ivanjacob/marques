@@ -10,21 +10,34 @@ import HomeScreen from "./src/Screens/HomeScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import RegisterScreen from "./src/Screens/RegisterScreen";
 import OrderScren from "./src/Screens/OrderScreen";
+import WelcomeScreen from "./src/Screens/WelcomeScreen";
+import AboutScreen from "./src/Screens/AboutScreen";
+
+import WelcomeNav from "./src/Navigations/WelcomeNav";
+import FarmNav from "./src/Navigations/FarmNav";
+
+import Farmer from "./src/Screens/LoginScreens/Farmer";
+import ManagerLogin from "./src/Screens/LoginScreens/ManagerLogin";
 
 const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-      <StatusBar hidden={true} />
+      <StatusBar hidden={false}  /> 
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName="Welcome"
           screenOptions={{
             headerShown: false, // this will hide the header
           }}
         >
+          <Stack.Screen name="Farm" component={FarmNav} />
+          <Stack.Screen name="Nav" component={WelcomeNav} />
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Farmer-Login" component={Farmer} />
+          <Stack.Screen name="Manager-Login" component={ManagerLogin} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Order" component={OrderScren} />
           <Stack.Screen name="Bottom" component={BottonNav} />

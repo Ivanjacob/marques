@@ -45,7 +45,7 @@ const BottonNav = () => {
                         <AntDesign name="home" size={24} color={Colors.black} />
                     )}
                 </Center>
-            )
+            ) 
         }}/>
         {/* CART */}
         <Tab.Screen 

@@ -18,6 +18,7 @@ function HomeProducts() {
             flexWrap="wrap" 
             justifyContent="space-around" 
             alignItems="center"
+            pb={16}
         >
             {
                 products.map((product) => (
@@ -30,7 +31,7 @@ function HomeProducts() {
                     shadow={2}
                     my={2}
                     pt={0.3}
-                    pb={2}
+                    pb={4}
                     overflow="hidden"
                 >
                     <Pressable 

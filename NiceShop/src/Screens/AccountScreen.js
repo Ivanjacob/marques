@@ -32,7 +32,7 @@ const AccountScreen = () => {
                         source={{
                         uri: "https://i.pravatar.cc/150?img=16"
                         }} 
-                        alt="Profile"
+                        alt="Profile" 
                         pt={10}
                         ml={4}
                         resizeMode='cover'
