@@ -33,10 +33,11 @@ export default function App() {
             headerShown: false, // this will hide the header
           }}
         >
-          <Stack.Screen name="Farm" component={FarmNav} />
+          
           <Stack.Screen name="Nav" component={WelcomeNav} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Farmer-Login" component={Farmer} />
+          <Stack.Screen name="Farm" component={FarmNav} />
           <Stack.Screen name="Manager-Login" component={ManagerLogin} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Order" component={OrderScren} />

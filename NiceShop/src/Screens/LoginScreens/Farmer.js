@@ -76,8 +76,8 @@ import {
             mb={5}
             rounded={50}
             bg={Colors.main}
-            onPress={() => navigation.navigate("Bottom")}
-          >
+            onPress={() => navigation.navigate("Farm")}
+          > 
             LOGIN
           </Button>
           <Pressable mt={4} onPress={() => navigation.navigate("Register")} >
