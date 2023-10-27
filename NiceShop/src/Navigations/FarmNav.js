@@ -7,10 +7,9 @@ import { MaterialCommunityIcons, AntDesign, MaterialIcons, Entypo, Ionicons  } f
 import FarmerScreen from "../Screens/FarmerScreens/FarmerScreen";
 import StockScreen from "../Screens/FarmerScreens/StockScreen";
 import QueueScreen from '../Screens/FarmerScreens/QueueScreen';
+import AccountScreen from '../Screens/FarmerScreens/AccountScreen';
 
-import WelcomeScreen from "../Screens/WelcomeScreen";
-import AboutScreen from "../Screens/AboutScreen";
-import AccountScreen from "../Screens/AccountScreen";
+
 
 import { Center, Pressable } from "native-base";
 import Colors from "../color";

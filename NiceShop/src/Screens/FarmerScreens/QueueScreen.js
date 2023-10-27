@@ -28,7 +28,7 @@ const QueueScreen = () => {
                 bg={Colors.black} 
                 height={150} 
             >
-                <Fontisto name="nav-icon-grid-a" size={2} bold color="white" />            
+                <Fontisto name="nav-icon-grid-a" size={28} bold color="white" />            
                 <Text fontFamily="mono" fontSize={24} color="white" >
                     NICE RICE MILLERS
                 </Text>

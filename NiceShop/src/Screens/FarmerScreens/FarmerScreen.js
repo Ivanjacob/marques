@@ -145,7 +145,7 @@ const FarmerScreen = () => {
       </ScrollView>
       <Flex direction="row" justifyContent="space-between" ml={3} mr={3} pt={8}>
         <Text color="black" fontSize={15}  alignSelf="flex-start">
-          Transactions
+          Your Transactions
         </Text>
         <Text color={Colors.blue} fontSize={15}  italic alignSelf="flex-end" mr={2}>
           See all
