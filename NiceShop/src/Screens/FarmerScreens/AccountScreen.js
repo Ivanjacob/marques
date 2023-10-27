@@ -58,34 +58,47 @@ const AccountScreen = () => {
                 </Box>
             </ZStack>
         </VStack>
-        <Box pt={10} >
+        <Box pt={10} pb={30} >
             <Heading  color="gray.500" fontSize="20" textDecoration="gray" italic >
                 General
             </Heading>
             <VStack ml={5} mt={8} pb={10} space={2} alignItems="flex-start" mr={4} >
                 <Center w="full" h="20" bg="white" rounded="md" shadow={3}>
-                    <HStack space={4} alignItems="flex-start" alignSelf="flex-start" ml={2}>
+                    <HStack space={4} alignItems="flex-start" alignSelf="flex-start" ml={2} mr={2}>
                         <MaterialCommunityIcons name="account" size={24} color="white" />
                         <Text color={Colors.black} fontSize={20}  textAlign="center" alignSelf="flex-start" >
                            Update Profile
                         </Text>
+                        <Spacer/>
                         <AntDesign name="right" size={20} color="black" alignSelf="center" />
                     </HStack>
                 </Center>
                 <Center w="full" h="20" bg="white" rounded="md" shadow={3}>
-                    <HStack space={4} alignItems="center" alignSelf="flex-start" ml={2}>
+                    <HStack space={4} alignItems="center" alignSelf="flex-start" ml={2} mr={2}>
                         <MaterialIcons name="payment" size={24} color="white" />
                         <Text color={Colors.black} fontSize={20}  textAlign="center" alignSelf="center" >
                             Update Payment
                         </Text>
+                        <Spacer/>
                         <AntDesign name="right" size={20} color="black" alignSelf="center" />
                     </HStack>
                 </Center>
                 <Center w="full" h="20" bg="white" rounded="md" shadow={3}>
-                    <HStack space={4}  alignSelf="flex-start" ml={2} flex={2}>
+                    <HStack space={4} alignItems="center"  alignSelf="flex-start" ml={2} mr={2} >
                         <MaterialIcons name="notifications" size={24} color="white" />
                         <Text color={Colors.black} fontSize={20}  textAlign="center" alignSelf="center" >
                             Notifications
+                        </Text>
+                        <Spacer/>
+                        <AntDesign  name="right" size={20} color="black" alignSelf="center"/>
+                    </HStack>
+                </Center>
+                {/*Settings*/}
+                <Center w="full" h="20" bg="white" rounded="md" shadow={3}>
+                    <HStack space={4} alignItems="center"  alignSelf="flex-start" ml={2} mr={2} >
+                        <MaterialIcons name="settings" size={24} color="white" />
+                        <Text color={Colors.black} fontSize={20}  textAlign="center" alignSelf="center" >
+                            Settings
                         </Text>
                         <Spacer/>
                         <AntDesign  name="right" size={20} color="black" alignSelf="center"/>
