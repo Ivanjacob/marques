@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import AccountScreen from "../Screens/FarmerScreens/AccountScreen";
 import FarmerScreen from "../Screens/FarmerScreens/FarmerScreen";
+import QueueScreen from '../Screens/FarmerScreens/QueueScreen';
 import StockScreen from "../Screens/FarmerScreens/StockScreen";
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +21,8 @@ const FarmStack = () => {
     >
         <Stack.Screen name="Farm" component={FarmerScreen} />
         <Stack.Screen name="Stock" component={StockScreen} />
-        <Stack.Screen name="Account" component={AccountScreen} />
+        <Stack.Screen name="Account" component={AccountScreen} /> 
+        <Stack.Screen name="Queue" component={QueueScreen} />
     </Stack.Navigator>
   );
 };
