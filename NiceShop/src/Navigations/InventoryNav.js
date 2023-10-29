@@ -27,8 +27,7 @@ const InventoryNav = () => {
         <Tab.Screen name="Alert" component={AlertScreen} options={{
             tabBarIcon: ({focused}) => (
                 <Center>
-                    <Foundation name="alert" size={24} color={focused ? Colors.primary : Colors.grey} />
-                    <Text style={{color: focused ? Colors.primary : Colors.grey, fontSize: 10}}>Alerts</Text>
+                    <Foundation name="alert" size={24} color={focused ? Colors.black : Colors.white} />
                 </Center>
             )
         }}/> 
@@ -36,8 +35,7 @@ const InventoryNav = () => {
         <Tab.Screen name="Inventory" component={HomeScreen} options={{
             tabBarIcon: ({focused}) => (
                 <Center>
-                    <MaterialCommunityIcons name="home" size={24} color={focused ? Colors.primary : Colors.grey} />
-                    <Text style={{color: focused ? Colors.primary : Colors.grey, fontSize: 10}}>Home</Text>
+                    <MaterialCommunityIcons name="home" size={24} color={focused ? Colors.black : Colors.white} />
                 </Center>
             )
         }}/> 
@@ -45,8 +43,7 @@ const InventoryNav = () => {
         <Tab.Screen name="Notification" component={NotificationScreen} options={{
             tabBarIcon: ({focused}) => (
                 <Center>
-                    <Ionicons name="notifications-outline" size={24} color={focused ? Colors.primary : Colors.grey} />
-                    <Text style={{color: focused ? Colors.primary : Colors.grey, fontSize: 10}}>Notifications</Text>
+                    <Ionicons name="notifications" size={24} color={focused ? Colors.black : Colors.white} />
                 </Center>
             )
         }}/> 
