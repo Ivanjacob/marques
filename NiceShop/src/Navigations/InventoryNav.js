@@ -8,6 +8,7 @@ import { Center, Pressable } from "native-base";
 import AlertScreen from "../Screens/InventoryScreens/AlertScreen";
 import HomeScreen from "../Screens/InventoryScreens/HomeScreen";
 import NotificationScreen from '../Screens/InventoryScreens/NotificationScreen';
+import AddStockScreen from "../Screens/InventoryScreens/AddStockScreen";
 
 import Colors from "../color";
 
@@ -39,6 +40,14 @@ const InventoryNav = () => {
                 </Center>
             )
         }}/> 
+        {/* AddStock */}
+        <Tab.Screen name="AddStock" component={AddStockScreen} options={{
+            tabBarIcon: ({ focused }) => (
+                <Center>
+                    <Ionicons name="add-circle-sharp" size={24} color={focused ? Colors.black : Colors.white} />
+                </Center>
+            )
+        }} />
         {/* Notifications */}
         <Tab.Screen name="Notification" component={NotificationScreen} options={{
             tabBarIcon: ({focused}) => (

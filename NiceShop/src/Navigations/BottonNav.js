@@ -80,6 +80,7 @@ const BottonNav = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
     tab: {
         position: "absolute",
@@ -95,3 +96,4 @@ const styles = StyleSheet.create({
 });
 
 export default BottonNav;
+

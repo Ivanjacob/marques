@@ -12,6 +12,7 @@ import RegisterScreen from "./src/Screens/RegisterScreen";
 import OrderScren from "./src/Screens/OrderScreen";
 import WelcomeScreen from "./src/Screens/WelcomeScreen";
 import AboutScreen from "./src/Screens/AboutScreen";
+import AddStock from "./src/Screens/InventoryScreens/Components/AddStock";
 
 import WelcomeNav from "./src/Navigations/WelcomeNav";
 import FarmNav from "./src/Navigations/FarmNav";
@@ -34,12 +35,13 @@ export default function App() {
             headerShown: false, // this will hide the header
           }}
         >
-          <Stack.Screen name="Inventories" component={InventoryNav} />
+          <Stack.Screen name="AddStock" component={AddStock} />
           <Stack.Screen name="Nav" component={WelcomeNav} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Farmer-Login" component={Farmer} />
           <Stack.Screen name="Farm" component={FarmNav} />
           <Stack.Screen name="Manager-Login" component={ManagerLogin} />
+          <Stack.Screen name="Inventories" component={InventoryNav} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Order" component={OrderScren} />
           <Stack.Screen name="Bottom" component={BottonNav} />
