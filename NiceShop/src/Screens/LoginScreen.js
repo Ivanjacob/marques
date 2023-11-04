@@ -22,7 +22,7 @@ function LoginScreen({navigation}) {
     <Box flex={1} bg={Colors.black}>
       <Box w="full" h="full" position="absolute" top="0">
         <Image
-          source={require("../../assets/logo.jpg")}
+          source={{ uri: "https://images.unsplash.com/photo-1554189097-ffe88e998a2b?auto=format&fit=crop&q=80&w=1374&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}}
           alt="login"
           resizeMode="cover"
           height="100%"
