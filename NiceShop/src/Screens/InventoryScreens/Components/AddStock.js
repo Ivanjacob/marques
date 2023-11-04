@@ -1,9 +1,11 @@
-import { View, Text } from 'react-native'
-import { Box, Flex, HStack, Pressable, Image, Center, Button, VStack } from "native-base"
-import React from 'react'
+import { View, Text, ScrollView } from 'react-native'
+import { Box, Flex, HStack, Pressable, Image, Modal, Center, Button, VStack, Heading, Input } from "native-base"
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
+import NumericInput from "react-native-numeric-input"
+import { AntDesign, Feather, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { Calendar } from "react-native-calendars";
 
-import { AntDesign } from '@expo/vector-icons';
 
 import Colors from "../../../color";
 
@@ -11,9 +13,17 @@ import Colors from "../../../color";
 const AddStock = () => {
   
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+  
+  const handleDateSelect = (date) => {
+    setSelectedDate(date.dateString);
+    setModalVisible(false); // Close the modal
+  }
 
   return (
-    <Box bg={Colors.gray}>
+    <Box bg={Colors.gray} mt={2} >
+
       <HStack 
         flexDirection="row" 
         justifyItems="center" 
@@ -31,7 +41,7 @@ const AddStock = () => {
         <View
           style={{
             flex: 1,
-            flexDirection: "row",
+            flexDirection: "row",  
             alignItems: "center",
             justifyContent: "flex-start",
           }}
@@ -47,15 +57,15 @@ const AddStock = () => {
           </Text>
         </View>
       </HStack>
-      <Box bg={Colors.white} ml={5} mr={5} mt={20} pb={20} rounded={10}>
+      <Box bg={Colors.white} ml={5} mr={5} mt={10} pb={10} rounded={10} shadow={2} >
           {/* close Icon */}
-          <HStack justifyContent="flex-end" pt={5} pr={3}>
+          <HStack justifyContent="flex-end" pt={2} pr={3}>
             <Pressable onPress={() => navigation.navigate("Inventory")}>
-              <AntDesign name="close" size={24} color="white" />
+              <AntDesign name="close" size={24} color="black" />
             </Pressable>
           </HStack>
           <VStack space={4} alignItems="center" >
-            <Center w="200" h="200" bg="indigo.300" rounded="md" shadow={3}>
+            <Center w="200" h="200" rounded="md" shadow={3}>
               {/* Product Image */}
               <Image
                 source={{ uri: "https://images.yaoota.com/uZ_gS67cSOWu7Fxu0TAWuwKs-6w=/trim/fit-in/500x500/filters:quality(80)/yaootaweb-production-ke/media/crawledproductimages/6ab9cde55a6b18c1d174053a311e4e55066f6765.jpg"}}
@@ -78,14 +88,97 @@ const AddStock = () => {
               >
                 Pure Pishori
               </Text>
-            <Center w="64" h="20" bg="indigo.500" rounded="md" shadow={3}></Center>
+            
+              {/*Numeric Input*/}
+              <NumericInput
+                value={0}
+                onChange={value => console.log(value)}
+                onLimitReached={(isMax,msg) => console.log(isMax,msg)}
+                totalWidth={150}
+                totalHeight={40}
+                iconSize={25}
+                step={1}
+                minValue={0}
+                maxValue={29}
+                valueType='real'
+                rounded
+                borderColor={Colors.deepGray}
+                textColor={Colors.black}
+                iconStyle={{ color: Colors.white }}
+                rightButtonBackgroundColor={Colors.main}
+                leftButtonBackgroundColor={Colors.main}
+              />
+            {/* Add Expiry Date */}
+            <Heading style={{ fontSize: 15 }} >Add Expiry Date</Heading>
+            <Flex 
+              w="75%"
+              direction="row" 
+              alignItems="center"
+              _text={{
+                color: "black",
+              }} 
+              space={4} 
+              bg={Colors.white}
+              rounded={10}
+              shadow={1}
+              px={2}
+              py={2}
+            >
+              <View>
+                <Feather name="alert-triangle" size={24} color="black" />
+              </View>
+              <Input
+                justifyContent="center"
+                alignSelf="center"
+                alignItems="center"
+                flex={1}
+                placeholder="12-10-2023"
+                variant="unstyled"
+                _placeholder={{
+                  color: "gray.400", 
+                  textAlign: "center",
+                }}
+                value={selectedDate}
+                onChangeText={text => setSelectedDate(text)}
+              />
+              <Pressable onPress={() => setModalVisible(true)} >
+                <MaterialCommunityIcons name="pencil" size={24} color="black" />
+              </Pressable>
+            </Flex>
           </VStack>
       </Box>
-      <Center pt={20} >
-        <Button>
+      <Center pt={5} >
+        <Button
+          onPress={() => navigation.navigate("Inventory")}
+          bg={Colors.main}
+          _text={{
+            color: "black",
+            fontSize: 15,
+          }}
+          _pressed={{
+            bg: "white",
+            _text: {
+              color: "black",
+            },
+          }}
+          px={10}
+          rounded={10}
+        >
           Continue
         </Button>
       </Center>
+      {/* Date Modal */}
+      <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} size="lg">
+        <Modal.Content>
+          <Modal.CloseButton />
+          <Modal.Header>Choose Date</Modal.Header>
+          <Modal.Body>
+            <ScrollView>
+              <Calendar onDayPress={handleDateSelect} />
+            </ScrollView>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
     </Box>
   )
 }

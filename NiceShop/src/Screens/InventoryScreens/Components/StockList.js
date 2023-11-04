@@ -3,17 +3,26 @@ import React from 'react'
 import products from "../../../data/Products";
 import Colors from '../../../color';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-const Stocks = () => {
+const StockList = ({ selectedCategory }) => {
     
     const navigation = useNavigation();
 
+    const filteredProducts = products.filter((item) => { 
+        if (selectedCategory === "All") {
+            return true; // show all products when "All" is selected.
+        } else { 
+            return item.category === selectedCategory;
+        }
+    });
+
   return (
-    <ScrollView style={{ height: 500 }} showsVerticalScrollIndicator={false}>
+    <ScrollView pt={5} style={{ height: 600 }} showsVerticalScrollIndicator={false}>
         <FlatList
             showsVerticalScrollIndicator={false}
-            data={products.slice(0, 8)}
+            data={filteredProducts.slice(0, 8)}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => (
                 <Pressable>
@@ -25,6 +34,7 @@ const Stocks = () => {
                             rounded={10}
                             overflow="hidden"
                         >
+                        {/* Image */}
                         <Center w="30%" bg={Colors.deepGray}>
                             <Image
                                 source={{ uri: item.image }}
@@ -34,18 +44,36 @@ const Stocks = () => {
                                 resizeMode='contain'
                             />
                         </Center>
+                        {/* Details */}
                         <VStack w="50%" px={2}>
                             <Text isTruncated color={Colors.black} bold fontSize={12}>
                                 {item.name}
                             </Text>
-                            <Text color={Colors.lightBlack} mt={2} bold>
-                                Ksh.{item.price}
+                            <Text color={Colors.black} mt={2} >
+                                {item.description}
                             </Text>
+                            {item.countInStock < 5 ? (
+                                <HStack alignItems="center" mt={2}>
+                                  <Text color="green" mr={1}>
+                                    {item.countInStock} ~ Pcks
+                                  </Text>
+                                  <MaterialCommunityIcons
+                                    name="alert-octagram"
+                                    size={24}
+                                    color="red"
+                                  />
+                                </HStack>
+                              ) : (
+                                <Text color={Colors.black} mt={2}>
+                                  {item.countInStock} ~ Pcks Available
+                                </Text>
+                            )}
                         </VStack>
+                        {/* Buton */}
                         <Center >
                             <Button
                                 mr={3} 
-                                bg={Colors.main}
+                                bg={Colors.primary}
                                 _pressed={{ bg: Colors.white }}
                                 onPress={() => navigation.navigate("Add")}
                                 _text={{
@@ -64,7 +92,7 @@ const Stocks = () => {
   )
 }
 
-export default Stocks;
+export default StockList;
 
 
 

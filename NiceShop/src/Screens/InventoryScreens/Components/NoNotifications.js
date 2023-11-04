@@ -1,7 +1,12 @@
 import { View, Text } from 'react-native'
+import { Box, Flex, HStack, Pressable, Image, Center } from "native-base"
 import React from 'react'
-import { Box } from 'native-base'
+
 import Colors from '../../../color'
+import { useNavigation } from '@react-navigation/native';
+
+import { AntDesign } from '@expo/vector-icons';
+
 
 const NoNotifications = () => {
   return (

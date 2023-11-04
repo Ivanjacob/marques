@@ -14,7 +14,8 @@ const Colors = {
     paypal: "#FFB730",
     google: "#4285F4",
     green: "#48B600",
-    primary: "#0A5339"
+    primary: "#0A5339",
+    mygray: "#EEEEE8"
 };
 
 export default Colors;

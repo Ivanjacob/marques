@@ -1,35 +1,45 @@
-import { View, Text, TouchableOpacity  } from 'react-native'
-import { Image, HStack, Box, Input, Flex, Pressable, Icon, VStack, Heading, Center, Button, ScrollView, Container, Content, Card, CardItem, IconButton } from 'native-base'
-import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { Image, HStack, Box, Input, Flex, Pressable, Menu, Icon, VStack, Heading, Center, Button, ScrollView, Container, Content, Card, CardItem, IconButton } from 'native-base'
+import React, { useState } from 'react'
 import { Ionicons, EvilIcons, MaterialCommunityIcons, MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons';
 import Colors from "../../color";
 
-import PieChart from "./Components/PieChart";
+
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  
+  const navigation = useNavigation();
+
   return (
     <Box bg={Colors.subGreen} space={5} ml={2} mr={2} pb={4} >
       <HStack bg={Colors.white} style={{ flexDirection: "row", height: 50 }}
         alignItems="space-between"
         justifyContent="space-between"
       >
-        <TouchableOpacity
-          alignSelf="flex-start"
-          style={{
-            width: 50,
-            paddingLeft: 10,
-            justifyContent: "center",
-          }}
-        >
-          <Ionicons name="menu" size={24} color="black"
-            //onPress={() => navigation.openDrawer()}
-            style={{ 
-              marginLeft: 10,
-              width: 32,
-              height: 32,
-            }}
-          />
-        </TouchableOpacity>
+        <Box alignItems="flex-start">
+          <Menu shadow={2} w="190" trigger={triggerProps => {
+            return <Pressable accessibilityLabel="More options menu" {...triggerProps}>
+                      <Ionicons name="menu" size={24} color="black"
+                        style={{ 
+                          marginLeft: 10,
+                          width: 32,
+                          height: 32,
+                        }}
+                      />
+                    </Pressable>;
+          }}>
+            <Menu.Item>Home</Menu.Item>
+            <Menu.Item>Add Products</Menu.Item>
+            <Menu.Item>Inventory</Menu.Item>
+            <Menu.Item>Add Stock</Menu.Item>
+            <Menu.Item>Notification</Menu.Item>
+            <Menu.Item>Alerts</Menu.Item>
+            <Menu.Item>Help</Menu.Item>
+            <Menu.Item>Settings</Menu.Item>
+            <Menu.Item>Logout</Menu.Item>
+          </Menu>
+        </Box>
         <View alignSelf='center' syle={{ flex: 1, alignItems: "center", justifyContent: "center", width: "100%" }}  >
           <View 
             mt={12}
@@ -65,6 +75,7 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
       </HStack>
+      
       <View mt={5} >
         <Input
           placeholder="Search Inventory Items"
@@ -242,6 +253,7 @@ const HomeScreen = () => {
           />
         </Center>
       </VStack>
+
     </Box>
   )
 }
