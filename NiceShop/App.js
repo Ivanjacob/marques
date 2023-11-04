@@ -31,18 +31,19 @@ export default function App() {
     <NativeBaseProvider>
       <NavigationContainer>
       <StatusBar hidden={false}  /> 
-        <Stack.Navigator
+        <Stack.Navigator 
           initialRouteName="Welcome"
           screenOptions={{
             headerShown: false, // this will hide the header
           }}
         >
-          <Stack.Screen name="Inventories" component={InventoryNav} />
+          
           <Stack.Screen name="Nav" component={WelcomeNav} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Farmer-Login" component={Farmer} />
           <Stack.Screen name="Farm" component={FarmNav} />
           <Stack.Screen name="Manager-Login" component={ManagerLogin} />
+          <Stack.Screen name="Inventories" component={InventoryNav} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Order" component={OrderScren} />
           <Stack.Screen name="Bottom" component={BottonNav} />

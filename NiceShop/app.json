@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons.png",
         "backgroundColor": "#48B600"
-      }
+      },
+      "package": "com.evan_jake.NiceShop"
     },
     "web": {
       "favicon": "./assets/icons.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0963c5ac-6f9c-440c-82b7-44a3c0aec626"
+      }
     }
   }
 }

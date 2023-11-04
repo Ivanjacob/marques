@@ -22,7 +22,7 @@ const InventoryStack = () => {
         <Stack.Screen name="Alert" component={AlertScreen} />
         <Stack.Screen name="Notifications" component={NotificationScreen} /> 
         <Stack.Screen name="AddStock" component={AddStockScreen} />
-        <Stack.Screen name="Add" component={HomeScreen} /> 
+        <Stack.Screen name="Add" component={AddStock} />  
     </Stack.Navigator>
   );
 };

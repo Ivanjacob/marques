@@ -7,9 +7,48 @@ import Colors from "../../color";
 
 import { useNavigation } from '@react-navigation/native';
 
+const menubar = [
+  {
+    title: 'Inventory',
+    icon: 'home',
+    link: 'Inventory',
+
+  },
+  {
+    title: 'Alert',
+    icon: 'alert',
+    link: 'Alert',
+  },
+  {
+    title: 'Notifications',
+    icon: 'bell',
+    link: 'Notifications',
+  },
+  {
+    title: 'Add Stock',
+    icon: 'plus',
+    link: 'AddStock',
+  },
+  {
+    title: 'Add Product',
+    icon: 'plus',
+    link: 'Add',
+  },
+  {
+    title: 'Logout',
+    icon: 'logout',
+    link: 'Manager-Login',
+  }
+]
+
 const HomeScreen = () => {
   
   const navigation = useNavigation();
+
+  const handleMenuItemPress = (screenName) => {
+    // Navigate to the desired screen when a menu item is pressed
+    navigation.navigate(screenName);
+  };
 
   return (
     <Box bg={Colors.subGreen} space={5} ml={2} mr={2} pb={4} >
@@ -29,16 +68,18 @@ const HomeScreen = () => {
                       />
                     </Pressable>;
           }}>
-            <Menu.Item>Home</Menu.Item>
-            <Menu.Item>Add Products</Menu.Item>
-            <Menu.Item>Inventory</Menu.Item>
-            <Menu.Item>Add Stock</Menu.Item>
-            <Menu.Item>Notification</Menu.Item>
-            <Menu.Item>Alerts</Menu.Item>
-            <Menu.Item>Help</Menu.Item>
-            <Menu.Item>Settings</Menu.Item>
-            <Menu.Item>Logout</Menu.Item>
-          </Menu>
+          {menubar.map((item, index) => (
+            
+              <Menu.Item key={index}>
+              <Pressable onPress={() => handleMenuItemPress(item.link)}>
+                <HStack space={2}>
+                  <Icon as={MaterialCommunityIcons } name={item.icon} size={5} />
+                  <Text ml={2}>{item.title}</Text>
+                </HStack>
+                </Pressable>
+              </Menu.Item>
+          ))}
+        </Menu>
         </Box>
         <View alignSelf='center' syle={{ flex: 1, alignItems: "center", justifyContent: "center", width: "100%" }}  >
           <View 
@@ -114,7 +155,8 @@ const HomeScreen = () => {
             mt={1}
             ml={4}
             _text={{ color: 'white' }}
-            //onPress={() => navigation.navigate("AddItemsByCategory")}
+            _pressed={{ bg: 'blue.600', _text: { color: 'white' } }}
+            onPress={() => navigation.navigate("Add")}
           >
           <Entypo name="plus" size={24} color="white"  />
           </Button>

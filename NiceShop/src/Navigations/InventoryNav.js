@@ -11,9 +11,11 @@ import NotificationScreen from '../Screens/InventoryScreens/NotificationScreen';
 import AddStockScreen from "../Screens/InventoryScreens/AddStockScreen";
 
 import Colors from "../color";
+import InventoryStack from './InventoryStack';
 
 
 const Tab = createBottomTabNavigator();
+
 
 const InventoryNav = () => {
   return (
@@ -22,18 +24,9 @@ const InventoryNav = () => {
         tabBarStyle: {...styles.tab},
         headerShown: false,
         tabBarHideOnKeyboard: true,
-    }}>
-
-    {/* Alerts */}
-        <Tab.Screen name="Alert" component={AlertScreen} options={{
-            tabBarIcon: ({focused}) => (
-                <Center>
-                    <Foundation name="alert" size={24} color={focused ? Colors.black : Colors.white} />
-                </Center>
-            )
-        }}/> 
-        {/* Inventory Home */}
-        <Tab.Screen name="Inventory" component={HomeScreen} options={{
+    }}>       
+        {/* Inventory Home */}  
+        <Tab.Screen name="Main" component={InventoryStack} options={{
             tabBarIcon: ({focused}) => (
                 <Center>
                     <MaterialCommunityIcons name="home" size={24} color={focused ? Colors.black : Colors.white} />
@@ -53,6 +46,14 @@ const InventoryNav = () => {
             tabBarIcon: ({focused}) => (
                 <Center>
                     <Ionicons name="notifications" size={24} color={focused ? Colors.black : Colors.white} />
+                </Center>
+            )
+        }}/> 
+        {/* Alerts */}
+        <Tab.Screen name="Alert" component={AlertScreen} options={{
+            tabBarIcon: ({focused}) => (
+                <Center>
+                    <Foundation name="alert" size={24} color={focused ? Colors.black : Colors.white} />
                 </Center>
             )
         }}/> 

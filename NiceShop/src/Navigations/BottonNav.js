@@ -36,7 +36,7 @@ const BottonNav = () => {
         headerShown: false,
         tabBarHideOnKeyboard: true,
     }}>
-        <Tab.Screen name="Main" component={StackNav } options={{
+        <Tab.Screen name="Main" component={StackNav } options={{ 
             tabBarIcon: ({focused}) => (
                 <Center>
                     {focused ? ( 
