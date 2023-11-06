@@ -15,7 +15,10 @@ const Colors = {
     google: "#4285F4",
     green: "#48B600",
     primary: "#0A5339",
-    mygray: "#EEEEE8"
+    mygray: "#EEEEE8",
+    newgray: "#B0BEC5",
+    newestgray: "#90A4AE",
+    press: "#FFC107",
 };
 
 export default Colors;

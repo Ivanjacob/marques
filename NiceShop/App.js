@@ -19,6 +19,7 @@ import NotificationScreen from "./src/Screens/InventoryScreens/NotificationScree
 import WelcomeNav from "./src/Navigations/WelcomeNav";
 import FarmNav from "./src/Navigations/FarmNav";
 import InventoryNav from "./src/Navigations/InventoryNav";
+import DriverNav from "./src/Navigations/DriverNav";
 
 import Farmer from "./src/Screens/LoginScreens/Farmer";
 import ManagerLogin from "./src/Screens/LoginScreens/ManagerLogin";
@@ -37,7 +38,7 @@ export default function App() {
             headerShown: false, // this will hide the header
           }}
         >
-          
+          <Stack.Screen name="Driver" component={DriverNav} />
           <Stack.Screen name="Nav" component={WelcomeNav} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Farmer-Login" component={Farmer} />
