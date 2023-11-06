@@ -8,7 +8,7 @@ import Completed from "./Components/Completed";
 import Accepted from "./Components/Accepted";
 
 const HomeScreen = () => {
-    const [selectedOption, setSelectedOption] = useState("Pending");
+    const [selectedOption, setSelectedOption] = useState("Available");
 
   return (
     <Box bg="ECEFF1" pb={20}>
@@ -38,10 +38,10 @@ const HomeScreen = () => {
                 <Pressable
                     flex={1}
                     onPress={() => {
-                        setSelectedOption("Pending");
+                        setSelectedOption("Available");
                     }}
                 >
-                    <Center flex={1} bg={selectedOption === 'Pending' ? Colors.press : Colors.newestgray} _text={{color: "coolGray.700"}}>Pending</Center>
+                    <Center flex={1} bg={selectedOption === 'Available' ? Colors.press : Colors.newestgray} _text={{color: "coolGray.700"}}>Available</Center>
                 </Pressable>
                 <Pressable
                     flex={1}
@@ -61,7 +61,7 @@ const HomeScreen = () => {
                 </Pressable>
             </Flex>
             {/* Delivery Component */}
-            {selectedOption === "Pending" && <Delivery />}
+            {selectedOption === "Available" && <Delivery />}
             {/* Accepted Component */}
             {selectedOption === "Accepted" && <Accepted />}
             {/* Completed Component */}
