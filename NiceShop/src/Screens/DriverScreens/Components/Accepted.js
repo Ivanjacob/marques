@@ -26,7 +26,7 @@ const Accepted = () => {
                       <Stack direction="row" mt={2} px={6} alignItems="center" alignContent="center"   space={1}>
                           <Flex direction='column' >
                               <Center rounded="full" bg={Colors.press} h={10} w={10} >
-                                  <Icon as={Ionicons} name="location" size={6} color="white" _dark={{ color: "warmGray.50" }}  />
+                                  <Icon as={Ionicons} name="ios-location" size={6} color={Colors.press} _dark={{ color: "warmGray.50" }}  />
                               </Center>
                               <Center mt={1} >
                                   <Text style={{ fontSize: 12, fontWeight: "bold" }} color={Colors.newestgray} _dark={{ color: "warmGray.50" }}>{delivery.Distance}</Text>
@@ -59,10 +59,10 @@ const Accepted = () => {
                                 size="sm"
                                 _text={{
                                     fontWeight: "medium",
-                                    fontStyle: "italic",
+                                    fontSize: "xs",
                                 }}
                               >
-                                Delivered
+                                Deliver
                               </Button>
                           </Center>
                       </Stack>

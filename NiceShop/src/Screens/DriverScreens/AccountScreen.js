@@ -74,16 +74,6 @@ const AccountScreen = () => {
                     </HStack>
                 </Center>
                 <Center w="full" h="20" bg="white" rounded="md" shadow={3}>
-                    <HStack space={4} alignItems="center" alignSelf="flex-start" ml={2} mr={2}>
-                        <MaterialIcons name="payment" size={24} color="white" />
-                        <Text color={Colors.black} fontSize={20}  textAlign="center" alignSelf="center" >
-                            Update Payment
-                        </Text>
-                        <Spacer/>
-                        <AntDesign name="right" size={20} color="black" alignSelf="center" />
-                    </HStack>
-                </Center>
-                <Center w="full" h="20" bg="white" rounded="md" shadow={3}>
                     <HStack space={4} alignItems="center"  alignSelf="flex-start" ml={2} mr={2} >
                         <MaterialIcons name="notifications" size={24} color="white" />
                         <Text color={Colors.black} fontSize={20}  textAlign="center" alignSelf="center" >

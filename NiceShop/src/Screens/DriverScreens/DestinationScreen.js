@@ -8,7 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign, MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 
-const NotificationScreen = () => {
+const DestinationScreen = () => {
+
+  const navigation = useNavigation();
 
   const {
     isOpen,
@@ -63,7 +65,7 @@ const NotificationScreen = () => {
             }
           }}
           >
-            <IconButton mb="4" variant="solid" bg="red.500" colorScheme="red" borderRadius="full" icon={<Icon as={MaterialIcons} size="6" name="home" _dark={{
+            <IconButton mb="4" onPress={() => navigation.navigate("Home")} variant="solid" bg="red.500" colorScheme="red" borderRadius="full" icon={<Icon as={MaterialIcons} size="6" name="home" _dark={{
               color: 'warmGray.50'
             }} color="warmGray.50" />} />
             <IconButton mb="4" variant="solid" bg="indigo.500" colorScheme="indigo" borderRadius="full" icon={<Icon as={MaterialIcons} size="6" name="location-pin" _dark={{
@@ -72,7 +74,7 @@ const NotificationScreen = () => {
               <IconButton mb="4" variant="solid" bg="yellow.400" colorScheme="yellow" borderRadius="full" icon={<Icon as={MaterialCommunityIcons} _dark={{
               color: 'warmGray.50'
             }} size="6" name="microphone" color="warmGray.50" />} />
-              <IconButton mb="4" variant="solid" bg="teal.400" colorScheme="teal" borderRadius="full" icon={<Icon as={MaterialCommunityIcons} _dark={{
+              <IconButton mb="4" onPress={() => navigation.navigate("OpenCamera")} variant="solid" bg="teal.400" colorScheme="teal" borderRadius="full" icon={<Icon as={MaterialCommunityIcons} _dark={{
               color: 'warmGray.50'
             }} size="6" name="video" color="warmGray.50" />} />
           </Stagger>
@@ -81,4 +83,4 @@ const NotificationScreen = () => {
   )
 }
 
-export default NotificationScreen;
+export default DestinationScreen;

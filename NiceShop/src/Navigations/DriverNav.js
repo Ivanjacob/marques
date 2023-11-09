@@ -7,7 +7,8 @@ import { Center, Pressable } from "native-base";
 
 import HomeScreen from "../Screens/DriverScreens/HomeScreen";
 import NotificationScreen from "../Screens/DriverScreens/NotificationScreen";
-import AccrountScreen from "../Screens/DriverScreens/AccountScreen";
+import AccountScreen from "../Screens/DriverScreens/AccountScreen";
+import DestinationScreen from "../Screens/DriverScreens/DestinationScreen";
 
 import Colors from "../color";
 import DriverStack from './DriverStack';
@@ -33,18 +34,18 @@ const DriverNav = () => {
             )
         }}/> 
         {/* Account */}
-        <Tab.Screen name="Account" component={AccrountScreen} options={{
+        <Tab.Screen name="Account" component={AccountScreen} options={{
             tabBarIcon: ({ focused }) => (
                 <Center>
                     <MaterialCommunityIcons name="account" size={24} color={focused ? Colors.black : Colors.white} />
                 </Center>
             )
         }} />
-        {/* Notifications */}
-        <Tab.Screen name="Notification" component={NotificationScreen} options={{
+        {/* Destination */}
+        <Tab.Screen name="Destination" component={DestinationScreen} options={{
             tabBarIcon: ({focused}) => (
                 <Center>
-                    <Ionicons name="notifications" size={24} color={focused ? Colors.black : Colors.white} />
+                    <Ionicons name="ios-location" size={24} color={focused ? Colors.black : Colors.white} />
                 </Center>
             )
         }}/> 
