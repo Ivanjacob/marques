@@ -43,7 +43,7 @@ export default function App() {
             headerShown: false, // this will hide the header
           }}
         >
-          <Stack.Screen name="Mill" component={MillNav} />
+          
           <Stack.Screen name="Nav" component={WelcomeNav} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Farmer-Login" component={Farmer} />
@@ -52,7 +52,7 @@ export default function App() {
           <Stack.Screen name="Inventories" component={InventoryNav} />
           <Stack.Screen name="Driver" component={DriverNav} />
           <Stack.Screen name="Driver-Login" component={DriverLogin} />
-          
+          <Stack.Screen name="Mill" component={MillNav} />
           <Stack.Screen name="Mill-Login" component={MillLogin} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Order" component={OrderScren} />
