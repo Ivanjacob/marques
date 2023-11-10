@@ -53,7 +53,7 @@ import {
           justifyContent="center"
         >
 
-            <VStack space={5} pt="6" alignItems="center">      
+            <VStack space={3} pt="6" alignItems="center">      
                 {/* CUSTOMER */}
                 <Buttone
                     bg={Colors.main}
@@ -88,9 +88,16 @@ import {
                 {/* MILL MANAGER */}
                 <Buttone
                     bg={Colors.main}
-                    onPress={() => navigation.navigate("Manager-Login")}
+                    onPress={() => navigation.navigate("Mill-Login")}
                 >
                     MILL MANAGER
+                </Buttone>
+                {/* Driver */}
+                <Buttone
+                    bg={Colors.main}
+                    onPress={() => navigation.navigate("Driver-Login")}
+                >
+                    DELIVERY DRIVER
                 </Buttone>
             </VStack>
         </Box>
@@ -99,15 +106,3 @@ import {
   }
   export default WelcomeScreen;
   
-  
-//   <HStack justifyContent="space-between" mt={6}>
-//                 <Pressable mt={4} onPress={() => navigation.navigate("About")} >
-//                     <Entypo name="info-with-circle" size={24} color="black" />
-//                 </Pressable>
-//                 <Pressable mt={4} onPress={() => navigation.navigate("About")} >
-//                     <MaterialCommunityIcons name="account-question" size={28} color="black" />
-//                 </Pressable>
-//                 <Pressable mt={4} onPress={() => navigation.navigate("Welcome")} >
-//                 <MaterialCommunityIcons name="home-circle" size={28} color="black" />
-//                 </Pressable>
-//             </HStack>

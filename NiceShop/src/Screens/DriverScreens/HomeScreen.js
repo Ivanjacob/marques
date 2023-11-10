@@ -11,7 +11,7 @@ const HomeScreen = () => {
     const [selectedOption, setSelectedOption] = useState("Available");
 
   return (
-    <Box bg="ECEFF1" pb={20}>
+    <Box bg="gray.200" pb={20}>
       <HStack 
         roundedTop={10} 
         bg={Colors.white} 
