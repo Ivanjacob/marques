@@ -12,7 +12,7 @@ const paymentMethods = [
     icon: "Ionicons"
   },
   {
-    image: require("../../assets/paypal.png"),
+    image: require("../../assets/aitel.png"),
     alt: "PayPal",
     icon: "FontAwesome"
   },

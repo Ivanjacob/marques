@@ -4,16 +4,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { MaterialCommunityIcons, AntDesign, MaterialIcons, Entypo, Ionicons  } from '@expo/vector-icons';
 
-import HomeScreen from "../Screens/HomeScreen";
-import ProfileScreen from "../Screens/ProfileScreen";
-import CartScreen from "../Screens/CartScreen";
-import WelcomeScreen from "../Screens/WelcomeScreen";
+
 import AboutScreen from "../Screens/AboutScreen";
 import AccountScreen from "../Screens/AccountScreen";
 
 import { Center, Pressable } from "native-base";
+
 import Colors from "../color";
-import StackNav from './StackNav';
+import WelcomeStack from './WelcomeStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +23,7 @@ const WelcomeNav = () => {
         headerShown: false,
         tabBarHideOnKeyboard: true,
     }}>
-        <Tab.Screen name="Welcome" component={WelcomeScreen } options={{
+        <Tab.Screen name="Welcome" component={WelcomeStack } options={{
             tabBarIcon: ({focused}) => (
                 <Center>
                     {focused ? ( 
@@ -36,18 +34,7 @@ const WelcomeNav = () => {
                 </Center>
             ) 
         }}/>
-        {/* Accounts */}
-        <Tab.Screen name="Account" component={AccountScreen} options={{
-            tabBarIcon: ({focused}) => (
-                <Center>
-                    {focused ? ( 
-                        <MaterialIcons name="account-circle" size={24} color={Colors.main} />
-                    ) : (
-                        <MaterialIcons name="account-circle" size={24} color={Colors.black} />
-                    )}
-                </Center>
-            ) 
-        }}/>
+        
         {/* About */}
         <Tab.Screen name="About" component={AboutScreen} options={{
             tabBarIcon: ({focused}) => (

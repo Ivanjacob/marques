@@ -13,8 +13,8 @@ function SingleProductScreen({route}) {
   const navigation = useNavigation();
   const product = route.params;
   return (
-    <Box safeArea flex={1} bg={Colors.white} > 
-        <ScrollView px={5} showsVerticalScrollIndicator={false}>
+    <Box safeArea flex={1} bg={Colors.white} pb={20} > 
+        <ScrollView px={5} showsVerticalScrollIndicator={false} style={{ height: 700 }}  >
           <Image
             source={{ uri: product.image}}
             alt="Image"
@@ -34,6 +34,7 @@ function SingleProductScreen({route}) {
                 totalWidth={150} 
                 totalHeight={40} 
                 iconSize={25}
+                onChange={console.log(value)}
                 step={1}
                 maxValue={product.countInStock}
                 minValue={0}
@@ -55,10 +56,9 @@ function SingleProductScreen({route}) {
             </Heading>
           </HStack>
           <Text lineHeight={24} fontSize={12} >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque
-            elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin
-            eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet.
-            Duis dapibus diam vel metus tempus vulputate.
+            Indulge your taste buds with the exquisite flavor and perfectly fluffy texture of our premium rice product. 
+            Elevate your culinary experience with each mouthful, as our rice promises a delightful journey of 
+            unparalleled quality and satisfaction.
           </Text>
           <Butons 
             bg={Colors.main} 

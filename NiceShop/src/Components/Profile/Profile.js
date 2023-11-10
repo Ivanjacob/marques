@@ -9,10 +9,11 @@ import {
     Icon,
     Pressable,
   } from "native-base"
-  import React, { useState } from 'react'
-  import Colors from "../../color"
-  import Buttons from "../Buttons";
-  import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState } from 'react'
+import Colors from "../../color"
+import Buttons from "../Buttons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
   
   
   const Inputs = [
@@ -37,10 +38,12 @@ import {
   
   
   const Profile = () => {
-      
+    
+    const navigation = useNavigation();
+
     return (
-      <Box h="full" bg={Colors.white} px={5}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+      <Box h="full" bg={Colors.white} px={5} pb={20} >
+        <ScrollView style={{ height: 700 }} showsVerticalScrollIndicator={false}>
           <VStack space={10} mt={5} pb={10}>
             {
               Inputs.map((i, index) => (
@@ -71,7 +74,7 @@ import {
                 </FormControl>
               ))
             }
-            <Buttons bg={Colors.main} color={Colors.white}>
+            <Buttons bg={Colors.main} color={Colors.white} onPress={() => navigation.navigate("Account")} >
              UPDATE PROFILE
             </Buttons>
           </VStack>

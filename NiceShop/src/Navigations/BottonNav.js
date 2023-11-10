@@ -7,6 +7,7 @@ import { Entypo, AntDesign } from '@expo/vector-icons';
 import HomeScreen from "../Screens/HomeScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import CartScreen from "../Screens/CartScreen";
+import AccountScreen from "../Screens/AccountScreen";
 
 import { Center, Pressable } from "native-base";
 import Colors from "../color";
@@ -65,7 +66,7 @@ const BottonNav = () => {
             }}/>
         {/* ORDER */}
         {/* PROFILE */}
-        <Tab.Screen name="Profile" component={ProfileScreen} options={{
+        <Tab.Screen name="Account" component={AccountScreen} options={{
             tabBarIcon: ({focused}) => (
                 <Center>
                     {focused ? ( 

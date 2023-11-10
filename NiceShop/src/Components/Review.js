@@ -35,7 +35,7 @@ export default function Review() {
           bg={Colors.white}
           size={10}
           children={
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat."
+            "Absolutely impressed by the premium rice's impeccable texture and rich flavor – a culinary delight that has truly elevated my dining experience!"
           }
         />
       </Box>

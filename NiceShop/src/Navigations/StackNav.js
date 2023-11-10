@@ -7,6 +7,8 @@ import SingleProductScreen from '../Screens/SingleProductScreen';
 import ShippingScreen from '../Screens/ShippingScreen';
 import PaymentScreen from '../Screens/PaymentScreen';
 import PlaceOrderScreen from '../Screens/PlaceOrderScreen';
+import ProfileScreen from '../Screens/ProfileScreen';
+import DeliveryScreen from "../Screens/DeliveryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,8 +23,10 @@ const StackNav = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Single" component={SingleProductScreen} />
         <Stack.Screen name="Shipping" component={ShippingScreen} />
+        <Stack.Screen name="Delivery" component={DeliveryScreen} />
         <Stack.Screen name="Checkout" component={PaymentScreen} />
         <Stack.Screen name="Placeorder" component={PlaceOrderScreen} /> 
+        <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };

@@ -10,11 +10,7 @@ import HomeScreen from "./src/Screens/HomeScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import RegisterScreen from "./src/Screens/RegisterScreen";
 import OrderScren from "./src/Screens/OrderScreen";
-import WelcomeScreen from "./src/Screens/WelcomeScreen";
-import AboutScreen from "./src/Screens/AboutScreen";
-import AddStock from "./src/Screens/InventoryScreens/Components/AddStock";
-import InventoryScreen from "./src/Screens/InventoryScreens/InventoryScreen";
-import NotificationScreen from "./src/Screens/InventoryScreens/NotificationScreen";
+
 
 import WelcomeNav from "./src/Navigations/WelcomeNav";
 import FarmNav from "./src/Navigations/FarmNav";
@@ -43,7 +39,7 @@ export default function App() {
             headerShown: false, // this will hide the header
           }}
         >
-          
+        <Stack.Screen name="Bottom" component={BottonNav} />
           <Stack.Screen name="Nav" component={WelcomeNav} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Farmer-Login" component={Farmer} />
@@ -56,7 +52,7 @@ export default function App() {
           <Stack.Screen name="Mill-Login" component={MillLogin} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Order" component={OrderScren} />
-          <Stack.Screen name="Bottom" component={BottonNav} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider> 

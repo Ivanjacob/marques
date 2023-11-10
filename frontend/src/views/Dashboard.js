@@ -83,7 +83,7 @@ function Dashboard() {
           <div style={{ borderRight: '1px solid border-color', margin: '1rem'}}>
             <div>
               <p>
-                <span className="text-3xl font-semibold" style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>$93,438</span>
+                <span className="text-3xl font-semibold" style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>KSh. 93,438</span>
                 <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs"
                   style={{
                     padding: '0.375rem', // Equivalent to p-1.5
@@ -100,7 +100,7 @@ function Dashboard() {
               <p className="text-gray-500 mt-1" style={{ color: '#718096', marginTop: '0.25rem' }}>Budget</p>
             </div>
             <div className="mt-8">
-              <p className="text-3xl font-semibold" style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>$48,487</p>
+              <p className="text-3xl font-semibold" style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>KSh. 48,487</p>
 
               <p className="text-gray-500 mt-1" style={{ color: '#718096', marginTop: '0.25rem' }}>Expense</p>
             </div>

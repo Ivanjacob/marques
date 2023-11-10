@@ -55,7 +55,7 @@ function CartScreen() {
             bg={Colors.black} 
             color={Colors.white} 
             mt={10}
-            onPress={() => navigation.navigate("Shipping")}
+            onPress={() => navigation.navigate("Delivery")}
           >
             CHECKOUT
           </Buttons>

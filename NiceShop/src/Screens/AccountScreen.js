@@ -12,17 +12,20 @@ My Earnings => My Invitations, My Commissions, My Withdrawals
 
 */}
 
-import { View, Heading, Text, Center, Image, Box, Flex, HStack, VStack, Stack, ScrollView } from 'native-base'
+import { View, Heading, Text, Center, Image, Box, Flex, HStack, VStack, Stack, ScrollView, Pressable } from 'native-base'
 import React from 'react'
 import Colors from "../color"
 import { Ionicons, AntDesign, FontAwesome5, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 const AccountScreen = () => {
+
+    const navigation = useNavigation();
+
   return (
     <ScrollView bg={Colors.subGreen} pt={9} space={3}>
-        <Box bg="amber.500" pt={4} pb={5} mr={3} ml={3} rounded="lg">
+        <Box bg={Colors.main} pt={4} pb={5} mr={3} ml={3} rounded="lg">
             <Text color={Colors.white} fontSize={20} bold textAlign="center">
                 Account
             </Text>
@@ -42,9 +45,9 @@ const AccountScreen = () => {
                     <Text color={Colors.white}  fontSize={12} ml={4} pt={5}>
                         Julie Evans         
                     </Text>                    
-                    <Text ml={24} pt={5} px={10}>
+                    <Pressable ml={24} pt={5} px={10} onPress={() => navigation.navigate("Profile")} >
                         <Ionicons name="settings-outline" size={24} color="white" />
-                    </Text>
+                    </Pressable>
                 </HStack>
                 <HStack justifyContent="space-between" px={5}>
                     <VStack>
@@ -184,4 +187,4 @@ const AccountScreen = () => {
   )
 }
 
-export default AccountScreen
+export default AccountScreen;
