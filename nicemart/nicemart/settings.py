@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-%-&g+#q05^mgqad#p6bh1x9^o8&k(!kqxg@)hzrcfok3lw*gc-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'corsheaders',
     'api.apps.ApiConfig',
     'ricemart.apps.RicemartConfig',
     'knox',
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'django_ckeditor_5',
     'rest_framework_simplejwt.token_blacklist',
-    'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
@@ -196,7 +196,12 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-
+# Corsheaders settings
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+CORS_ORIGIN_WHITELIST = (
+    "http://192.168.88.253:8081",
+)
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

@@ -146,25 +146,33 @@ class RiceSerializer(serializers.ModelSerializer):
 
 
 class CustomerUserRegistrationSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     class Meta:
         model = CustomerUser
-        fields = ['username', 'email', 'password', 'first_name',
-                  'last_name', 'profile_image', 'phone', 'customer_id', 'city', 'address']
+        fields = ['username', 'email', 'password', 'confirm_password']
         extra_kwargs = {'password': {'write_only': True}}
 
+    def validate(self, data):
+        """
+        Validate that the password and confirm_password match.
+        
+        """
+        if data.get('password') and data.get('confirm_password') and data['password'] != data['confirm_password']:
+            raise serializers.ValidationError("Passwords don't match.")
+        return data
+ 
     def create(self, validated_data):
+        confirm_password = validated_data.pop('confirm_password', None)
+        
         user = CustomerUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            phone=validated_data['phone'],
-            profile_image=validated_data['profile_image'],
-            customer_id=validated_data['customer_id'],
-            city=validated_data['city'],
-            address=validated_data['address']
         )
+        if confirm_password:
+            user.set_password(confirm_password)
+            user.save()
+            profile, created = Profile.objects.get_or_create(user=user)
         return user
 
 

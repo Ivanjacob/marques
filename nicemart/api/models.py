@@ -62,7 +62,6 @@ class FarmerUser(User):
 
 
 class CustomerUser(User):
-    customer_id = models.CharField(max_length=100, default="", unique=True)
     city = models.CharField(max_length=100, default="")
     address = models.CharField(max_length=100, default="")
     status = models.CharField(max_length=10, choices=[(
@@ -70,7 +69,7 @@ class CustomerUser(User):
 
     class Meta:
         verbose_name = "Customer"
-        verbose_name_plural = "Customers"
+        verbose_name_plural = "Customers" 
 
 
 # USer Profiles

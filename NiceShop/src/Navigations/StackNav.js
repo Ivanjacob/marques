@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../Screens/HomeScreen';
@@ -10,9 +10,13 @@ import PlaceOrderScreen from '../Screens/PlaceOrderScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 import DeliveryScreen from "../Screens/DeliveryScreen";
 
+import { AuthContext } from '../Context/AuthContext';
+
 const Stack = createNativeStackNavigator();
 
 const StackNav = () => {
+  
+
   return (
     <Stack.Navigator
         initialRouteName="Home"

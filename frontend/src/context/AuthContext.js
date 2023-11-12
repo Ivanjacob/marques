@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const loginUser = async (username, password) => {
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
+    const response = await fetch("http://192.168.88.253:8000/api/token/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
   // Its ending here
 
   const loginInventory = async (username, password) => {
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
+    const response = await fetch("http://192.168.88.253:8000/api/token/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -137,7 +137,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (email, username, password, password2) => {
-    const response = await fetch("http://127.0.0.1:8000/api/register/", {
+    const response = await fetch("http://192.168.88.253:8000/api/register/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, username, password, password2 }),
@@ -176,7 +176,7 @@ export const AuthProvider = ({ children }) => {
     employee_id
   ) => {
     const response = await fetch(
-      "http://127.0.0.1:8000/api/register/inventorymanager/",
+      "http://192.168.88.253:8000/api/register/inventorymanager/",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

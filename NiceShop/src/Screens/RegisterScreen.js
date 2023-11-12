@@ -8,14 +8,26 @@ import {
   Input, 
   Button,
   Pressable,
-} from 'native-base'
-import React from 'react'
+} from 'native-base';
+import React, { useState, useContext } from 'react';
 import Colors  from "../color";
+import Spinner from 'react-native-loading-spinner-overlay';
+import { createCustomer } from "../../utils/userAxios";
 
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
+import { AuthContext } from '../Context/AuthContext';
 
 
-function RegisterScreen({navigation}) {
+function RegisterScreen({ navigation }) {
+
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirm_password, setConfirmPassword] = useState("")
+
+  const { isLoading, registerCustomer } = useContext(AuthContext);
+
+
   return (
     <Box flex={1} bg={Colors.black}>
       <Image
@@ -26,11 +38,12 @@ function RegisterScreen({navigation}) {
         flex={1}
         width="100%"
       />
-    
+
+      <Spinner visible={isLoading} />
     <Box
       w="full"
       h="full"
-      position="absolute"
+      position="absolute" 
       top="0"
       px="6"
       justifyContent="center"
@@ -40,6 +53,8 @@ function RegisterScreen({navigation}) {
 
         {/* USERNAME */}
         <Input
+          onChangeText={(text) => setUsername(text)}
+          value={username}
           InputLeftElement={
             <FontAwesome name="user" size={24} color={Colors.main} />
           }
@@ -53,6 +68,8 @@ function RegisterScreen({navigation}) {
         />      
         {/* EMAIL */}
         <Input
+          onChangeText={(text) => setEmail(text)}
+          value={email}
           InputLeftElement={
             <MaterialIcons name="email" size={24} color={Colors.main} />
           }
@@ -66,6 +83,23 @@ function RegisterScreen({navigation}) {
 
         {/* PASSWORD */}
         <Input
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          InputLeftElement={
+            <Ionicons name="eye" size={24} color={Colors.main} />
+          }
+          variant="underlined"
+          placeholder="**********"
+          type='password'
+          w="70%"
+          pl={5}
+          color={Colors.main}
+          borderBottomColor={Colors.underline}
+        />
+        {/* CONFIRM PASSWORD */}
+        <Input
+          onChangeText={(text) => setConfirmPassword(text)}
+          value={confirm_password}
           InputLeftElement={
             <Ionicons name="eye" size={24} color={Colors.main} />
           }
@@ -86,7 +120,10 @@ function RegisterScreen({navigation}) {
         mb={5}
         rounded={50}
         bg={Colors.main}
-        onPress={() => navigation.navigate("Bottom")}
+        onPress={() => {
+          registerCustomer(username, email, password, confirm_password);
+          navigation.navigate("Login");
+        }}
       >
         SIGN UP
       </Button>

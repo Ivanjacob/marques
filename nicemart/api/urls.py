@@ -20,6 +20,9 @@ urlpatterns = [
     path('users/<int:pk>/update-verify-status/', views.UpdateUserVerifyStatus.as_view(), name='update-verify-status'),
     path('register/inventorymanager/', views.RegisterInventoryManagerView.as_view(),
          name='register-inventorymanager'),
+
+     path('register/customer/', views.RegisterCustomerView.as_view(), name='register-customer'),
+
     path('profile/', views.ProfileListView.as_view(), name='profile'),
     path('profile/<str:identifier>/',
          views.UserProfileView.as_view(), name='user-profile'),

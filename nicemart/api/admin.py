@@ -20,8 +20,8 @@ class InventoryManagerUserAdmin(admin.ModelAdmin):
 
 
 class CustomerUserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'phone', 'customer_id', 'city', 'address']
-    list_editable = ['phone', 'customer_id', 'city', 'address']
+    list_display = ['username', 'phone', 'city', 'address']
+    list_editable = ['phone', 'city', 'address']
 
 
 class ProfileAdmin(admin.ModelAdmin):

@@ -16,7 +16,7 @@ function Registerpage() {
   const handleSubmit = async e => {
     e.preventDefault()
     registerUser(email, username, password, password2)
-    
+     
 
   }
 

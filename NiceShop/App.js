@@ -1,8 +1,10 @@
 // Date: 2023/10/25
 import { StyleSheet, Text, View } from "react-native";
+import React, { createContext, useContext, useState } from 'react';
 import { NativeBaseProvider, StatusBar } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {AuthProvider} from "./src/Context/AuthContext";
 
 import BottonNav from "./src/Navigations/BottonNav";
 
@@ -25,36 +27,52 @@ import ManagerLogin from "./src/Screens/LoginScreens/ManagerLogin";
 import MillNav from "./src/Navigations/MillNav";
 import MillLogin from "./src/Screens/LoginScreens/MillLogin";
 
-const Stack = createNativeStackNavigator();
+import { AuthContext } from "./src/Context/AuthContext";
+
+const Stack = createNativeStackNavigator(); 
 
 
 export default function App() {
+
+  const { user } = useContext(AuthContext);  
+
   return (
     <NativeBaseProvider>
-      <NavigationContainer>
-      <StatusBar hidden={false}  /> 
-        <Stack.Navigator 
-          initialRouteName="Welcome"
-          screenOptions={{
-            headerShown: false, // this will hide the header
-          }}
-        >
-        <Stack.Screen name="Bottom" component={BottonNav} />
-          <Stack.Screen name="Nav" component={WelcomeNav} />
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Farmer-Login" component={Farmer} />
-          <Stack.Screen name="Farm" component={FarmNav} />
-          <Stack.Screen name="Manager-Login" component={ManagerLogin} />
-          <Stack.Screen name="Inventories" component={InventoryNav} />
-          <Stack.Screen name="Driver" component={DriverNav} />
-          <Stack.Screen name="Driver-Login" component={DriverLogin} />
-          <Stack.Screen name="Mill" component={MillNav} />
-          <Stack.Screen name="Mill-Login" component={MillLogin} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Order" component={OrderScren} />
+      <AuthProvider>
+        <NavigationContainer>
+        <StatusBar hidden={false}  /> 
+          <Stack.Navigator 
+            initialRouteName="Welcome"
+            screenOptions={{
+              headerShown: false, // this will hide the header
+            }}
+          >
           
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen name="Nav" component={WelcomeNav} />
+            
+            {user ? (
+              <Stack.Screen name="Bottom" component={BottonNav} />
+            ) : (
+              <>
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
+              </>
+            )}
+            
+            <Stack.Screen name="Farmer-Login" component={Farmer} />
+            <Stack.Screen name="Farm" component={FarmNav} />
+            <Stack.Screen name="Manager-Login" component={ManagerLogin} />
+            <Stack.Screen name="Inventories" component={InventoryNav} />
+            <Stack.Screen name="Driver" component={DriverNav} />
+            <Stack.Screen name="Driver-Login" component={DriverLogin} />
+            <Stack.Screen name="Mill" component={MillNav} />
+            <Stack.Screen name="Mill-Login" component={MillLogin} />
+            
+            <Stack.Screen name="Order" component={OrderScren} />
+            
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
     </NativeBaseProvider> 
   ); 
 }

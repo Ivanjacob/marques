@@ -1,34 +1,23 @@
 import { 
-  Box, 
-  Image, 
-  Text, 
-  View, 
-  Heading, 
-  VStack, 
-  Input, 
-  Button,
-  Pressable,
-} from 'native-base'
-import React, { useContext, useState } from 'react'
-import Colors  from "../color";
-
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import Spinner from 'react-native-loading-spinner-overlay';
-
-import { AuthContext } from '../Context/AuthContext';
-
-
-function LoginScreen({navigation}) {
+    Box, 
+    Image, 
+    Text, 
+    View, 
+    Heading, 
+    VStack, 
+    Input, 
+    Button,
+    Pressable,
+  } from 'native-base'
+  import React from 'react'
+  import Colors  from "../color";
   
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const { isLoading, loginCustomer } = useContext(AuthContext);
-
-
-  return (
-    <Box flex={1} bg={Colors.black}> 
-      <Box w="full" h="full" position="absolute" top="0">
+  import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
+  
+  
+  function RegisterCustomer({navigation}) {
+    return (
+      <Box flex={1} bg={Colors.black}>
         <Image
           source={{ uri: "https://images.unsplash.com/photo-1554189097-ffe88e998a2b?auto=format&fit=crop&q=80&w=1374&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}}
           alt="login"
@@ -37,8 +26,7 @@ function LoginScreen({navigation}) {
           flex={1}
           width="100%"
         />
-      </Box>
-      <Spinner visible={isLoading} />
+      
       <Box
         w="full"
         h="full"
@@ -47,34 +35,56 @@ function LoginScreen({navigation}) {
         px="6"
         justifyContent="center"
       >
-        <Heading>LOGIN</Heading>
+        <Heading>SIGN UP</Heading>
         <VStack space={5} pt="6">
-        
+  
           {/* USERNAME */}
           <Input
-            onChangeText={(text) => setUsername(text)}
-            value={username}
+            InputLeftElement={
+              <FontAwesome name="user" size={24} color={Colors.main} />
+            }
+            variant="underlined"
+            placeholder="Username"
+            type='username'
+            w="70%"
+            pl={5}
+            color={Colors.main}
+            borderBottomColor={Colors.underline}
+          />      
+          {/* EMAIL */}
+          <Input
             InputLeftElement={
               <MaterialIcons name="email" size={24} color={Colors.main} />
             }
             variant="underlined"
-            placeholder="Username"
+            placeholder="Email"
             w="70%"
             pl={5}
             color={Colors.main}
             borderBottomColor={Colors.underline}
           />
-
+  
           {/* PASSWORD */}
           <Input
-            onChangeText={(text) => setPassword(text)}
-            value={password}
             InputLeftElement={
               <Ionicons name="eye" size={24} color={Colors.main} />
             }
             variant="underlined"
             placeholder="**********"
             type='password'
+            w="70%"
+            pl={5}
+            color={Colors.main}
+            borderBottomColor={Colors.underline}
+          />
+          {/* CONFIRM PASSWORD */}
+          <Input
+            InputLeftElement={
+              <Ionicons name="eye" size={24} color={Colors.main} />
+            }
+            variant="underlined"
+            placeholder="**********"
+            type='confirm password'
             w="70%"
             pl={5}
             color={Colors.main}
@@ -91,17 +101,14 @@ function LoginScreen({navigation}) {
           bg={Colors.main}
           onPress={() => navigation.navigate("Bottom")}
         >
-          LOGIN
+          SIGN UP
         </Button>
-        <Pressable mt={4} onPress={() => {
-          loginCustomer(username, password)
-          navigation.navigate("Register")}} >
-          <Text color={Colors.deepestGray}>SIGN UP</Text>
+        <Pressable mt={4} onPress={() => navigation.navigate("Login")} >
+          <Text color={Colors.deepestGray}>LOGIN</Text>
         </Pressable>
       </Box>
     </Box> 
-  );
-}
-export default LoginScreen;
-
-
+    )
+  }
+  
+  export default RegisterCustomer;

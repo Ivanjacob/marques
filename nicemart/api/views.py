@@ -91,6 +91,13 @@ class RegisterInventoryManagerView(generics.CreateAPIView):
     serializer_class = RegisterInventorySerializer
 
 
+# Register customers
+class RegisterCustomerView(generics.CreateAPIView):
+    queryset = CustomerUser.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = CustomerUserRegistrationSerializer
+
+
 class ProfileListView(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -118,7 +125,7 @@ class UpdateUserVerifyStatus(APIView):
         except User.DoesNotExist:
             return Response({"message": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
-
+ 
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -132,6 +139,7 @@ def getRoutes(request):
         '/api/inventorymanagers/',
         '/api/customers/',
         '/api/register/inventorymanager/',
+        '/api/register/customer/',
         '/api/profile/',
         '/api/user/profile/',
         '/api/customer-user/register/',
@@ -199,7 +207,7 @@ class CustomerUserRegistrationView(generics.CreateAPIView):
                 "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
                 "token": token,
             })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomerUserLoginView(generics.GenericAPIView):
