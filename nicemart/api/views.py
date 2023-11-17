@@ -2,6 +2,9 @@
 from django.shortcuts import render
 from rest_framework import generics
 from knox.models import AuthToken
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from rest_framework.views import APIView
 from .models import Profile, Rice
@@ -17,7 +20,7 @@ from rest_framework import generics, status, permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from api.serializers import (
     MyTokenObtainPairSerializer,
-    RegisterSerializer,
+    RegisterSerializer, 
     UserSerializer,
     FarmerUserSerializer,
     InventoryManagerUserSerializer,
@@ -98,6 +101,35 @@ class RegisterCustomerView(generics.CreateAPIView):
     serializer_class = CustomerUserRegistrationSerializer
 
 
+@api_view(['POST'])
+def register_customer(request):
+    if request.method == 'POST':
+        serializer = CustomerUserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"message": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def customer_login(request):
+    if request.method == 'POST':
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        user = authenticate(email=email, password=password)
+        if user:
+            # Authentication successful
+            token, _ = Token.objects.get_or_create(user=user)
+            # You can generate tokens, create sessions, or perform further actions
+            return Response({'token': token.key}, status=status.HTTP_200_OK)
+        else:
+            # Authentication failed
+            return Response({"message": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
 class ProfileListView(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -135,6 +167,8 @@ def getRoutes(request):
         '/api/token/refresh/',
         '/api/test/',
         '/api/users/',
+        '/api/signin/',
+
         '/api/farmers/',
         '/api/inventorymanagers/',
         '/api/customers/',
@@ -196,18 +230,29 @@ class UserProfileView(generics.RetrieveAPIView):
 
 
 class CustomerUserRegistrationView(generics.CreateAPIView):
+    create_queryset = CustomerUser.objects.all()
     serializer_class = CustomerUserRegistrationSerializer
+    permision_class = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            _, token = AuthToken.objects.create(user)
-            return Response({
-                "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
-                "token": token,
-            })
-        return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        customer_user = serializer.save()
+        token = AuthToken.objects.create(customer_user)[1]
+        return Response({
+            "user": CustomerUserRegistrationSerializer(customer_user, context=self.get_serializer_context()).data,
+            "token": token,
+        })
+    
+        # })
+        # if serializer.is_valid():
+        #     user = serializer.save()
+        #     _, token = AuthToken.objects.create(user)
+        #     return Response({
+        #         "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
+        #         "token": token,
+        #     })
+        # return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomerUserLoginView(generics.GenericAPIView):
@@ -215,14 +260,25 @@ class CustomerUserLoginView(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.validated_data
-            _, token = AuthToken.objects.create(user)
-            return Response({
-                "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
-                "token": token,
-            })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+
+        user = serializer.validated_data
+        token = AuthToken.objects.create(user)[1]
+
+        return Response({
+            "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
+            "token": token,
+        })
+
+
+        # if serializer.is_valid():
+        #     user = serializer.validated_data
+        #     _, token = AuthToken.objects.create(user)
+        #     return Response({
+        #         "user": CustomerUserRegistrationSerializer(user, context=self.get_serializer_context()).data,
+        #         "token": CustomerUser.objects.get(token=token),
+        #     })
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class FarmerUserRegistrationView(generics.CreateAPIView):
@@ -253,3 +309,45 @@ class FarmerUserLoginView(generics.GenericAPIView):
                 "token": token,
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def get_auth_for_user(user):
+    tokens = RefreshToken.for_user(user)
+    return {
+        'user': UserSerializer(user).data,
+        'tokens': {
+            'access': str(tokens.access_token),
+            'refresh': str(tokens),
+        }
+    }
+
+
+class SignInView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        if not username or not password:
+            return Response(status=400)
+
+        user = authenticate(username=username, password=password)
+        if not user:
+            return Response(status=401)
+
+        user_data = get_auth_for_user(user)
+
+        return Response(user_data)
+    
+
+class SignUpView(APIView):
+    permission_classes = [AllowAny]
+    
+    def post(self, request):
+        new_user = CustomerUserRegistrationSerializer(data=request.data)
+        new_user.is_valid(raise_exception=True)
+        user = new_user.save()
+
+        user_data = get_auth_for_user(user)
+        
+        return Response(user_data)

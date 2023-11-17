@@ -9,7 +9,7 @@ import {
   Button,
   Pressable,
 } from 'native-base';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Colors  from "../color";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { createCustomer } from "../../utils/userAxios";
@@ -17,15 +17,55 @@ import { createCustomer } from "../../utils/userAxios";
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { AuthContext } from '../Context/AuthContext';
 
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+
+import { auth } from "../../firebase";
+import axios from 'axios';
+import { BASE_URL } from '../config';
+
+import api from '../core/app'
+import utils from '../core/utils'
 
 function RegisterScreen({ navigation }) {
 
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")  
+  const [email, setEmail] = useState(null)
   const [password, setPassword] = useState("")
   const [confirm_password, setConfirmPassword] = useState("")
 
-  const { isLoading, registerCustomer } = useContext(AuthContext);
+
+
+  function onSignUp() {
+    utils.log('onSignUp:', username, email, password)   
+
+    api({
+      method: 'POST',
+      url: 'signup/',
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        confirm_password: confirm_password,
+      }
+    })
+    .then(response => {
+      console.log('Sign Up:', response.data);
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    })
+
+  };
+
 
 
   return (
@@ -39,7 +79,7 @@ function RegisterScreen({ navigation }) {
         width="100%"
       />
 
-      <Spinner visible={isLoading} />
+
     <Box
       w="full"
       h="full"
@@ -51,7 +91,7 @@ function RegisterScreen({ navigation }) {
       <Heading>SIGN UP</Heading>
       <VStack space={5} pt="6">
 
-        {/* USERNAME */}
+        {/* USERNAME */} 
         <Input
           onChangeText={(text) => setUsername(text)}
           value={username}
@@ -65,7 +105,7 @@ function RegisterScreen({ navigation }) {
           pl={5}
           color={Colors.main}
           borderBottomColor={Colors.underline}
-        />      
+        />     
         {/* EMAIL */}
         <Input
           onChangeText={(text) => setEmail(text)}
@@ -120,10 +160,7 @@ function RegisterScreen({ navigation }) {
         mb={5}
         rounded={50}
         bg={Colors.main}
-        onPress={() => {
-          registerCustomer(username, email, password, confirm_password);
-          navigation.navigate("Login");
-        }}
+        onPress={onSignUp}
       >
         SIGN UP
       </Button>
@@ -136,3 +173,7 @@ function RegisterScreen({ navigation }) {
 }
 
 export default RegisterScreen
+
+
+
+

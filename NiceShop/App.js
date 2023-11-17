@@ -34,12 +34,9 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const { user } = useContext(AuthContext);  
-
   return (
-    <NativeBaseProvider>
-      <AuthProvider>
-        <NavigationContainer>
+<NativeBaseProvider>
+      <NavigationContainer>
         <StatusBar hidden={false}  /> 
           <Stack.Navigator 
             initialRouteName="Welcome"
@@ -47,18 +44,10 @@ export default function App() {
               headerShown: false, // this will hide the header
             }}
           >
-          
             <Stack.Screen name="Nav" component={WelcomeNav} />
-            
-            {user ? (
-              <Stack.Screen name="Bottom" component={BottonNav} />
-            ) : (
-              <>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
-              </>
-            )}
-            
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Bottom" component={BottonNav} /> 
             <Stack.Screen name="Farmer-Login" component={Farmer} />
             <Stack.Screen name="Farm" component={FarmNav} />
             <Stack.Screen name="Manager-Login" component={ManagerLogin} />
@@ -72,7 +61,8 @@ export default function App() {
             
           </Stack.Navigator>
         </NavigationContainer>
-      </AuthProvider>
-    </NativeBaseProvider> 
+    
+  </NativeBaseProvider> 
   ); 
 }
+ 

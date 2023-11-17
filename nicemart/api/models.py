@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 # Create your models here.........
 
 
+
 class CommonUserFields(models.Model):
     first_name = models.CharField(max_length=100, default="")
     last_name = models.CharField(max_length=100, default="")
@@ -35,6 +36,17 @@ class User(AbstractUser, CommonUserFields):
     def __str__(self):
         return f'{self.username} - {self.first_name} {self.last_name} - {self.email}'
 
+class CustomerUser(User):
+    city = models.CharField(max_length=100, default="")
+    address = models.CharField(max_length=100, default="")
+    status = models.CharField(max_length=10, choices=[(
+        "Active", "Active"), ("Inactive", "Inactive")], default="Active")
+
+    class Meta:
+        verbose_name = "Customer"
+        verbose_name_plural = "Customers" 
+
+
 
 class InventoryManagerUser(User):
     # user = models.OneToOneField(
@@ -61,15 +73,6 @@ class FarmerUser(User):
         verbose_name_plural = "Farmers"
 
 
-class CustomerUser(User):
-    city = models.CharField(max_length=100, default="")
-    address = models.CharField(max_length=100, default="")
-    status = models.CharField(max_length=10, choices=[(
-        "Active", "Active"), ("Inactive", "Inactive")], default="Active")
-
-    class Meta:
-        verbose_name = "Customer"
-        verbose_name_plural = "Customers" 
 
 
 # USer Profiles

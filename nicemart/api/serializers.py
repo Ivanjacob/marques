@@ -40,11 +40,7 @@ class CustomerUserSerializer(UserSerializer):
         model = CustomerUser
         fields = UserSerializer.Meta.fields + \
             ('first_name', 'last_name', 'phone',
-             'status', 'customer_id', 'city', 'address')
-        # 'id', 'customer_id', 'first_name', 'last_name', 'email', 'city', 'address'
-
-    def get_status(self, obj):
-        return "Active" if obj.status == "Active" else "Inactive"
+             'status', 'city', 'address')    
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -149,7 +145,7 @@ class CustomerUserRegistrationSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     class Meta:
         model = CustomerUser
-        fields = ['username', 'email', 'password', 'confirm_password']
+        fields = ['username', 'email', 'password', 'confirm_password', 'city', 'address', 'status']
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, data):
@@ -168,11 +164,13 @@ class CustomerUserRegistrationSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],
+            city=validated_data.get('city', ''),
+            address=validated_data.get('address', ''),
+            status=validated_data.get('status', 'Active')
         )
         if confirm_password:
             user.set_password(confirm_password)
             user.save()
-            profile, created = Profile.objects.get_or_create(user=user)
         return user
 
 

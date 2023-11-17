@@ -3,6 +3,8 @@ from api import views
 from .models import User
 from .serializers import UserSerializer
 from . import views
+from .views import register_customer, customer_login, SignInView
+
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -21,7 +23,15 @@ urlpatterns = [
     path('register/inventorymanager/', views.RegisterInventoryManagerView.as_view(),
          name='register-inventorymanager'),
 
-     path('register/customer/', views.RegisterCustomerView.as_view(), name='register-customer'),
+     path('register/customer/', register_customer, name='register_user'),
+     path('login/customer/', customer_login, name='customer_login'),
+
+     # Newest work here
+     path('signin/', SignInView.as_view(), name="signin-customer"),
+     path('signup/', views.SignUpView.as_view(), name="signup-customer"),
+     
+     
+     # Newest work here
 
     path('profile/', views.ProfileListView.as_view(), name='profile'),
     path('profile/<str:identifier>/',

@@ -8,23 +8,91 @@ import {
   Input, 
   Button,
   Pressable,
-} from 'native-base'
-import React, { useContext, useState } from 'react'
+  } from 'native-base'
+
+import Alert from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import Colors  from "../color";
 
 import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Entypo } from '@expo/vector-icons';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import { AuthContext } from '../Context/AuthContext';
+import axios from 'axios';
 
+import { auth } from "../../firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BASE_URL } from '../config';
+
+import api from '../core/app'
+import utils from '../core/utils'
 
 function LoginScreen({navigation}) {
   
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const { isLoading, loginCustomer } = useContext(AuthContext);
+  
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        navigation.replace("Bottom")
+      }
+    })
+    return unsubscribe;
+  }, []);
+
+  // const handleLogin = () => {
+  //   const userData = {
+  //     email,
+  //     password,
+  //   };
+  
+  //   axios.post(`${BASE_URL}login/customer/`, userData)
+  //     .then(response => {
+  //       console.log('Login successful:', response.data.message);
+  //       const token = response.data.token;
+  //       AsyncStorage.setItem('token', token);
+  //       navigation.replace('Bottom');
+  //     })
+  //     .catch(error => {
+  //       console.error('Error logging in:', error);
+  //       console.log('Detailed Axios error:', error.response);
+  //     });
+  // };
+  
+
+  function onSignin() {
+    utils.log('onSignin:', username, password)   
+
+    api({
+      method: 'POST',
+      url: 'signin/',
+      data: {
+        username: username,
+        password: password,
+      }
+    })
+    .then(response => {
+      console.log('Sign In:', response.data);
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    })
+
+  };
+  
 
   return (
     <Box flex={1} bg={Colors.black}> 
@@ -38,14 +106,14 @@ function LoginScreen({navigation}) {
           width="100%"
         />
       </Box>
-      <Spinner visible={isLoading} />
+      
       <Box
         w="full"
         h="full"
         position="absolute"
         top="0"
         px="6"
-        justifyContent="center"
+        justifyContent="center" 
       >
         <Heading>LOGIN</Heading>
         <VStack space={5} pt="6">
@@ -55,7 +123,7 @@ function LoginScreen({navigation}) {
             onChangeText={(text) => setUsername(text)}
             value={username}
             InputLeftElement={
-              <MaterialIcons name="email" size={24} color={Colors.main} />
+              <Entypo name="user" size={24} color="black" />
             }
             variant="underlined"
             placeholder="Username"
@@ -88,13 +156,12 @@ function LoginScreen({navigation}) {
           my={30}
           mb={5}
           rounded={50}
-          bg={Colors.main}
-          onPress={() => navigation.navigate("Bottom")}
+          bg={Colors.main}          
+          onPress={onSignin}
         >
           LOGIN
         </Button>
         <Pressable mt={4} onPress={() => {
-          loginCustomer(username, password)
           navigation.navigate("Register")}} >
           <Text color={Colors.deepestGray}>SIGN UP</Text>
         </Pressable>
