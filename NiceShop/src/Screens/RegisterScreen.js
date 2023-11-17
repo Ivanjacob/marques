@@ -12,19 +12,11 @@ import {
 import React, { useState, useContext, useEffect } from 'react';
 import Colors  from "../color";
 import Spinner from 'react-native-loading-spinner-overlay';
-import { createCustomer } from "../../utils/userAxios";
-
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
-import { AuthContext } from '../Context/AuthContext';
-
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-
-import { auth } from "../../firebase";
-import axios from 'axios';
-import { BASE_URL } from '../config';
 
 import api from '../core/app'
 import utils from '../core/utils'
+import useGlobal from '../core/global';
 
 function RegisterScreen({ navigation }) {
 
@@ -33,6 +25,7 @@ function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState("")
   const [confirm_password, setConfirmPassword] = useState("")
 
+  const login = useGlobal(state => state.login)
 
 
   function onSignUp() {
@@ -49,7 +42,16 @@ function RegisterScreen({ navigation }) {
       }
     })
     .then(response => {
-      console.log('Sign Up:', response.data);
+      utils.log('Sign Up:', response.data)
+      
+      const credentials = {
+        username: username,
+        password: password,
+      }
+      login(
+        credentials, 
+        response.data.user
+      )
     })
     .catch(error => {
       if (error.response) {

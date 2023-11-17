@@ -9,7 +9,6 @@ import {
   Button,
   Pressable,
   } from 'native-base'
-
 import Alert from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import Colors  from "../color";
@@ -17,56 +16,28 @@ import Colors  from "../color";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 import Spinner from 'react-native-loading-spinner-overlay';
-
-import { AuthContext } from '../Context/AuthContext';
-import axios from 'axios';
-
-import { auth } from "../../firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BASE_URL } from '../config';
-
 import api from '../core/app'
 import utils from '../core/utils'
+import useGlobal from '../core/global';
 
 function LoginScreen({navigation}) {
   
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        navigation.replace("Bottom")
-      }
-    })
-    return unsubscribe;
-  }, []);
-
-  // const handleLogin = () => {
-  //   const userData = {
-  //     email,
-  //     password,
-  //   };
-  
-  //   axios.post(`${BASE_URL}login/customer/`, userData)
-  //     .then(response => {
-  //       console.log('Login successful:', response.data.message);
-  //       const token = response.data.token;
-  //       AsyncStorage.setItem('token', token);
-  //       navigation.replace('Bottom');
-  //     })
-  //     .catch(error => {
-  //       console.error('Error logging in:', error);
-  //       console.log('Detailed Axios error:', error.response);
-  //     });
-  // };
+  const login = useGlobal(state => state.login)
   
 
   function onSignin() {
-    utils.log('onSignin:', username, password)   
-
+    utils.log('onSignin:', username, password)
+    
+    // Cherck username
+    
+    // Check password
+    
+    // Break out of this function if there were any problems
+    
+    //Make API call to sign in
     api({
       method: 'POST',
       url: 'signin/',
@@ -76,7 +47,15 @@ function LoginScreen({navigation}) {
       }
     })
     .then(response => {
-      console.log('Sign In:', response.data);
+      utils.log('Sign In:', response.data);
+      const credentials = {
+        username: username,
+        password: password,
+      }
+      login(
+        credentials, 
+        response.data.user
+      )
     })
     .catch(error => {
       if (error.response) {

@@ -10,12 +10,14 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#48B600"
-    },
+    },  
     "assetBundlePatterns": [
       "**/*"
     ],
+    "jsEngine": "hermes",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "jsEngine": "jsc"
     },
     "android": {
       "adaptiveIcon": {

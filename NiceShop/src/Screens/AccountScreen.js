@@ -17,11 +17,31 @@ import React from 'react'
 import Colors from "../color"
 import { Ionicons, AntDesign, FontAwesome5, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import useGlobal from '../core/global';
+import { TouchableOpacity } from 'react-native';
+
 
 
 const AccountScreen = () => {
 
+    const user = useGlobal(state => state.user)
+    const logout = useGlobal(state => state.logout)
+    
+
     const navigation = useNavigation();
+
+    const renderProfileImage = () => {
+        
+        if (user.profile_image === 'default.jpg') {
+          return 'https://i.pravatar.cc/150?img=16'; // Default avatar URL
+        } else {
+          return user.profile_image; // User's profile image URL
+        }
+      };
+    // Concatenate the base URL with the profile image URL
+    const fullProfileImageURL = `http://192.168.88.253:8000/${user.profile_image}`;
+    
+
 
   return (
     <ScrollView bg={Colors.subGreen} pt={9} space={3}>
@@ -31,22 +51,24 @@ const AccountScreen = () => {
             </Text>
             <VStack space={4} >
                 <HStack >
-                    <Image 
-                        source={{
-                        uri: "https://i.pravatar.cc/150?img=16"
-                        }} 
-                        alt="Profile" 
-                        pt={10}
-                        ml={4}
-                        resizeMode='cover'
-                        size={10}
-                        rounded={100}
-                    />
+                    <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+                        <Image 
+                            source={{
+                                uri: fullProfileImageURL,
+                            }} 
+                            alt="Profile" 
+                            pt={10}
+                            ml={4}
+                            resizeMode='cover'
+                            size={10}
+                            rounded={100}
+                        />
+                    </TouchableOpacity>
                     <Text color={Colors.white}  fontSize={12} ml={4} pt={5}>
-                        Julie Evans         
+                        Hi {user.username}
                     </Text>                    
-                    <Pressable ml={24} pt={5} px={10} onPress={() => navigation.navigate("Profile")} >
-                        <Ionicons name="settings-outline" size={24} color="white" />
+                    <Pressable ml={24} pt={5} px={10} onPress={logout} >
+                        <MaterialCommunityIcons name="logout" size={24} color="black" />
                     </Pressable>
                 </HStack>
                 <HStack justifyContent="space-between" px={5}>
