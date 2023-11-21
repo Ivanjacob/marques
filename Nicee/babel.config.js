@@ -6,8 +6,12 @@ module.exports = {
       '@babel/preset-env',
       {
         /* Options */
+        "targets": {
+          "node": "18"
+        }
       },
     ],
+    '@babel/preset-react',
     // Add more presets if needed
   ],
   // Add plugins or other configurations if needed

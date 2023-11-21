@@ -34,6 +34,34 @@ from django.shortcuts import render
 from django.db.models import Q
 from rest_framework.views import APIView
 
+@api_view(['GET'])
+def getRoutes(request):
+    routes= [
+
+       "/ricemart/stock/",
+       "/ricemart/stock/<int:pk>/",
+       "/ricemart/stock-edit/",
+       
+       "/ricemart/order-item/",
+       "/ricemart/order-item/<int:pk>/",
+       "/ricemart/order-item-edit/",
+       
+       "/ricemart/order/",
+       "/ricemart/order/<int:pk>/",
+       "/ricemart/order-edit/",
+       
+       "/ricemart/product/",
+       "/ricemart/product/<int:pk>/",
+       
+       "/ricemart/rice-stock/",
+       "/ricemart/rice-stock/<int:pk>/",
+
+       "/ricemart/farmer-stock/",
+        "/ricemart/farmer-stock/<int:pk>/",
+    ] 
+    return Response(routes)
+
+
 
 class RiceStockListCreateView(generics.ListCreateAPIView):
     queryset = RiceStock.objects.all()

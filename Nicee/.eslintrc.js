@@ -8,4 +8,9 @@ module.exports = {
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module',
   },
+  babelOptions: {
+      parserOpts: {
+        plugins: ["jsx"]
+      }
+    },
 };

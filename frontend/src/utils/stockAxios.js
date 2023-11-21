@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.88.253:8000/api/";
+const baseURL = "http://192.168.88.253:8000/ricemart/";
 const baseURL2 = "http://192.168.88.253:8000/api/";
 
 const stockAxios = axios.create({});

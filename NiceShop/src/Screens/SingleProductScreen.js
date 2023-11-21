@@ -1,22 +1,36 @@
 import { View, Text, Box, Image, ScrollView, HStack, Heading, Spacer } from 'native-base'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Colors from '../color'
 import Ratings from '../Components/Ratings'
 import NumericInput from 'react-native-numeric-input'
 import Butons from "../Components/Buttons"
 import Review from '../Components/Review'
 import { useNavigation } from '@react-navigation/native'
-import products from '../data/Products'
+
+import { fetchProductById } from '../../utils/productsAxios'
 
 function SingleProductScreen({route}) {
+  const [product, setProduct] = useState([]);
   const [value, setValue] = useState(0);
   const navigation = useNavigation();
-  const product = route.params;
+  const productId = route.params.id;
+
+  useEffect(() => {
+    fetchProductById(productId)
+    .then((response) => {
+        setProduct(response.data);
+    })
+    .catch((error) => {
+        console.error("Error fetching product:", error);
+    });
+  }, [productId])
+
+
   return (
     <Box safeArea flex={1} bg={Colors.white} pb={20} > 
         <ScrollView px={5} showsVerticalScrollIndicator={false} style={{ height: 700 }}  >
           <Image
-            source={{ uri: product.image}}
+            source={{ uri: product.image || product.image_url }}
             alt="Image"
             w="full"
             h={300}
@@ -62,7 +76,7 @@ function SingleProductScreen({route}) {
           </Text>
           <Butons 
             bg={Colors.main} 
-            color={Colors.white} 
+            color={Colors.white}  
             mt={10}
             onPress={() => navigation.navigate("Cart")}
             >

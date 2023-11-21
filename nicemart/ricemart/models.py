@@ -96,8 +96,11 @@ class Product(models.Model):
     category = models.CharField(
         max_length=50, choices=Category.CATEGORY_CHOICES, blank=True, null=True, default='MWEA_PISHORI')
     image = models.ImageField(upload_to='images/', blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)  # New field for URL input
     description = models.CharField(max_length=50, blank=True, null=True)
     price = models.IntegerField(default=0, blank=True, null=True)
+    quantity = models.IntegerField(default=0, blank=True, null=True)
+    rating = models.IntegerField(default=0, blank=True, null=True)
     created_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='created_products', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
