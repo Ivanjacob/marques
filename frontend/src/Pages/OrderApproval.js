@@ -116,7 +116,7 @@ function OrderApproval() {
                             <Img 
                                 alt="complex" 
                                 //src="https://img1.wsimg.com/isteam/ip/d0e5736f-1d23-476a-a37a-f536dea1b248/M.R.G-products-kenya-select-1-300x228-removebg.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1280" 
-                                src={`http://localhost:8000/media/${order.image}`}
+                                src={`http://127.0.0.1:8000/media/${order.image}`}
                                 //{`http://localhost:8000/media/${params.value}`}
                             />
                         </ButtonBase>

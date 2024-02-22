@@ -76,7 +76,7 @@ function AddProduct() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/ricemart/categories/")
+      .get("http://127.0.0.1:8000/ricemart/categories/")
       .then((response) => {
         setCategories(response.data);
       })

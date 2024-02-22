@@ -76,7 +76,7 @@ export default function Navbars() {
             <img
               className="rounded-full w-8 h-8"
               style={{borderRadius: '50%', width: '35px', height: '35px'}}
-              src={`http://localhost:8000/${profile_image}`}
+              src={`http://127.0.0.1:8000/${profile_image}`}
               alt="default.jpg"
             />
             <p>

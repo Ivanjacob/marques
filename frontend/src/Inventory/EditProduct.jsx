@@ -52,7 +52,7 @@ function EditProduct() {
 
         // Fetch categories for the select input
         const categoriesResponse = await axios.get(
-          'http://localhost:8000/ricemart/categories/'
+          'http://127.0.0.1:8000/ricemart/categories/'
         );
         setCategories(categoriesResponse.data);
 

@@ -29,7 +29,7 @@ function Users() {
 
   useEffect(() => {
     axios
-      .get("http://192.168.88.253:8000/api/users/")
+      .get("http://127.0.0.1:8000/api/users/")
       .then((response) => {
         setUsersData(response.data);
         setLoading(false);
@@ -52,7 +52,7 @@ function Users() {
   
   const handleVerifyClick = (userId) => {
     axios
-    .put(`http://192.168.88.253:8000/api/users/${userId}/update-verify-status/`, { verify: true})
+    .put(`http://127.0.0.1:8000/api/users/${userId}/update-verify-status/`, { verify: true})
     .then((response) => {
       console.log(response.data);
     })

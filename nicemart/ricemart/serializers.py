@@ -9,7 +9,7 @@ from .models import (
     FarmerStock,
     QueuePosition,
     MillingRecord,
-    Report,
+    Report
 )
 from django.contrib.auth.models import User
 from rest_framework import permissions
@@ -94,3 +94,6 @@ class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = '__all__'
+
+
+

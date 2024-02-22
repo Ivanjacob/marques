@@ -39,7 +39,7 @@ const AccountScreen = () => {
         }
       };
     // Concatenate the base URL with the profile image URL
-    const fullProfileImageURL = `http://192.168.88.253:8000/${user.profile_image}`;
+    const fullProfileImageURL = `http://127.0.0.1:8000/${user.profile_image}`;
     
 
 

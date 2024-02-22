@@ -5,7 +5,7 @@ import {useContext} from "react"
 import AuthContext from "../Context/AuthContext"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const baseURL = "http://192.168.88.253:8000/api/"
+const baseURL = "http://127.0.0.1:8000/api/"
 
 const useAxios = () => {
     const {authTokens, setUSer, setAuthTokens} = useContext(AuthContext);
@@ -16,7 +16,7 @@ const useAxios = () => {
     });
 
     axiosInstance.interceptors.request.use(async req => {
-        const user = jwt_decode(authTokens.access);
+        const user = jwt_decode(authTokens.access); 
         const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
         if (!isExpired) return req;

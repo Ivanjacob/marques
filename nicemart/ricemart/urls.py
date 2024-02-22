@@ -38,6 +38,13 @@ urlpatterns = [
     path('order-item-edit/', views.OrderItemRetrieveUpdateDestroyView.as_view(),
          name='order-item-edit'),
 
+     # URLs for Cart and Cart Items
+     path('cart/', views.CartAPI.as_view(), name='cart'),
+     # path('cart/', views.CartListCreateView.as_view(), name='cart'),
+     # path('cart/<int:pk>/', views.CartDetailView.as_view(), name='cart-detail'),
+
+
+
     path('farmer-stock/', views.FarmerStockListCreateView.as_view(),
          name='farmer-stock-list'),
     path('farmer-stock/<int:pk>/', views.FarmerStockDetailView.as_view(),

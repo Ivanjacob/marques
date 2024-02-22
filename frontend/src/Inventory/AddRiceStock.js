@@ -81,7 +81,7 @@ function AddRiceStock() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/ricemart/product/")
+      .get("http://127.0.0.1:8000/ricemart/product/")
       .then((response) => {
         setProduct(response.data);
       })
@@ -91,7 +91,7 @@ function AddRiceStock() {
 
     // Fetch manager for the Receive By field
     axios
-      .get("http://localhost:8000/api/inventorymanagers/")
+      .get("http://127.0.0.1:8000/api/inventorymanagers/")
       .then((response) => {
         setManager(response.data);
       })

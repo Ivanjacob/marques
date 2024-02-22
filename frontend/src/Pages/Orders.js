@@ -46,7 +46,7 @@ function Orders() {
               marginLeft: "0.75rem", // Equivalent to md:ml-3
               width: "5rem", // Equivalent to w-20
             }}
-            src={`http://localhost:8000/media/${params.value}`}
+            src={`http://127.0.0.1:8000/media/${params.value}`}
             alt="Order"
           />
         </div>

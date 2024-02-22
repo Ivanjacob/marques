@@ -3,7 +3,7 @@ from .models import (
     RiceStock,
     Product, Category, Stock, Order,
     OrderItem, PaymentMethod, PaymentStatus, OrderStatus, FarmerStock,
-    QueuePosition, MillingRecord, Report,
+    QueuePosition, MillingRecord, Report, ShippingAddress
 )
 
 
@@ -44,3 +44,6 @@ admin.site.register(Product)
 admin.site.register(RiceStock)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+admin.site.register(ShippingAddress)
+
+#admin.site.register(Cart)
